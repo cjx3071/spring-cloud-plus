@@ -5,8 +5,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.retry.annotation.EnableRetry;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -15,8 +13,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @date 2018-11-20
  */
 @Configuration
-@EnableRetry
-@EnableScheduling
 @EnableTransactionManagement
 @EnableSwagger2
 public class BaseConfiguration {

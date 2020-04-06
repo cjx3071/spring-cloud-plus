@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active: '@profiles.active@'
+  application:
+    name: gateway
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    # nacos-配置
+    nacos:
+      # 配置中心
+      config:
+        # 是否开启配置中心，默认true
+        enabled: true
+        server-addr: 111.231.111.150:8848
+        file-extension: yaml
+        encode: UTF-8
+        # 命名空间的id
+        namespace: 843fe123-56c4-402a-a7c8-75cd94af1db6
+        group: GOURD

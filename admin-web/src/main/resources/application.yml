@@ -1,0 +1,33 @@
+server:
+    port: 8769
+
+# 加密密钥
+jasypt:
+  encryptor:
+    password: GOURD-HXN-1314
+
+spring:
+  # 邮件
+  mail:
+    host: smtp.163.com
+    username: xxx
+    # 客户端授权码不是邮箱密码
+    password: xxx
+    senderName: gourd.hu
+    port: 25
+    protocol: smtp
+    default-encoding: UTF-8
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+      mail.smtp.socketFactory.port: 465
+      mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+      mail.smtp.socketFactory.fallback: false
+  # boot
+  boot:
+    admin:
+      notify:
+        mail:
+          from: ${spring.mail.username}
+          to: 869570209@qq.com

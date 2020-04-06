@@ -10,21 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>base</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <description>基础模块，包含项目所必须的依赖包和配置</description>
     <dependencies>
         <!--web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!--aop-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <!-- thymeleaf -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <!--actuator监控和管理Spring Boot应用-->
         <dependency>
@@ -47,6 +38,11 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- thymeleaf -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <!-- swagger2 文档 -->
         <dependency>
@@ -82,12 +78,6 @@
             <artifactId>spring-boot-admin-starter-client</artifactId>
             <version>${boot-admin.version}</version>
         </dependency>
-        <!--retry 重试-->
-        <dependency>
-            <groupId>org.springframework.retry</groupId>
-            <artifactId>spring-retry</artifactId>
-            <version>${retry.version}</version>
-        </dependency>
         <!--jasypt文本加解密-->
         <dependency>
             <groupId>com.github.ulisesbocchio</groupId>
@@ -103,6 +93,11 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!--fastjson-->
+        <dependency>
+            <artifactId>fastjson</artifactId>
+            <groupId>com.alibaba</groupId>
         </dependency>
     </dependencies>
     <build>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gourd.hu.log.dao.LogDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.gourd.hu.log.entity.LogPO">
+        <id column="id" property="id"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="version" property="version"/>
+        <result column="description" property="description"/>
+        <result column="business_name" property="businessName"/>
+        <result column="module_name" property="moduleName"/>
+        <result column="exception_detail" property="exceptionDetail"/>
+        <result column="method_name" property="methodName"/>
+        <result column="method_type" property="methodType"/>
+        <result column="request_url" property="requestUrl"/>
+        <result column="request_param" property="requestParam"/>
+        <result column="request_ip" property="requestIp"/>
+        <result column="requestTime" property="requestTime"/>
+        <result column="response_detail" property="responseDetail"/>
+        <result column="expire_time" property="expireTime"/>
+        <result column="is_deleted" property="deleted"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="updated_by" property="updatedBy"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,tenant_id,version,module_name,business_name,description, exception_detail AS exceptionDetail, method_name AS methodName, method_type AS methodType, request_url AS requestUrl, request_param AS requestParam, request_ip AS requestIp, requestTime, user_id AS userId, user_name AS userName, response_detail AS responseDetail, is_deleted AS deleted, created_time AS createdTime, created_by AS createdBy, updated_time AS updatedTime, updated_by AS updatedBy
+    </sql>
+    <delete id="deleteByIds">
+        delete from sys_log where id IN
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @EnableTransactionManagement
 @Configuration
-@MapperScan({"com.gourd.hu.*.*.dao"})
+@MapperScan({"org.gourd.hu.*.*.dao"})
 @Slf4j
 public class MyBatisPlusConfig {
 

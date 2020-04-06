@@ -1,7 +1,7 @@
 package org.gourd.hu.base.handler;
 
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
-import org.gourd.hu.core.utils.IdWorker;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,10 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class EntityIdGeneratorHandler implements IdentifierGenerator {
 
-    private static final IdWorker idWorker = new IdWorker(0,1);
-
     @Override
     public Long nextId(Object entity) {
-        return idWorker.nextId();
+        return IdWorker.getId();
     }
 }

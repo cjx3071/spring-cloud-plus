@@ -17,6 +17,18 @@
     <modules>
         <module>base</module>
         <module>core</module>
+        <module>activemq</module>
+        <module>activiti</module>
+        <module>cloud</module>
+        <module>cache</module>
+        <module>elasticsearch</module>
+        <module>file</module>
+        <module>log</module>
+        <module>quartz</module>
+        <module>notice</module>
+        <module>generator</module>
+        <module>admin-web</module>
+        <module>gateway-web</module>
     </modules>
     <!--版本号统一管理-->
     <properties>
@@ -97,8 +109,8 @@
             </dependency>
             <!--gourd-->
             <dependency>
-                <groupId>com.gourd.hu</groupId>
-                <artifactId>gourd-base</artifactId>
+                <groupId>org.gourd.hu</groupId>
+                <artifactId>base</artifactId>
                 <version>${gourd-hu.version}</version>
             </dependency>
             <dependency>
