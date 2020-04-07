@@ -16,5 +16,5 @@ spring:
         file-extension: yaml
         encode: UTF-8
         # 命名空间的id
-        namespace: 843fe123-56c4-402a-a7c8-75cd94af1db6
-        group: GOURD
+        namespace: d10ded89-2ce5-4cf9-ad2c-4e36f9b2be7e
+        group: CLOUD_PLUS

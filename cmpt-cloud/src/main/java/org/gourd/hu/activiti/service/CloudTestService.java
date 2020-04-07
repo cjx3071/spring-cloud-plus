@@ -1,0 +1,15 @@
+package org.gourd.hu.activiti.service;
+
+/**
+ *@Description 测试service
+ *@Author gourd
+ *@Date 2019/12/11 18:13
+ *@Version 1.0
+ */
+public interface CloudTestService {
+
+    /**
+     * 测试分布式事务
+     */
+    void testSeata();
+}

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gourd.hu.rbac.dao.RbacUserDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.gourd.hu.rbac.entity.RbacUser">
+        <result column="id" property="id"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="version" property="version"/>
+        <result column="age" property="age"/>
+        <result column="name" property="name"/>
+        <result column="pin_yin" property="pinYin"/>
+        <result column="sex" property="sex"/>
+        <result column="birth" property="birth"/>
+        <result column="account" property="account"/>
+        <result column="password" property="password"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="email" property="email"/>
+        <result column="mobile_phone" property="mobilePhone"/>
+        <result column="photo_url" property="photoUrl"/>
+        <result column="is_deleted" property="deleted" />
+        <result column="created_time" property="createdTime"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="updated_by" property="updatedBy"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+       id,tenant_id,version,age, name,pin_yin, birth,sex, account, password, nick_name , email, mobile_phone , photo_url , is_deleted, created_time, created_by, updated_time , updated_by
+    </sql>
+    <sql id="User_Dept_Column_List">
+       ru.id,ru.tenant_id,ru.version,ru.age, ru.name,ru.pin_yin, ru.birth,ru.sex, ru.account, ru.nick_name ,
+       ru.email, ru.mobile_phone , ru.photo_url
+    </sql>
+    <select id="getByAccount" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from rbac_user where  is_deleted = 0 and  account <![CDATA[ = ]]> #{account}
+    </select>
+
+    <select id="getByAccountAndTenantId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from rbac_user where  is_deleted = 0 and  account = #{account} and tenant_id = #{tenantId}
+    </select>
+
+    <select id="findUsersDept" resultMap="BaseResultMap">
+        select
+        <include refid="User_Dept_Column_List"/>
+        FROM rbac_user ru
+        LEFT JOIN rbac_user_depart rud ON ru.id = rud.user_id
+        LEFT JOIN rbac_depart rd ON rd.id = rud.dept_id
+        WHERE
+        ru.is_deleted = 0
+        and ru.tenant_id = #{tenantId}
+        <if test="userDept.deptId != null">
+          and  rd.id = #{userDept.deptId}
+        </if>
+        <if test="userDept.deptName != null and userDept.deptName != ''">
+            AND rd.`name` LIKE concat ('%',#{userDept.deptName},'%')
+        </if>
+        <if test="userDept.deptCode != null and userDept.deptCode != ''">
+            AND rd.`code` = #{userDept.deptCode}
+        </if>
+    </select>
+</mapper>

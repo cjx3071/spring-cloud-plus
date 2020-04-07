@@ -15,26 +15,31 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>base</module>
-        <module>core</module>
-        <module>activemq</module>
-        <module>activiti</module>
-        <module>cloud</module>
-        <module>cache</module>
-        <module>elasticsearch</module>
-        <module>file</module>
-        <module>log</module>
-        <module>quartz</module>
-        <module>notice</module>
-        <module>generator</module>
-        <module>admin-web</module>
+        <module>cmpt-base</module>
+        <module>cmpt-core</module>
+        <module>cmpt-activemq</module>
+        <module>cmpt-activiti</module>
+        <module>cmpt-cloud</module>
+        <module>cmpt-cache</module>
+        <module>cmpt-es</module>
+        <module>cmpt-file</module>
+        <module>cmpt-log</module>
+        <module>cmpt-quartz</module>
+        <module>cmpt-notice</module>
+        <module>cmpt-rbac</module>
+        <module>cmpt-flyway</module>
+        <module>generator-boot</module>
+        <module>boot-admin-web</module>
         <module>gateway-web</module>
+        <module>admin-web</module>
+        <module>sub-web</module>
+        <module>sub-api</module>
     </modules>
     <!--版本号统一管理-->
     <properties>
         <!--此版本修复了Apache-Tomcat-Ajp漏洞-->
         <tomcat.version>9.0.31</tomcat.version>
-        <gourd-hu.version>1.0-SNAPSHOT</gourd-hu.version>
+        <cloud.version>1.0-SNAPSHOT</cloud.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
         <druid.version>1.1.9</druid.version>
         <mysql.version>8.0.18</mysql.version>
@@ -48,7 +53,7 @@
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
         <alibaba-cloud.version>2.2.0.RELEASE</alibaba-cloud.version>
         <netty-websocket.version>0.8.0</netty-websocket.version>
-        <redisson.version>3.10.6</redisson.version>
+        <redisson.version>3.9.1</redisson.version>
         <fast-dfs.version>1.26.2</fast-dfs.version>
         <artofsolving.jodconverter>2.2.1</artofsolving.jodconverter>
         <openoffice.version>1.26.2</openoffice.version>
@@ -111,7 +116,7 @@
             <dependency>
                 <groupId>org.gourd.hu</groupId>
                 <artifactId>base</artifactId>
-                <version>${gourd-hu.version}</version>
+                <version>${cloud.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.seata</groupId>

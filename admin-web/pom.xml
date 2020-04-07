@@ -8,55 +8,112 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>admin-web</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>admin-web</name>
-    <description>boot项目监控中心</description>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
+    <version>1.0-SNAPSHOT</version>
+    <description>主项目</description>
     <dependencies>
+        <!--项目必须的基础组件-->
         <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-server</artifactId>
-            <version>${boot-admin.version}</version>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>base</artifactId>
         </dependency>
-        <!--spring cloud nacos config -->
+        <!--核心模块-->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!-- spring cloud nacos discovery -->
+        <!--脚本执行组件-->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>flyway</artifactId>
+            <version>${cloud.version}</version>
         </dependency>
+        <!--shiro鉴权组件-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>rbac</artifactId>
+            <version>${cloud.version}</version>
         </dependency>
-        <!--文本加解密-->
+        <!--分布式组件-->
         <dependency>
-            <groupId>com.github.ulisesbocchio</groupId>
-            <artifactId>jasypt-spring-boot-starter</artifactId>
-            <version>1.16</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>cloud</artifactId>
+            <version>${cloud.version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                    <artifactId>commons-io</artifactId>
+                    <groupId>commons-io</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-collections</artifactId>
+                    <groupId>commons-collections</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--消息组件-->
+        <dependency>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>notice</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
+        <!--文件组件-->
+        <dependency>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>file</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
+        <!--工作流组件-->
+        <dependency>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>activiti</artifactId>
+            <version>${cloud.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>activation</artifactId>
+                    <groupId>javax.activation</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--定时任务组件-->
+        <dependency>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>quartz</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
+        <!--activemq消息组件-->
+        <dependency>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>activemq</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
+        <!--es组件-->
+        <!--<dependency>-->
+            <!--<groupId>org.gourd.hu</groupId>-->
+            <!--<artifactId>es</artifactId>-->
+            <!--<version>${cloud.version}</version>-->
+        <!--</dependency>-->
+        <!--缓存组件-->
+        <dependency>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>cache</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
+        <!--sub服务api-->
+        <dependency>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>sub-api</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
+        <!--日志模块-->
+        <dependency>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>log</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
     </dependencies>
-
     <build>
         <!--自定义打包文件名-->
-        <finalName>admin</finalName>
+        <finalName>admin-web</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -64,7 +121,7 @@
                 <configuration>
                     <fork>true</fork>
                     <!--启动类路径-->
-                    <mainClass>com.gourd.hu.ServiceHuApplication</mainClass>
+                    <mainClass>org.gourd.hu.AdminWebApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

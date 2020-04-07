@@ -31,24 +31,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <!--spring boot admin client-->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${boot-admin.version}</version>
+        </dependency>
         <!--gateway-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
-            <version>2.1.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
-        <!--sentinel持久化到nacos-->
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-datasource-nacos</artifactId>
         </dependency>
         <!-- lombok -->
         <dependency>
@@ -64,7 +56,7 @@
 
     <build>
         <!--自定义打包文件名-->
-        <finalName>gourd-gateway</finalName>
+        <finalName>gateway</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -72,7 +64,7 @@
                 <configuration>
                     <fork>true</fork>
                     <!--启动类路径-->
-                    <mainClass>org.gourd.hu.CloudGatewayApplication</mainClass>
+                    <mainClass>org.gourd.hu.GatewayApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

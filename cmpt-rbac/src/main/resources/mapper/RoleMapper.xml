@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gourd.hu.rbac.dao.RbacRoleDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.gourd.hu.rbac.entity.RbacRole">
+        <result column="id" property="id"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="version" property="version"/>
+        <result column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="is_deleted" property="deleted" />
+        <result column="created_time" property="createdTime"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="updated_by" property="updatedBy"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      id,tenant_id,version, code, name, description, is_deleted, created_time, created_by , updated_time , updated_by
+    </sql>
+
+    <select id="findByCodeIn" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from rbac_role
+        where is_deleted = 0
+        and code in
+        <foreach collection="codes" index="index" item="code" open="(" separator="," close=")">
+            #{code}
+        </foreach>
+    </select>
+
+
+    <select id="findByUserId" resultMap="BaseResultMap">
+        select
+        rr.id,rr.`code`,rr.`name`
+        from rbac_role rr
+        LEFT JOIN rbac_user_role rur ON rr.id = rur.role_id and rur.is_deleted=0
+        WHERE
+        rr.is_deleted=0
+        and rur.user_id = #{userId}
+    </select>
+
+</mapper>

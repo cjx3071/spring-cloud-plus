@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gourd.hu.rbac.dao.SysTenantDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.gourd.hu.rbac.entity.SysTenant">
+        <result column="number" property="number" />
+        <result column="code" property="code" />
+        <result column="name" property="name" />
+        <result column="description" property="description" />
+        <result column="is_deleted" property="deleted" />
+        <result column="attribute" property="attribute" />
+        <result column="created_time" property="createdTime" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_time" property="updatedTime" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="id" property="id" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      id,version,number, code, name, description, is_deleted, attribute, created_time, created_by, updated_time, updated_by
+    </sql>
+
+    <select id="findByCodeOrNumber" resultMap="BaseResultMap">
+        select  <include refid="Base_Column_List"/> from sys_tenant where is_deleted = 0 and (number =#{tenantItem} or code =#{tenantItem})
+    </select>
+
+</mapper>
