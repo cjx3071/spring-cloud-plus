@@ -7,8 +7,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.gourd.hu.base.common.response.BaseResponse;
+import org.gourd.hu.demo.service.CloudTestService;
 import org.gourd.hu.sub.api.SubApi;
-import org.gourd.hu.activiti.service.CloudTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class CloudTestController {
 
-    @Value("${test.nacos.value}")
+    @Value("${test.nacos.value:test}")
     private String nacosValue;
 
     @Autowired

@@ -29,6 +29,12 @@
             <groupId>com.github.luues</groupId>
             <artifactId>commons-openoffice</artifactId>
             <version>${openoffice.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>redisson</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.github.livesense</groupId>

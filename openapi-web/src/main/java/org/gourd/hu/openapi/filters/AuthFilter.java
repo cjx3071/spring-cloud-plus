@@ -43,6 +43,10 @@ public class AuthFilter implements Filter, Ordered {
         request.setCharacterEncoding("UTF-8");
         String requestMethod = request.getMethod();
         String requestUrL = request.getRequestURL().toString();
+        if(request.getServletPath().contains("/actuator") || "/".equals(request.getServletPath())){
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
         log.info("请求方法为：{}，请求路径为：{}", requestMethod, requestUrL);
         // 校验基本参数
         if (StringUtils.isBlank(request.getHeader(AuthConstant.SIGN_KEY))) {
