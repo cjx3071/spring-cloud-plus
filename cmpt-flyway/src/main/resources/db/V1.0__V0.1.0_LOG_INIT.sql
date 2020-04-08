@@ -1,6 +1,6 @@
 
 -- 操作日志表
-CREATE TABLE IF NOT EXISTS `sys_log` (
+CREATE TABLE IF NOT EXISTS `sys_operate_log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `tenant_id` bigint(20) DEFAULT NULL COMMENT '承租人id',
   `module_name` varchar(100) DEFAULT NULL COMMENT '模块名',

@@ -2,8 +2,8 @@ package org.gourd.hu.log.job;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import org.gourd.hu.log.entity.LogPO;
-import org.gourd.hu.log.service.LogService;
+import org.gourd.hu.log.entity.SysOperateLog;
+import org.gourd.hu.log.service.OperateLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class DelExpireLog {
 
     @Autowired
-    private LogService logService;
+    private OperateLogService operateLogService;
 
     /**
      * 每天0点执行一次删除过期日志
@@ -33,9 +33,9 @@ public class DelExpireLog {
         log.info(">o< 删除过期日志定时任务执行： "+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "  "+ Thread.currentThread().getName());
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.le("expire_time",new Date());
-        List<LogPO> logPOS = logService.list(queryWrapper);
+        List<SysOperateLog> logPOS = operateLogService.list(queryWrapper);
         if(CollectionUtils.isNotEmpty(logPOS)){
-            logService.deleteLogs(logPOS.stream().map(e-> e.getId()).collect(Collectors.toList()));
+            operateLogService.deleteLogs(logPOS.stream().map(e-> e.getId()).collect(Collectors.toList()));
         }
         log.info(">o< 删除过期日志定时任务结束： "+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "  "+ Thread.currentThread().getName());
     }

@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 @Configuration
 @EnableRetry
-@EnableAsync
 public class CoreConfiguration {
 
 }

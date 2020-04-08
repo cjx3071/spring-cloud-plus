@@ -34,6 +34,7 @@
         <module>admin-web</module>
         <module>sub-web</module>
         <module>sub-api</module>
+        <module>openapi-web</module>
     </modules>
     <!--版本号统一管理-->
     <properties>

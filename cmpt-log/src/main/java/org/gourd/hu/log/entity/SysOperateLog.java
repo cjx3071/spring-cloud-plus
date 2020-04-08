@@ -14,8 +14,8 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("sys_log")
-public class LogPO extends BaseEntity {
+@TableName("sys_operate_log")
+public class SysOperateLog extends BaseEntity {
 
     /**
      * 模块名

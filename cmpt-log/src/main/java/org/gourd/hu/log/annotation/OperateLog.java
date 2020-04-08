@@ -8,14 +8,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 操作日志记录
+ * 操作日志注解
  *
  * @author gourd
  * @date 2018-11-24
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+public @interface OperateLog {
 	@AliasFor("description")
 	String value() default "";
 

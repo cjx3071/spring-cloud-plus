@@ -69,41 +69,4 @@ public class TestController {
         log.info("info日志");
         return BaseResponse.ok("success");
     }
-
-
-    @Autowired
-    private AsyncService asyncService;
-
-    /**
-     * 直接使用异步线程池
-     */
-    @Autowired
-    private Executor asyncExecutor;
-
-    @GetMapping(value = "/async-task" )
-    @ApiOperation(value = "异步任务控制器", notes = "异步任务控制器")
-    public BaseResponse taskExecute(){
-        long startTime = System.currentTimeMillis();
-        try {
-            Future<BaseResponse> r1 = asyncService.doTaskOne();
-            Future<BaseResponse> r2 = asyncService.doTaskTwo();
-            asyncService.doTaskThree();
-            // 异步线程池执行
-            asyncExecutor.execute(() -> log.info("^o^============异步线程池执行...."));
-            while (true) {
-                if (r1.isDone() && r2.isDone()) {
-                    log.info("异步任务一、二已完成");
-                    break;
-                }
-            }
-            BaseResponse baseResponse1 = r1.get();
-            BaseResponse baseResponse2 = r2.get();
-            log.info("返回结果：{}，{}",baseResponse1 , baseResponse2);
-        } catch (Exception e) {
-            log.error("执行异步任务异常 {}",e.getMessage());
-        }
-        long endTime = System.currentTimeMillis();
-        log.info("异步任务总耗时:{}",endTime-startTime);
-        return BaseResponse.ok("异步任务全部执行成功");
-    }
 }

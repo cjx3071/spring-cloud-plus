@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.gourd.hu.log.dao.LogDao">
+<mapper namespace="org.gourd.hu.log.dao.SysOperateLogDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="org.gourd.hu.log.entity.LogPO">
+    <resultMap id="BaseResultMap" type="org.gourd.hu.log.entity.SysOperateLog">
         <id column="id" property="id"/>
         <result column="tenant_id" property="tenantId"/>
         <result column="version" property="version"/>

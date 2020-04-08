@@ -5,6 +5,18 @@ jasypt:
   encryptor:
     password: xxx
 
+# 日志
+logging:
+  file:
+    path: ./logs
+  level:
+    root: info
+  operate:
+    all: false
+    # 操作记录日志过期天数，默认30
+    expire:
+      days: 30
+
 # spring配置
 spring:
   profiles:
@@ -145,13 +157,6 @@ spring:
       cluster-name: docker-cluster
       repositories:
         enabled: true
-
-# 日志
-logging:
-  file:
-    path: ./logs
-  level:
-    root: info
 
 # OpenOffice-配置
 openOffice:
