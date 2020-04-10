@@ -2,7 +2,7 @@
 
 ### 系统介绍  
 spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架的分布式基础开发平台。
-项目以组件模块的方式构建，实现项目模块可插拔组装。
+项目以组件模块的方式构建，实现项目模块可插拔组装。工作中遇到的一些常用框架，我都会整合到此项目，并持续更新。
 ### 目标
 - 成为一个简单易用、快速高效、功能丰富、安全稳定的分布式项目脚手架。
 - 让每个人都可以独立、快速、高效地开发一套分布式项目！
@@ -30,10 +30,6 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 - 搜索存储引擎：Elasticsearch
 - 接口文档：Swagger、knife4j
 - 应用监控：spring-boot-admin
-
-
-### 文档
-线上接口文档：http://47.103.5.190:10001/doc.html
 
 
 ### 组件模块
@@ -64,6 +60,9 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 | sub-webb   |  辅助项目|   简单的cloud项目，用于测试分布式服务调用和分布式事务等 |
 | sub-api   |  辅助API模块|   封装feign调用，方便复用 |
 
+### 文档
+线上接口文档：http://47.103.5.190:10001/doc.html  
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0410/142244_fefca957_4866886.jpeg "1586499715(1).jpg")
 
 ### 如何开始
 项目启动需要设置 local环境配置：
@@ -75,19 +74,23 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 
 ### 部署
 项目中设计的一些技术服务端都是使用docker部署的，包括：mysql、redis、nacos、seata等。
-大家可参考我的博客文章：https://blog.csdn.net/HXNLYW/article/details/88950291
+大家可参考我的博客文章：https://blog.csdn.net/HXNLYW/article/details/88950291     
 项目也是用docker-compose部署的，具体可参考：https://blog.csdn.net/HXNLYW/article/details/104613163
 
 ### 集成功能  
 **核心功能:**  
 - 用户权限管理:   
->   框架：springSecurity/shiro +jwt，使用jwt-token作为用户身份Id；  
->   支持承租人模式；token续期等      
+>   框架：shiro +jwt，使用jwt-token作为用户身份Id；  
+>   支持承租人模式；token续期等  
+- 网关: 
+> 负责服务路由转发，可作为服务统一入口
+- 开放平台:
+> 通过签名验证方式，鉴权外部接口调用    
 - 动态数据源：  
 >   动态多数据源（支持读写分离，如果只有一个数据库，可将master和slave配置成一样即可）;    
 >   数据库连接密码加密;    
 - 缓存：  
->   框架：[springCache](https://www.jianshu.com/p/6db623355e11)+redis+redisson ;   
+>   框架：[springCache](https://www.jianshu.com/p/6db623355e11)、redis、redisson ;   
 >   封装redis、redisson工具类;                          
 - 分布式事务：
 >   框架：seata（AT模式）; 集成以nacos为配置中心   
@@ -117,13 +120,15 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 >   框架：activiti  
 >   请假流程Demo       
 - 消息：
->   框架：rocketMq
->   消息发送和消费
 >   框架：activeMq
 >   支持点对点和订阅发布模式，消息持久化
 - async：  
 >   支持@Async注解异步方法；  
 >   异步线程池直接使用。
+- 日志记录：  
+>   logback日志记录，以小时为单位生成日志文件；  
+>   操作日志记录，根据配置策略规定所有接口都生成日志还是指定注解的接口生成日志；
+>   记录请求地址、参数、返回、异常及接口耗时等并持久化到数据库默认保留30天的日志。
 - 搜索引擎 
 >   框架：elasticSearch; 分布式、RESTful 风格的搜索和数据分析引擎；     
 - 工具类:    
@@ -141,16 +146,14 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 >  1)统一异常处理，自定义业务异常；    
 >  2)spring-retry接口重试,自定义接口重试次数、间隔、和重试的异常;     
 >  3)AOP接口防重复提交，唯一条件：指定时间内，用户id+请求url+参数 控制唯一性;    
->  4)接口访问日志记录，记录请求地址、参数、返回、异常及接口耗时等并持久化到数据库;默认30天过期删除  ；  
->  5)实体类公共字段填充：is_deleted,version,created_by,created_time,updated_by,updated_time  ；  
->  6)实体类Id自动填充；
->  7)p6spy sql日志打印，打印sql耗时、替换参数后的sql;  
->  8)jasypt文本加解密，可用于数据库密码、redis密码、邮箱密码等加密；      
+>  4)实体类公共字段填充：is_deleted,version,created_by,created_time,updated_by,updated_time  ；  
+>  5)p6spy sql日志打印，打印sql耗时、替换参数后的sql;  
+>  6)jasypt文本加解密，可用于数据库密码、redis密码、邮箱密码等加密；      
 >    密文生成：https://blog.csdn.net/HXNLYW/article/details/98635913  
->  9)图形验证码生成校验
+>  7)图形验证码生成校验
           
 **辅助功能：**  
-- swagger:   
+- knife4j:   
 >  接口文档、接口调试；  
 >  本地地址：http://localhost:10001/doc.html
 - flyway：  
