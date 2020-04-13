@@ -32,10 +32,10 @@ public class Swagger2Config {
 
     public static ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("葫芦胡系统")
-                .description("葫芦胡")
+                .title("spring-cloud-plus")
+                .description("spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架的分布式基础开发平台")
                 .termsOfServiceUrl("https://blog.csdn.net/HXNLYW")
-                .contact(new Contact("gourd.hu ", "https://blog.csdn.net/HXNLYW", "13584278267@163.com"))
+                .contact(new Contact("葫芦胡 ", "https://blog.csdn.net/HXNLYW", "13584278267@163.com"))
                 .version("1.0.0").build();
     }
 }

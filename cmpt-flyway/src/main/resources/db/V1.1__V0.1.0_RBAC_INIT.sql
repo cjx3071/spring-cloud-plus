@@ -1,25 +1,25 @@
--- 建表sql（role）
+-- 承租人表
 CREATE TABLE IF NOT EXISTS `sys_tenant` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT ,
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT ,
   `number` varchar(4)  NOT NULL COMMENT '号码',
   `code` varchar(50)  NOT NULL COMMENT '代码',
   `name` varchar(100)  NOT NULL COMMENT '名称',
   `description` varchar(100)  COMMENT '描述',
   `is_deleted` tinyint(1) default '0' COMMENT '是否已删除',
   `attribute` varchar(500)  default null COMMENT '冗余属性',
-  `version` bigint(20) DEFAULT '1' COMMENT '版本号',
+  `version` bigint(20) unsigned DEFAULT '1' COMMENT '版本号',
   `created_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `created_by` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `created_by` bigint(20) unsigned DEFAULT NULL COMMENT '创建人',
   `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `updated_by` bigint(20) DEFAULT NULL COMMENT '更新人',
+  `updated_by` bigint(20) unsigned DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='承租人表';
 
-
+-- 用户表
 CREATE TABLE IF NOT EXISTS `rbac_user` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `tenant_id` bigint(20) DEFAULT NULL COMMENT '承租人id',
-  `age` int(5) DEFAULT NULL COMMENT '年龄',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `tenant_id` bigint(20) unsigned DEFAULT NULL COMMENT '承租人id',
+  `age` int(5) unsigned DEFAULT NULL COMMENT '年龄',
   `name` varchar(255) DEFAULT NULL COMMENT '姓名',
   `pin_yin` varchar(255) DEFAULT NULL COMMENT '拼音',
   `sex` char(1) DEFAULT NULL COMMENT '性别（M-男，F-女，X-未知）',
@@ -32,87 +32,194 @@ CREATE TABLE IF NOT EXISTS `rbac_user` (
   `photo_url` varchar(500) COMMENT '头像地址',
   `is_deleted` tinyint(1) default '0' COMMENT '是否已删除',
   `attribute` varchar(500)  default null COMMENT '冗余属性',
-  `version` bigint(20) DEFAULT '1' COMMENT '版本号',
+  `version` bigint(20) unsigned DEFAULT '1' COMMENT '版本号',
   `created_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `created_by` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `created_by` bigint(20) unsigned DEFAULT NULL COMMENT '创建人',
   `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `updated_by` bigint(20) DEFAULT NULL COMMENT '更新人',
+  `updated_by` bigint(20) unsigned DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 
 
--- 建表sql（role）
+-- 角色表
 CREATE TABLE IF NOT EXISTS `rbac_role` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT ,
-  `tenant_id` bigint(20) DEFAULT NULL COMMENT '承租人id',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT ,
+  `tenant_id` bigint(20) unsigned DEFAULT NULL COMMENT '承租人id',
   `code` varchar(50)  NOT NULL COMMENT '代码',
   `name` varchar(100)  NOT NULL COMMENT '名称',
   `description` varchar(100)  COMMENT '描述',
-  `is_deleted` tinyint(1) default '0' COMMENT '是否已删除',
+  `is_deleted` tinyint(1) unsigned default '0' COMMENT '是否已删除',
   `attribute` varchar(500)  default null COMMENT '冗余属性',
-  `version` bigint(20) DEFAULT '1' COMMENT '版本号',
+  `version` bigint(20) unsigned DEFAULT '1' COMMENT '版本号',
   `created_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `created_by` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `created_by` bigint(20) unsigned DEFAULT NULL COMMENT '创建人',
   `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `updated_by` bigint(20) DEFAULT NULL COMMENT '更新人',
+  `updated_by` bigint(20) unsigned DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 
--- 建表sql（permission）
+-- 权限表
 CREATE TABLE IF NOT EXISTS `rbac_permission` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT ,
-  `tenant_id` bigint(20) DEFAULT NULL COMMENT '承租人id',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT ,
+  `tenant_id` bigint(20) unsigned DEFAULT NULL COMMENT '承租人id',
   `code` varchar(50)  NOT NULL COMMENT '代码',
   `name` varchar(100)  NOT NULL COMMENT '名称',
   `description` varchar(500) COMMENT '描述' ,
-  `is_deleted` tinyint(1) default '0' COMMENT '是否已删除',
+  `is_deleted` tinyint(1) unsigned default '0' COMMENT '是否已删除',
   `attribute` varchar(500)  default null COMMENT '冗余属性',
-  `version` bigint(20) DEFAULT '1' COMMENT '版本号',
+  `version` bigint(20) unsigned DEFAULT '1' COMMENT '版本号',
   `created_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `created_by` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `created_by` bigint(20) unsigned DEFAULT NULL COMMENT '创建人',
   `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `updated_by` bigint(20) DEFAULT NULL COMMENT '更新人',
+  `updated_by` bigint(20) unsigned DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限表';
 
 
--- 建表sql（user_role）
+-- 用户角色关系表
 CREATE TABLE IF NOT EXISTS `rbac_user_role` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT ,
-  `tenant_id` bigint(20) DEFAULT NULL COMMENT '承租人id',
-  `user_id` bigint(20) NOT NULL COMMENT '用户id',
-  `role_id` bigint(20) NOT NULL COMMENT '角色id',
-  `is_deleted` tinyint(1) default '0' COMMENT '是否已删除',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT ,
+  `tenant_id` bigint(20) unsigned DEFAULT NULL COMMENT '承租人id',
+  `user_id` bigint(20) unsigned NOT NULL COMMENT '用户id',
+  `role_id` bigint(20) unsigned NOT NULL COMMENT '角色id',
+  `is_deleted` tinyint(1) unsigned default '0' COMMENT '是否已删除',
   `attribute` varchar(500)  default null COMMENT '冗余属性',
-  `version` bigint(20) DEFAULT '1' COMMENT '版本号',
+  `version` bigint(20) unsigned DEFAULT '1' COMMENT '版本号',
   `created_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `created_by` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `created_by` bigint(20) unsigned DEFAULT NULL COMMENT '创建人',
   `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `updated_by` bigint(20) DEFAULT NULL COMMENT '更新人',
+  `updated_by` bigint(20) unsigned DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`),
-  KEY `idx_user_id` (`user_id`),
-  KEY `idx_role_id` (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色表';
+  KEY `idx_user_role_id` (`user_id`,`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色关系表';
 
 
--- 建表sql（role_permission）
+-- 角色权限关系表
 CREATE TABLE IF NOT EXISTS `rbac_role_permission` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT ,
-  `tenant_id` bigint(20) DEFAULT NULL COMMENT '承租人id',
-  `role_id` bigint(20) NOT NULL COMMENT '角色id',
-	`permission_id` bigint(20) NOT NULL COMMENT '权限id',
-	`is_deleted` tinyint(1) default '0' COMMENT '是否已删除',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT ,
+  `tenant_id` bigint(20) unsigned DEFAULT NULL COMMENT '承租人id',
+  `role_id` bigint(20) unsigned NOT NULL COMMENT '角色id',
+	`permission_id` bigint(20) unsigned NOT NULL COMMENT '权限id',
+	`is_deleted` tinyint(1) unsigned default '0' COMMENT '是否已删除',
 	`attribute` varchar(500)  default null COMMENT '冗余属性',
-	`version` bigint(20) DEFAULT '1' COMMENT '版本号',
+	`version` bigint(20) unsigned DEFAULT '1' COMMENT '版本号',
   `created_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `created_by` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `created_by` bigint(20) unsigned DEFAULT NULL COMMENT '创建人',
   `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `updated_by` bigint(20) DEFAULT NULL COMMENT '更新人',
+  `updated_by` bigint(20) unsigned DEFAULT NULL COMMENT '更新人',
 	PRIMARY KEY (`id`),
-  KEY `idx_role_id` (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色权限表';
+  KEY `idx_role_per_id` (`role_id`,`permission_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色权限关系表';
+
+-- 组织表
+CREATE TABLE IF NOT EXISTS `rbac_org` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `tenant_id` bigint(20) unsigned DEFAULT NULL COMMENT '承租人id',
+  `name` varchar(255) DEFAULT NULL COMMENT '组织名',
+  `code` char(10)  NOT NULL COMMENT '组织代码',
+  `path` char(10)  NOT NULL COMMENT '组织级联路径(格式：父path_当前path)',
+  `parent_id` bigint(20) unsigned default '0' COMMENT '父id',
+  `description` varchar(500)  COMMENT '备注',
+  `attribute` varchar(500)  default null COMMENT '冗余属性',
+  `is_deleted` tinyint(1) unsigned default '0' COMMENT '是否已删除',
+  `version` bigint(20) unsigned DEFAULT '1' COMMENT '版本号',
+  `created_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `created_by` bigint(20) unsigned DEFAULT NULL COMMENT '创建人',
+  `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `updated_by` bigint(20) unsigned DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`),
+  KEY `idx_parent_id` (`parent_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='组织表';
+
+-- 用户组织关系表
+CREATE TABLE IF NOT EXISTS `rbac_org_user` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `tenant_id` bigint(20) unsigned DEFAULT NULL COMMENT '承租人id',
+  `org_id` bigint(20) unsigned NOT NULL COMMENT '组织id',
+  `user_id` bigint(20) unsigned NOT NULL COMMENT '用户id',
+  `is_deleted` tinyint(1) unsigned default '0' COMMENT '是否已删除',
+  `attribute` varchar(500)  default null COMMENT '冗余属性',
+  `version` bigint(20) unsigned DEFAULT '1' COMMENT '版本号',
+  `created_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `created_by` bigint(20) unsigned DEFAULT NULL COMMENT '创建人',
+  `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `updated_by` bigint(20) unsigned DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_org_id` (`user_id`,org_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户组织关系表';
+
+-- 组织角色关系表
+CREATE TABLE IF NOT EXISTS `rbac_org_role` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `tenant_id` bigint(20) unsigned DEFAULT NULL COMMENT '承租人id',
+  `org_id` bigint(20) unsigned NOT NULL COMMENT '组织id',
+  `role_id` bigint(20) unsigned NOT NULL COMMENT '角色id',
+  `is_deleted` tinyint(1) unsigned default '0' COMMENT '是否已删除',
+  `attribute` varchar(500)  default null COMMENT '冗余属性',
+  `version` bigint(20) unsigned DEFAULT '1' COMMENT '版本号',
+  `created_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `created_by` bigint(20) unsigned DEFAULT NULL COMMENT '创建人',
+  `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `updated_by` bigint(20) unsigned DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`),
+  KEY `idx_org_role_id` (`org_id`,`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='组织角色关系表';
+
+
+-- 用户组表
+CREATE TABLE IF NOT EXISTS `rbac_user_group` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `tenant_id` bigint(20) unsigned DEFAULT NULL COMMENT '承租人id',
+  `name` varchar(255) DEFAULT NULL COMMENT '用户组名',
+  `code` char(10)  NOT NULL COMMENT '用户组代码',
+  `parent_id` bigint(20) unsigned default '0' COMMENT '父id',
+  `is_deleted` tinyint(1) unsigned default '0' COMMENT '是否已删除',
+  `attribute` varchar(500)  default null COMMENT '冗余属性',
+  `version` bigint(20) unsigned DEFAULT '1' COMMENT '版本号',
+  `created_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `created_by` bigint(20) unsigned DEFAULT NULL COMMENT '创建人',
+  `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `updated_by` bigint(20) unsigned DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户组表';
+
+
+-- 用户组用户关系表
+CREATE TABLE IF NOT EXISTS `rbac_group_user` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `tenant_id` bigint(20) unsigned DEFAULT NULL COMMENT '承租人id',
+  `group_id` bigint(20) unsigned NOT NULL COMMENT '用户组id',
+  `user_id` bigint(20) unsigned NOT NULL COMMENT '用户id',
+  `is_deleted` tinyint(1) unsigned default '0' COMMENT '是否已删除',
+  `attribute` varchar(500)  default null COMMENT '冗余属性',
+  `version` bigint(20) unsigned DEFAULT '1' COMMENT '版本号',
+  `created_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `created_by` bigint(20) unsigned DEFAULT NULL COMMENT '创建人',
+  `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `updated_by` bigint(20) unsigned DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`),
+	KEY `idx_group_user_id` (`user_id`,`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户组用户关系表';
+
+-- 用户组角色关系表
+CREATE TABLE IF NOT EXISTS `rbac_group_role` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `tenant_id` bigint(20) unsigned DEFAULT NULL COMMENT '承租人id',
+  `group_id` bigint(20) unsigned NOT NULL COMMENT '用户组id',
+  `role_id` bigint(20) unsigned NOT NULL COMMENT '角色id',
+  `is_deleted` tinyint(1) unsigned default '0' COMMENT '是否已删除',
+  `attribute` varchar(500)  default null COMMENT '冗余属性',
+  `version` bigint(20) unsigned DEFAULT '1' COMMENT '版本号',
+  `created_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `created_by` bigint(20) unsigned DEFAULT NULL COMMENT '创建人',
+  `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `updated_by` bigint(20) unsigned DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`),
+	KEY `idx_group_role_id` (`group_id`,`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户组角色关系表';
+
 
 -- 初始化承租人
 INSERT INTO `sys_tenant`(`id`, `number`,`code`, `name`, `description`, `is_deleted`, `version`, `created_time`, `created_by`, `updated_time`, `updated_by`)
