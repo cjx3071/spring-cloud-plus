@@ -8,7 +8,6 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 - 让每个人都可以独立、快速、高效地开发一套分布式项目！
 
 ### 技术栈
-
 - 基础：springboot + springcloud
 - 持久化：MybatisPlus
 - 连接池：Druid
@@ -30,7 +29,6 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 - 搜索存储引擎：Elasticsearch
 - 接口文档：Swagger、knife4j
 - 应用监控：spring-boot-admin
-
 
 ### 组件模块
 |  模块   |   描述  |   功能  |
@@ -59,6 +57,9 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 | admin-web    |  主项目  |  整合了所有的组件模块,启动这个模块，就可以测试所有的功能啦  |
 | sub-webb   |  辅助项目|   简单的cloud项目，用于测试分布式服务调用和分布式事务等 |
 | sub-api   |  辅助API模块|   封装feign调用，方便复用 |
+
+## 技术架构图
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0414/133607_eec8b0c6_4866886.jpeg "架构.jpg")
 
 ### 文档
 线上接口文档：http://47.103.5.190:10001/doc.html  
