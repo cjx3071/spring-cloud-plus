@@ -1,92 +1,69 @@
 package org.gourd.hu.rbac.entity;
 
-import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.gourd.hu.base.common.entity.BaseEntity;
-import org.gourd.hu.core.enums.SexEnum;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 
+import java.time.LocalDateTime;
+
+import com.baomidou.mybatisplus.annotation.TableId;
+import org.gourd.hu.base.common.entity.BaseEntity;
+
+import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
- * @author gourd
- * @date 2019-04-02 17:26:16
- * Created by CodeGen .
+ * <p>
+ * 用户表
+ * </p>
+ *
+ * @author gourd.hu
+ * @since 2020-04-14
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @TableName("rbac_user")
-public class RbacUser extends BaseEntity {
+@ApiModel(value = "RbacUser对象", description = "用户表")
+public class RbacUser extends BaseEntity<RbacUser> {
 
-    /**
-     * 年龄
-     */
+    @ApiModelProperty(value = "年龄")
     private Integer age;
 
-    /**
-     * 姓名
-     */
+    @ApiModelProperty(value = "姓名")
     private String name;
 
-    /**
-     * 姓名拼音
-     */
-    @TableField("pin_yin")
+    @ApiModelProperty(value = "拼音")
     private String pinYin;
 
-    /**
-     * 性别（M-男，F-女，X-未知）
-     */
-    @EnumValue
-    private SexEnum sex;
+    @ApiModelProperty(value = "性别（M-男，F-女，X-未知）")
+    private String sex;
 
-    /**
-     * 生日
-     */
+    @ApiModelProperty(value = "生日")
     private Date birth;
 
-    /**
-     * 账号
-     */
+    @ApiModelProperty(value = "账号")
     private String account;
 
-    /**
-     * 密码
-     */
+    @ApiModelProperty(value = "密码")
     private String password;
 
-    /**
-     * 昵称
-     */
-    @TableField("nick_name")
+    @ApiModelProperty(value = "昵称")
     private String nickName;
 
-    /**
-     * 邮箱
-     */
+    @ApiModelProperty(value = "邮箱")
     private String email;
 
-    /**
-     * 手机
-     */
-    @TableField("mobile_phone")
+    @ApiModelProperty(value = "手机")
     private String mobilePhone;
 
-    /**
-     * 头像地址
-     */
+    @ApiModelProperty(value = "头像地址")
     private String photoUrl;
-
-    /**
-     * 角色和权限集合
-     */
-    @TableField(exist = false)
-    private Set<String> authorities;
-
 
 }

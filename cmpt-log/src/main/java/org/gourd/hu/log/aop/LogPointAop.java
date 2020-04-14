@@ -2,11 +2,14 @@ package org.gourd.hu.log.aop;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.gourd.hu.log.annotation.OperateLogIgnore;
 import org.gourd.hu.log.entity.SysOperateLog;
 import org.gourd.hu.log.service.OperateLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ import org.springframework.stereotype.Component;
 public class LogPointAop {
     @Autowired
     private OperateLogService operateLogService;
+
+    private static ThreadLocal<ProceedingJoinPoint> proceedingJoinPointThreadLocal = new ThreadLocal<>();
+
     /**
      * 配置切入点
      */
@@ -39,24 +45,25 @@ public class LogPointAop {
      * @param joinPoint join point for advice
      */
     @Around("logPointcut()")
-    public Object logAround(ProceedingJoinPoint joinPoint){
-        Object result = null;
+    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        proceedingJoinPointThreadLocal.set(joinPoint);
         // 开始时间
         long startTime = System.currentTimeMillis();
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         SysOperateLog sysLog = new SysOperateLog();
-        try {
-            result = joinPoint.proceed();
-            // 返回结果
-            sysLog.setResponseDetail(JSON.toJSONString(result));
-        } catch (Throwable e) {
-            // 异常信息
-            sysLog.setExceptionDetail(JSON.toJSONString(e));
-            throw new RuntimeException(e.getMessage(),e.getCause());
-        }finally {
-            operateLogService.asyncSaveLog(joinPoint, startTime, sysLog);
-        }
+        Object result = joinPoint.proceed();
+        // 返回结果
+        sysLog.setResponseDetail(JSON.toJSONString(result));
+        operateLogService.asyncSaveLog(joinPoint, startTime, sysLog);
         return result;
+    }
+
+    @AfterThrowing(pointcut="logPointcut()",throwing = "exception")
+    public void afterThrowing(Exception exception){
+        ProceedingJoinPoint proceedingJoinPoint = proceedingJoinPointThreadLocal.get();
+        SysOperateLog sysLog = new SysOperateLog();
+        // 异常信息
+        sysLog.setExceptionDetail(JSON.toJSONString(exception));
+        operateLogService.asyncSaveLog(proceedingJoinPoint, null, sysLog);
     }
 
 }

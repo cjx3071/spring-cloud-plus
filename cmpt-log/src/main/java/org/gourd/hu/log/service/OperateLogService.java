@@ -24,5 +24,5 @@ public interface OperateLogService extends IService<SysOperateLog> {
      * @param startTime
      * @param sysOperateLog
      */
-    void asyncSaveLog(ProceedingJoinPoint joinPoint, long startTime, SysOperateLog sysOperateLog);
+    void asyncSaveLog(ProceedingJoinPoint joinPoint, Long startTime, SysOperateLog sysOperateLog);
 }

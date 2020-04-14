@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 承租人表
+ * 组织表
  * </p>
  *
  * @author gourd.hu
@@ -28,20 +28,24 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("sys_tenant")
-@ApiModel(value = "SysTenant对象", description = "承租人表")
-public class SysTenant extends BaseEntity<SysTenant> {
+@TableName("rbac_org")
+@ApiModel(value = "RbacOrg对象", description = "组织表")
+public class RbacOrg extends BaseEntity<RbacOrg> {
 
-    @ApiModelProperty(value = "号码")
-    private String number;
-
-    @ApiModelProperty(value = "代码")
-    private String code;
-
-    @ApiModelProperty(value = "名称")
+    @ApiModelProperty(value = "组织名")
     private String name;
 
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "组织代码")
+    private String code;
+
+    @ApiModelProperty(value = "组织级联路径(格式：父path_当前path)")
+    private String path;
+
+    @ApiModelProperty(value = "父id")
+    private Long parentId;
+
+    @ApiModelProperty(value = "备注")
     private String description;
+
 
 }

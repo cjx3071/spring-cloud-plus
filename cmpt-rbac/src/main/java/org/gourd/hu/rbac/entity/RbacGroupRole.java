@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 承租人表
+ * 用户组角色关系表
  * </p>
  *
  * @author gourd.hu
@@ -28,20 +28,14 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("sys_tenant")
-@ApiModel(value = "SysTenant对象", description = "承租人表")
-public class SysTenant extends BaseEntity<SysTenant> {
+@TableName("rbac_group_role")
+@ApiModel(value = "RbacGroupRole对象", description = "用户组角色关系表")
+public class RbacGroupRole extends BaseEntity<RbacGroupRole> {
 
-    @ApiModelProperty(value = "号码")
-    private String number;
+    @ApiModelProperty(value = "用户组id")
+    private Long groupId;
 
-    @ApiModelProperty(value = "代码")
-    private String code;
-
-    @ApiModelProperty(value = "名称")
-    private String name;
-
-    @ApiModelProperty(value = "描述")
-    private String description;
+    @ApiModelProperty(value = "角色id")
+    private Long roleId;
 
 }

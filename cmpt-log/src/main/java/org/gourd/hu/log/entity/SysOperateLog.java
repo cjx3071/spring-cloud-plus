@@ -1,7 +1,8 @@
 package org.gourd.hu.log.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.gourd.hu.base.common.entity.BaseEntity;
@@ -9,82 +10,53 @@ import org.gourd.hu.base.common.entity.BaseEntity;
 import java.util.Date;
 
 /**
- * @author gourd
- * @date 2018-11-24
+ * <p>
+ * 操作日志记录表
+ * </p>
+ *
+ * @author gourd.hu
+ * @since 2020-04-14
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @TableName("sys_operate_log")
-public class SysOperateLog extends BaseEntity {
+@ApiModel(value = "SysOperateLog对象", description = "操作日志记录表")
+public class SysOperateLog extends BaseEntity<SysOperateLog> {
 
-    /**
-     * 模块名
-     */
-    @TableField(value = "module_name")
+    @ApiModelProperty(value = "模块名")
     private String moduleName;
-    /**
-     * 业务名
-     */
-    @TableField(value = "business_name")
+
+    @ApiModelProperty(value = "业务名")
     private String businessName;
-    /**
-     * 描述
-     */
-    @TableField(value = "description")
+
+    @ApiModelProperty(value = "描述")
     private String description;
 
-    /**
-     * 方法名
-     */
-    @TableField(value = "method_name")
+    @ApiModelProperty(value = "方法名")
     private String methodName;
 
-    /**
-     * 方法类型
-     */
-    @TableField(value = "method_type")
+    @ApiModelProperty(value = "方法类型")
     private String methodType;
 
-    /**
-     * 请求路径
-     */
-    @TableField(value = "request_url")
+    @ApiModelProperty(value = "请求路径")
     private String requestUrl;
 
-    /**
-     * 请求参数
-     */
-    @TableField(value = "request_param")
+    @ApiModelProperty(value = "请求参数")
     private String requestParam;
 
-    /**
-     * 请求ip
-     */
-    @TableField(value = "request_ip")
+    @ApiModelProperty(value = "请求ip")
     private String requestIp;
 
-    /**
-     * 请求耗时
-     */
-    @TableField(value = "request_time")
+    @ApiModelProperty(value = "请求耗时")
     private Long requestTime;
 
-
-    /**
-     * 返回结果
-     */
-    @TableField(value = "response_detail")
+    @ApiModelProperty(value = "返回结果")
     private String responseDetail;
 
-    /**
-     * 异常详细
-     */
-    @TableField(value = "exception_detail")
+    @ApiModelProperty(value = "异常详细")
     private String exceptionDetail;
 
-    /**
-     * 过期时间
-     */
-    @TableField(value = "expire_time")
+    @ApiModelProperty(value = "过期删除时间")
     private Date expireTime;
+
 }

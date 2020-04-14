@@ -32,12 +32,12 @@ public class BaseResponse<T> implements Serializable {
 	/**
      * 响应码
      */
-    private int code;
+    private Integer code;
 
     /**
      * 是否成功
      */
-    private boolean success;
+    private Boolean success;
 
     /**
      * 响应消息
@@ -81,7 +81,7 @@ public class BaseResponse<T> implements Serializable {
             success = true;
         }
         String apiMessage = httpStatus.getReasonPhrase();
-        if (StringUtils.isNotBlank(apiMessage)){
+        if (StringUtils.isBlank(message)){
             message = apiMessage;
         }
         return (BaseResponse<T>) BaseResponse.builder()

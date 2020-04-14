@@ -53,7 +53,7 @@ public class OperateLogServiceImpl extends ServiceImpl<SysOperateLogDao, SysOper
      */
     @Async
     @Override
-    public void asyncSaveLog(ProceedingJoinPoint joinPoint, long startTime, SysOperateLog sysOperateLog) {
+    public void asyncSaveLog(ProceedingJoinPoint joinPoint, Long startTime, SysOperateLog sysOperateLog) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         OperateLog operateLog = signature.getMethod().getAnnotation(OperateLog.class);
         if(operateLog != null){
@@ -68,7 +68,7 @@ public class OperateLogServiceImpl extends ServiceImpl<SysOperateLogDao, SysOper
         Date expireTime = DateUtil.addDaysForDate(DateUtil.getBeginTimeOfToday(), expireDays);
         sysOperateLog.setExpireTime(expireTime);
         // 单位毫秒
-        Long requestTime = (System.currentTimeMillis() - startTime);
+        Long requestTime =startTime ==null? null: (System.currentTimeMillis() - startTime);
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         // 方法名
         sysOperateLog.setMethodName(signature.getName());

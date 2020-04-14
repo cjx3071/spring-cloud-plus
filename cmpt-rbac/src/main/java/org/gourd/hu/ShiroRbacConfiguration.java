@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.parsers.ITableNameHandler;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantHandler;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantSqlParser;
-import org.gourd.hu.base.common.constant.CommonConstant;
+import org.gourd.hu.rbac.constant.RbacConstant;
 import org.gourd.hu.base.utils.DateUtil;
 import org.gourd.hu.rbac.handler.GlobalTenantParser;
 import org.gourd.hu.rbac.auth.jwt.JwtUtil;
@@ -84,7 +84,7 @@ public class ShiroRbacConfiguration {
 
             @Override
             public String getTenantIdColumn() {
-                return CommonConstant.COLUMN_TENANT_ID;
+                return RbacConstant.COLUMN_TENANT_ID;
             }
 
             /**
@@ -95,7 +95,7 @@ public class ShiroRbacConfiguration {
             @Override
             public boolean doTableFilter(String tableName) {
                 // 这里可以判断是否过滤表
-                if (CommonConstant.NO_FILTER_TABLES.contains(tableName)) {
+                if (RbacConstant.NO_FILTER_TABLES.contains(tableName)) {
                     return true;
                 }
                 return false;
@@ -120,7 +120,7 @@ public class ShiroRbacConfiguration {
             public boolean doFilter(MetaObject metaObject) {
                 MappedStatement ms = SqlParserHelper.getMappedStatement(metaObject);
                 // 过滤自定义查询此时无租户信息约束
-                if (CommonConstant.NO_FILTER_SQLS.contains(ms.getId())) {
+                if (RbacConstant.NO_FILTER_SQLS.contains(ms.getId())) {
                     return true;
                 }
                 return false;

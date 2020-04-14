@@ -1,4 +1,4 @@
-package org.gourd.hu.base.common.constant;
+package org.gourd.hu.rbac.constant;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author gourd
  */
-public class CommonConstant {
+public class RbacConstant {
 
     public static final String TX_NUMBER = "txNumber";
 
@@ -33,8 +33,8 @@ public class CommonConstant {
     public static final List NO_FILTER_TABLES = Arrays.asList("sys_tenant");
 
     public static final List NO_FILTER_SQLS = Arrays.asList(
-            "org.gourd.hu.shiro.rbac.dao.RbacUserDao.getByAccountAndTenantId",
-            "org.gourd.hu.shiro.rbac.dao.RbacRoleDao.findByUserId",
-            "org.gourd.hu.shiro.rbac.dao.RbacPermissionDao.findByRoleIds"
+            "org.gourd.hu.rbac.dao.RbacUserDao.getByAccountAndTenantId",
+            "org.gourd.hu.rbac.dao.RbacRoleDao.findByUserId",
+            "org.gourd.hu.rbac.dao.RbacPermissionDao.findByRoleIds"
             );
 }

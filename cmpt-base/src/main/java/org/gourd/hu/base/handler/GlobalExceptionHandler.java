@@ -102,7 +102,7 @@ public class GlobalExceptionHandler{
 	 */
 	@ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
 	@ResponseStatus(HttpStatus.OK)
-	public BaseResponse<String> httpRequestMethodNotSupportedExceptionHandler(Exception exception) {
+	public BaseResponse httpRequestMethodNotSupportedExceptionHandler(Exception exception) {
 		printRequestDetail();
 		printApiCodeException(HttpStatus.METHOD_NOT_ALLOWED, exception);
 		return BaseResponse.fail(HttpStatus.METHOD_NOT_ALLOWED.value(), exception.getMessage());
@@ -116,10 +116,10 @@ public class GlobalExceptionHandler{
 	 */
 	@ExceptionHandler(value = Exception.class)
 	@ResponseStatus(INTERNAL_SERVER_ERROR)
-	public BaseResponse<Boolean> exceptionHandler(Exception exception) {
+	public BaseResponse exceptionHandler(Exception exception) {
 		printRequestDetail();
 		printApiCodeException(INTERNAL_SERVER_ERROR, exception);
-		return BaseResponse.fail(INTERNAL_SERVER_ERROR);
+		return BaseResponse.fail(exception.getLocalizedMessage());
 	}
 
 	/**

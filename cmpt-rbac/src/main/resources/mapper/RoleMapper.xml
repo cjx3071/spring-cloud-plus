@@ -35,13 +35,37 @@
 
 
     <select id="findByUserId" resultMap="BaseResultMap">
-        select
-        rr.id,rr.`code`,rr.`name`
-        from rbac_role rr
-        LEFT JOIN rbac_user_role rur ON rr.id = rur.role_id and rur.is_deleted=0
+        SELECT
+        rr.`id`,
+        rr.`name`,
+        rr.`code`
+        FROM
+            rbac_role rr
+            LEFT JOIN rbac_user_role rur ON rr.id = rur.role_id
         WHERE
-        rr.is_deleted=0
-        and rur.user_id = #{userId}
+            rur.user_id = #{userId}
+        UNION
+        SELECT
+            rr.`id`,
+            rr.`name`,
+            rr.`code`
+        FROM
+            rbac_role rr
+            LEFT JOIN rbac_org_role ror ON ror.role_id = rr.id
+            LEFT JOIN rbac_org_user rou ON ror.org_id = rou.org_id
+        WHERE
+            rou.user_id = #{userId}
+        union
+        SELECT
+            rr.`id`,
+            rr.`name`,
+            rr.`code`
+        FROM
+            rbac_role rr
+            LEFT JOIN rbac_group_role rgr ON rgr.role_id = rr.id
+            LEFT JOIN rbac_group_user rgu ON rgr.group_id = rgu.group_id
+        WHERE
+            rgu.user_id = #{userId}
     </select>
 
 </mapper>

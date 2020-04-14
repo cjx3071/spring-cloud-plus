@@ -16,18 +16,18 @@ import java.util.Map;
  */
 public class MybatisPlusGenerator {
 	/** 生成文件所在项目路径*/
-	private static String baseProjectPath = "E:\\gourd-hu\\generator";
+	private static String baseProjectPath = "E:\\gourd-hu\\cloudplus";
 	/**基本包名*/
-	private static String basePackage = "com.gourd.hu.rbac";
+	private static String basePackage = "org.gourd.hu.rbac";
 	/** 作者*/
 	private static String authorName = "gourd.hu";
 	/** 要生成的表名*/
-	private static String[] tables = { "sys_tenant"};
+	private static String[] tables = { "sys_operate_log"};
 	/**table前缀*/
 	private static String prefix = "";
 	/** 数据库配置四要素*/
 	private static String driverName = "com.mysql.cj.jdbc.Driver";
-	private static String url = "jdbc:mysql://47.103.5.190:3306/admin?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true";
+	private static String url = "jdbc:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true";
 	private static String username = "root";
 	private static String password = "gourd123";
 
@@ -81,7 +81,7 @@ public class MybatisPlusGenerator {
 				.setInclude(tables)
 				.setRestControllerStyle(true)
 				// 自定义实体父类
-				 .setSuperEntityClass("com.gourd.hu.base.data.BaseEntity")
+				 .setSuperEntityClass("org.gourd.hu.base.common.entity.BaseEntity")
 				// 自定义实体，公共字段
 				.setSuperEntityColumns(new String[]{"id","createdTime","createdBy","updatedTime","updatedBy","version"})
 				// 【实体】是否为lombok模型（默认 false）<a href="https://projectlombok.org/">document</a>

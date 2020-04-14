@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gourd.hu.rbac.dao.RbacUserGroupDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.gourd.hu.rbac.entity.RbacUserGroup">
+        <result column="tenant_id" property="tenantId" />
+        <result column="name" property="name" />
+        <result column="code" property="code" />
+        <result column="parent_id" property="parentId" />
+        <result column="is_deleted" property="deleted" />
+        <result column="attribute" property="attribute" />
+        <result column="created_time" property="createdTime" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_time" property="updatedTime" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="id" property="id" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+id,
+version,
+ tenant_id, name, code, parent_id, is_deleted, attribute, created_time, created_by, updated_time, updated_by
+    </sql>
+
+</mapper>

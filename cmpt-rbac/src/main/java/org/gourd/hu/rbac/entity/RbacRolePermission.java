@@ -2,33 +2,41 @@ package org.gourd.hu.rbac.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+
+import java.time.LocalDateTime;
+
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.gourd.hu.base.common.entity.BaseEntity;
 
+import java.io.Serializable;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
 /**
- * @author gourd
- * @date 2019-04-02 17:26:16
- * Created by CodeGen .
+ * <p>
+ * 角色权限关系表
+ * </p>
+ *
+ * @author gourd.hu
+ * @since 2020-04-14
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @TableName("rbac_role_permission")
-public class RbacRolePermission extends BaseEntity {
+@ApiModel(value = "RbacRolePermission对象", description = "角色权限关系表")
+public class RbacRolePermission extends BaseEntity<RbacRolePermission> {
 
-    /**
-     * 角色id
-     */
-    @TableField("role_id")
-    private  Long roleId;
+    @ApiModelProperty(value = "角色id")
+    private Long roleId;
 
-    /**
-     * 权限id
-     */
-    @TableField("permission_id")
-    private  Long permissionId;
+    @ApiModelProperty(value = "权限id")
+    private Long permissionId;
 
 
 }

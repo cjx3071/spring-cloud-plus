@@ -33,7 +33,7 @@ public class AuthController {
 
 
     @PostMapping(value = "/login")
-    @ApiOperation(value = "用户登陆", notes = "登陆成功返回token,测试管理员账号:adminShiro@gourd,123456")
+    @ApiOperation(value = "用户登陆", notes = "登陆成功返回token,测试管理员账号:admin@gourd,123456")
     public BaseResponse<JwtToken> login(@Validated @RequestBody RbacUserLoginDTO user){
         JwtToken response = authService.login(user.getAccount(), user.getPassword());
         return BaseResponse.ok(response);

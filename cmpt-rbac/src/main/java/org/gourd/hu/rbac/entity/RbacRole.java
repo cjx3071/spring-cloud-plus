@@ -1,37 +1,44 @@
 package org.gourd.hu.rbac.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+
+import java.time.LocalDateTime;
+
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.gourd.hu.base.common.entity.BaseEntity;
 
+import java.io.Serializable;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
 /**
- * @author gourd
- * @date 2019-04-02 17:26:16
- * Created by CodeGen .
+ * <p>
+ * 角色表
+ * </p>
+ *
+ * @author gourd.hu
+ * @since 2020-04-14
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @TableName("rbac_role")
-public class RbacRole extends BaseEntity {
+@ApiModel(value = "RbacRole对象", description = "角色表")
+public class RbacRole extends BaseEntity<RbacRole> {
 
+    @ApiModelProperty(value = "代码")
+    private String code;
 
-    /**
-     * 代码
-     */
-    private  String code;
+    @ApiModelProperty(value = "名称")
+    private String name;
 
-    /**
-     * 名称
-     */
-    private  String name;
-
-    /**
-     * 描述
-     */
-    private  String description;
-
+    @ApiModelProperty(value = "描述")
+    private String description;
 
 }

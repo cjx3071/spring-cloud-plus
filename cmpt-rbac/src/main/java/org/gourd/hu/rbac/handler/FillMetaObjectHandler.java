@@ -1,7 +1,7 @@
 package org.gourd.hu.rbac.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import org.gourd.hu.base.common.constant.CommonConstant;
+import org.gourd.hu.rbac.constant.RbacConstant;
 import org.gourd.hu.rbac.auth.jwt.JwtUtil;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
@@ -41,24 +41,24 @@ public class FillMetaObjectHandler implements MetaObjectHandler {
     }
 
     private void fillCommonMeta(MetaObject metaObject) {
-        if (metaObject.hasGetter(CommonConstant.META_VERSION)) {
-            setFieldValByName(CommonConstant.META_VERSION,1L,metaObject);
+        if (metaObject.hasGetter(RbacConstant.META_VERSION)) {
+            setFieldValByName(RbacConstant.META_VERSION,1L,metaObject);
         }
-        if(metaObject.hasGetter(CommonConstant.META_DELETED)){
-            setFieldValByName(CommonConstant.META_DELETED,false,metaObject);
+        if(metaObject.hasGetter(RbacConstant.META_DELETED)){
+            setFieldValByName(RbacConstant.META_DELETED,false,metaObject);
         }
     }
 
     private void fillCreateMeta(MetaObject metaObject, Long userId) {
-        if (metaObject.hasGetter(CommonConstant.META_CREATED_BY) && metaObject.hasGetter(CommonConstant.META_CREATED_TIME)) {
-            setFieldValByName(CommonConstant.META_CREATED_BY, userId, metaObject);
-            setFieldValByName(CommonConstant.META_CREATED_TIME, new Date(), metaObject);
+        if (metaObject.hasGetter(RbacConstant.META_CREATED_BY) && metaObject.hasGetter(RbacConstant.META_CREATED_TIME)) {
+            setFieldValByName(RbacConstant.META_CREATED_BY, userId, metaObject);
+            setFieldValByName(RbacConstant.META_CREATED_TIME, new Date(), metaObject);
         }
     }
     private void fillUpdateMeta(MetaObject metaObject, Long userId) {
-        if (metaObject.hasGetter(CommonConstant.META_UPDATED_BY) && metaObject.hasGetter(CommonConstant.META_UPDATED_TIME)) {
-            setFieldValByName(CommonConstant.META_UPDATED_BY, userId, metaObject);
-            setFieldValByName(CommonConstant.META_UPDATED_TIME, new Date(), metaObject);
+        if (metaObject.hasGetter(RbacConstant.META_UPDATED_BY) && metaObject.hasGetter(RbacConstant.META_UPDATED_TIME)) {
+            setFieldValByName(RbacConstant.META_UPDATED_BY, userId, metaObject);
+            setFieldValByName(RbacConstant.META_UPDATED_TIME, new Date(), metaObject);
         }
     }
 }

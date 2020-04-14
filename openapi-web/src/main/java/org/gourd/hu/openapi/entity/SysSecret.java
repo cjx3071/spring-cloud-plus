@@ -1,6 +1,8 @@
 package org.gourd.hu.openapi.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -15,23 +17,18 @@ import org.gourd.hu.base.common.entity.BaseEntity;
  * @since 2020-04-02
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @TableName("sys_secret")
+@ApiModel(value = "secret对象", description = "鉴权表")
 public class SysSecret extends BaseEntity {
 
-    /**
-     * 模块名
-     */
+    @ApiModelProperty(value = "appkey")
     private String appKey;
 
-    /**
-     * 业务名
-     */
+    @ApiModelProperty(value = "秘钥")
     private String secretKey;
 
-    /**
-     * 过期时间，过期时长，单位毫秒，默认5分钟
-     */
+    @ApiModelProperty(value = "app过期时间，过期时长，单位毫秒，默认5分钟key")
     private Integer expireTimes = 300000;
 
 }

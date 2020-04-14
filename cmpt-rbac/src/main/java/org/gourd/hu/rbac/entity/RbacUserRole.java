@@ -2,33 +2,40 @@ package org.gourd.hu.rbac.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+
+import java.time.LocalDateTime;
+
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.gourd.hu.base.common.entity.BaseEntity;
 
+import java.io.Serializable;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
 /**
- * @author gourd
- * @date 2019-04-02 17:26:16
- * Created by CodeGen .
+ * <p>
+ * 用户角色关系表
+ * </p>
+ *
+ * @author gourd.hu
+ * @since 2020-04-14
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @TableName("rbac_user_role")
-public class RbacUserRole extends BaseEntity {
+@ApiModel(value = "RbacUserRole对象", description = "用户角色关系表")
+public class RbacUserRole extends BaseEntity<RbacUserRole> {
 
-    /**
-     * 用户id
-     */
-    @TableField("user_id")
-    private  Long userId;
+    @ApiModelProperty(value = "用户id")
+    private Long userId;
 
-    /**
-     * 角色id
-     */
-    @TableField("role_id")
-    private  Long roleId;
-
+    @ApiModelProperty(value = "角色id")
+    private Long roleId;
 
 }
