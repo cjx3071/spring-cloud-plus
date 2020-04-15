@@ -8,21 +8,21 @@ import org.gourd.hu.base.common.dto.BaseFindDTO;
  * @date 2019-04-02 17:26:16
  */
 @Data
-public class RbacUserDeptSearchDTO extends BaseFindDTO {
+public class RbacUserOrgSearchDTO extends BaseFindDTO {
 
     /**
-     * 部门id
+     * 组织id
      */
-    private Long deptId;
+    private Long orgId;
 
     /**
-     * 部门名
+     * 组织名
      */
-    private Long deptName;
+    private Long orgName;
 
     /**
-     * 部门code
+     * 组织code
      */
-    private Long deptCode;
+    private Long orgCode;
 
 }

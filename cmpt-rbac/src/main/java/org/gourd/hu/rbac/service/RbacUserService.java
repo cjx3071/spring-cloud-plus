@@ -24,6 +24,15 @@ public interface RbacUserService extends IService<RbacUser> {
      * @return
      */
     UserVO getByAccount(String account);
+
+    /**
+     * 根据账号和承租人id获取用户信息
+     * @param account
+     * @param tenantId
+     * @return
+     */
+    RbacUser getByAccountAndTenantId(String account, Long tenantId);
+
     /**
      * 获取所有用户信息
      * @return
@@ -41,7 +50,7 @@ public interface RbacUserService extends IService<RbacUser> {
      * 根据条件获取用户
      * @return
      */
-    IPage<UserVO> findUsersDept(RbacUserDeptSearchDTO rbacUserDeptSearchDTO, Page page);
+    IPage<UserVO> findUsersOrg(RbacUserOrgSearchDTO rbacUserOrgSearchDTO, Page page);
 
     /**
      * 注册用户

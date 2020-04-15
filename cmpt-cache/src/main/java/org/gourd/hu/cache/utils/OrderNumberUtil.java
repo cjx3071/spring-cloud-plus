@@ -18,7 +18,7 @@ public class OrderNumberUtil {
     public static String getOrderNumber(){
         String nowDateStr = DateUtil.date2Str(new Date(), DateUtil.DATE_FORMAT_YYYYMMDD);
         long number = 1;
-        if(RedisUtil.exists(nowDateStr)){
+        if(RedisUtil.existAny(nowDateStr)){
             number = RedisUtil.incr(nowDateStr,1);
         }else {
             RedisUtil.setExpire(nowDateStr,String.valueOf(number),24*60*60L);

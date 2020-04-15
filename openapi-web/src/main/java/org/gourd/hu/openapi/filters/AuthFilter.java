@@ -69,7 +69,7 @@ public class AuthFilter implements Filter, Ordered {
             log.info("随机数不能为空");
             throw new BusinessException(HttpStatus.BAD_REQUEST.value(),AuthConstant.PARAM_ERROR);
         }
-        if(!RedisUtil.exists(IpAddressUtil.getIpAddr(request)+nonce)){
+        if(!RedisUtil.existAny(IpAddressUtil.getIpAddr(request)+nonce)){
             log.info("随机数已使用过");
             throw new BusinessException(HttpStatus.BAD_REQUEST.value(),AuthConstant.SIGN_EXPIRED);
         }

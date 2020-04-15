@@ -57,6 +57,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> impl
     private RbacUserRoleDao rbacUserRoleDao;
 
     @Override
+    @DS("slave")
     public UserVO getByAccount(String account){
         UserVO userVO = new UserVO();
         RbacUser rbacUser = rbacUserDao.getByAccount(account);
@@ -67,6 +68,11 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> impl
         return userVO ;
     }
 
+    @Override
+    @DS("slave")
+    public RbacUser getByAccountAndTenantId(String account, Long tenantId){
+       return rbacUserDao.getByAccountAndTenantId(account,tenantId);
+    }
 
     /**
      * 根据id获取用户信息
@@ -131,9 +137,9 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> impl
      */
     @Override
     @DS("slave")
-    public IPage<UserVO> findUsersDept(RbacUserDeptSearchDTO userDeptSearchDTO, Page page){
+    public IPage<UserVO> findUsersOrg(RbacUserOrgSearchDTO userOrgSearchDTO, Page page){
         JwtToken jwtUser = JwtUtil.getCurrentUser();
-        IPage<UserVO> usersDeptPage= rbacUserDao.findUsersDept(page, userDeptSearchDTO, jwtUser.getTenantId());
+        IPage<UserVO> usersDeptPage= rbacUserDao.findUsersOrg(page, userOrgSearchDTO, jwtUser.getTenantId());
         List<UserVO> userVOList = CollectionUtil.copyList(usersDeptPage.getRecords(), UserVO.class);
         usersDeptPage.setRecords(userVOList);
         return usersDeptPage;
@@ -154,9 +160,9 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> impl
         // 承租人元素（number或code）
         String tenantItem = accountItems[1];
         SysTenant tenant = sysTenantService.checkGetTenant(tenantItem);
-
         RbacUserCreateDTO rbacUserCreateDTO = new RbacUserCreateDTO();
         BeanUtils.copyProperties(rbacUserRegisterDTO, rbacUserCreateDTO);
+        rbacUserCreateDTO.setTenantId(tenant.getId());
         rbacUserCreateDTO.setAccount(accountItem);
         return this.create(rbacUserCreateDTO);
     }
@@ -170,14 +176,20 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> impl
     @CacheEvict(value = "user",allEntries = true)
     public UserVO create(RbacUserCreateDTO rbacUserCreateDTO){
         // 当前用户承租人
-        Long tenantId = JwtUtil.getCurrentUser().getTenantId();
+        Long tenantId = null;
+        if(rbacUserCreateDTO.getTenantId() == null){
+            tenantId = JwtUtil.getCurrentUser().getTenantId();
+        }else {
+            tenantId = rbacUserCreateDTO.getTenantId();
+        }
+        if(rbacUserDao.getByAccountAndTenantId(rbacUserCreateDTO.getAccount(),tenantId)!=null) {
+            throw new BusinessException(MessageConstant.ACCOUNT_BEEN_USED);
+        }
         // 返回VO对象
         UserVO userVO = new UserVO();
         RbacUser rbacUser = new RbacUser();
         BeanUtils.copyProperties(rbacUserCreateDTO,rbacUser);
-        if(rbacUserDao.getByAccountAndTenantId(rbacUserCreateDTO.getAccount(),tenantId)!=null) {
-            throw new BusinessException(MessageConstant.ACCOUNT_BEEN_USED);
-        }
+        rbacUser.setTenantId(tenantId);
         // 生成加密密码
         rbacUser.setPassword(ShiroKitUtil.md5(rbacUserCreateDTO.getPassword(),rbacUserCreateDTO.getAccount()));
         // 设置拼音

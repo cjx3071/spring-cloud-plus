@@ -48,6 +48,10 @@
                     <artifactId>commons-collections</artifactId>
                     <groupId>commons-collections</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+                    <groupId>com.alibaba.cloud</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <!--消息组件-->

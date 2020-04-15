@@ -1,8 +1,6 @@
 package org.gourd.hu.demo.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import io.seata.core.context.RootContext;
-import io.seata.spring.annotation.GlobalTransactional;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -82,13 +80,13 @@ public class CloudTestController {
      * 分布式事务测试
      * @return
      */
-    @PostMapping("/seata-tx")
-    @ApiOperation(value = "分布式事务测试")
-    @GlobalTransactional(name = "hu")
-    public void seataTxTest(){
-        log.info("hu Service ... xid: " + RootContext.getXID());
-        cloudTestService.testSeata();
-    }
+//    @PostMapping("/seata-tx")
+//    @ApiOperation(value = "分布式事务测试")
+//    @GlobalTransactional(name = "hu")
+//    public void seataTxTest(){
+//        log.info("hu Service ... xid: " + RootContext.getXID());
+//        cloudTestService.testSeata();
+//    }
 
     @GetMapping("/sentinel")
     @SentinelResource(value="/test/sentinel")

@@ -1,4 +1,4 @@
-package org.gourd.hu.cache.aspect;
+package org.gourd.hu.cache.aop;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +10,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.gourd.hu.base.common.exception.BusinessException;
 import org.gourd.hu.base.holder.RequestHolder;
 import org.gourd.hu.cache.annotation.NoRepeatSubmit;
-import org.gourd.hu.cache.utils.Md5Util;
 import org.gourd.hu.cache.utils.RedisUtil;
+import org.gourd.hu.core.utils.Md5Util;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;

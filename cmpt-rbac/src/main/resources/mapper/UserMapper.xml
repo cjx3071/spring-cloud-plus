@@ -29,7 +29,7 @@
     <sql id="Base_Column_List">
        id,tenant_id,version,age, name,pin_yin, birth,sex, account, password, nick_name , email, mobile_phone , photo_url , is_deleted, created_time, created_by, updated_time , updated_by
     </sql>
-    <sql id="User_Dept_Column_List">
+    <sql id="User_Org_Column_List">
        ru.id,ru.tenant_id,ru.version,ru.age, ru.name,ru.pin_yin, ru.birth,ru.sex, ru.account, ru.nick_name ,
        ru.email, ru.mobile_phone , ru.photo_url
     </sql>
@@ -45,23 +45,23 @@
         from rbac_user where  is_deleted = 0 and  account = #{account} and tenant_id = #{tenantId}
     </select>
 
-    <select id="findUsersDept" resultMap="BaseResultMap">
+    <select id="findUsersOrg" resultMap="BaseResultMap">
         select
-        <include refid="User_Dept_Column_List"/>
+        <include refid="User_Org_Column_List"/>
         FROM rbac_user ru
-        LEFT JOIN rbac_user_depart rud ON ru.id = rud.user_id
-        LEFT JOIN rbac_depart rd ON rd.id = rud.dept_id
+        LEFT JOIN rbac_org_user rou ON ru.id = rou.user_id
+        LEFT JOIN rbac_org ro ON ro.id = rou.org_id
         WHERE
         ru.is_deleted = 0
         and ru.tenant_id = #{tenantId}
-        <if test="userDept.deptId != null">
-          and  rd.id = #{userDept.deptId}
+        <if test="userOrg.orgId != null">
+          and  ro.id = #{userOrg.orgId}
         </if>
-        <if test="userDept.deptName != null and userDept.deptName != ''">
-            AND rd.`name` LIKE concat ('%',#{userDept.deptName},'%')
+        <if test="userOrg.orgName != null and userOrg.orgName != ''">
+            AND rd.`name` LIKE concat ('%',#{userOrg.orgName},'%')
         </if>
-        <if test="userDept.deptCode != null and userDept.deptCode != ''">
-            AND rd.`code` = #{userDept.deptCode}
+        <if test="userOrg.orgCode != null and userOrg.orgCode != ''">
+            AND rd.`code` = #{userOrg.orgCode}
         </if>
     </select>
 </mapper>

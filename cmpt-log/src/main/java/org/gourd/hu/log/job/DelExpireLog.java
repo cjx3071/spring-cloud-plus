@@ -39,7 +39,7 @@ public class DelExpireLog {
     public void doTask(){
         log.info(">o< 删除过期日志定时任务开始执行： "+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "  "+ Thread.currentThread().getName());
         while(true){
-            Page page = new Page<>(1,1000);
+            Page page = new Page<>(1,500);
             QueryWrapper queryWrapper = new QueryWrapper();
             queryWrapper.le("expire_time",new Date());
             IPage<SysOperateLog> logIPage= operateLogService.page(page, queryWrapper);

@@ -53,7 +53,7 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
         </dependency>
-        <!--测试需用-->
+        <!--测试分布式调用-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
             <artifactId>sub-api</artifactId>

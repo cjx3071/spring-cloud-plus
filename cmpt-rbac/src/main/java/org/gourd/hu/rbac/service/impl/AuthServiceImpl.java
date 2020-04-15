@@ -1,31 +1,27 @@
 package org.gourd.hu.rbac.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.gourd.hu.base.common.exception.BusinessException;
 import org.gourd.hu.cache.utils.RedisUtil;
 import org.gourd.hu.core.constant.MessageConstant;
-import org.gourd.hu.rbac.service.AuthService;
 import org.gourd.hu.rbac.auth.jwt.JwtClaim;
 import org.gourd.hu.rbac.auth.jwt.JwtToken;
 import org.gourd.hu.rbac.auth.jwt.JwtUtil;
 import org.gourd.hu.rbac.constant.JwtConstant;
-import org.gourd.hu.rbac.dao.RbacPermissionDao;
-import org.gourd.hu.rbac.dao.RbacRoleDao;
 import org.gourd.hu.rbac.dao.RbacUserDao;
 import org.gourd.hu.rbac.dto.RbacUserRegisterDTO;
 import org.gourd.hu.rbac.entity.RbacPermission;
 import org.gourd.hu.rbac.entity.RbacRole;
 import org.gourd.hu.rbac.entity.RbacUser;
 import org.gourd.hu.rbac.entity.SysTenant;
-import org.gourd.hu.rbac.service.RbacUserService;
-import org.gourd.hu.rbac.service.SysTenantService;
+import org.gourd.hu.rbac.service.*;
 import org.gourd.hu.rbac.utils.ShiroKitUtil;
 import org.gourd.hu.rbac.vo.UserVO;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,11 +44,9 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private SysTenantService sysTenantService;
     @Autowired
-    private RbacUserDao rbacUserDao;
+    private RbacPermissionService rbacPermissionService;
     @Autowired
-    private RbacPermissionDao rbacPermissionDao;
-    @Autowired
-    private RbacRoleDao rbacRoleDao;
+    private RbacRoleService rbacRoleService;
 
 
     @Override
@@ -70,7 +64,7 @@ public class AuthServiceImpl implements AuthService {
         String tenantItem = accountItems[1];
         SysTenant tenant = sysTenantService.checkGetTenant(tenantItem);
         // 从数据库中取出用户信息
-        RbacUser user = rbacUserDao.getByAccountAndTenantId(accountItem,tenant.getId());
+        RbacUser user = rbacUserService.getByAccountAndTenantId(accountItem,tenant.getId());
         // 判断用户是否存在
         if(user == null) {
             throw new BusinessException(MessageConstant.DATA_NOT_FOUND);
@@ -79,7 +73,7 @@ public class AuthServiceImpl implements AuthService {
             throw new BusinessException(MessageConstant.ACCOUNT_PWD_ERROR);
         }
         // 添加权限
-        List<RbacRole> rbacRoleList = rbacRoleDao.findByUserId(user.getId());
+        List<RbacRole> rbacRoleList = rbacRoleService.findByUserId(user.getId());
         // 角色
         Set<String> roleCodes = rbacRoleList.stream().map(e -> e.getCode()).collect(Collectors.toSet());
         String[] roleCodeArray = new String[roleCodes.size()];
@@ -90,7 +84,7 @@ public class AuthServiceImpl implements AuthService {
         if(CollectionUtils.isNotEmpty(roleCodes)){
             List<Long> roleIds = rbacRoleList.stream().map(e -> e.getId()).collect(Collectors.toList());
             // 得到用户角色的所有角色所有的权限
-            List<RbacPermission> permissionList = rbacPermissionDao.findByRoleIds(roleIds);
+            List<RbacPermission> permissionList = rbacPermissionService.findByRoleIds(roleIds);
             Set<String> permissionCodes = permissionList.stream().map(e -> e.getCode()).collect(Collectors.toSet());
             permissionArray =  new String[permissionCodes.size()];
             permissionCodes.toArray(permissionArray);

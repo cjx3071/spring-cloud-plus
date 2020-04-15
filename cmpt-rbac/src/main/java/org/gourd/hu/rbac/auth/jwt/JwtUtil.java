@@ -225,7 +225,7 @@ public class JwtUtil {
      */
     public static void setRefresh(String subject,Long currentTimeMillis){
         // 清除可能存在的Shiro权限信息缓存
-        if (RedisUtil.exists(JwtConstant.PREFIX_SHIRO_ACCESS_TOKEN + subject)) {
+        if (RedisUtil.existAny(JwtConstant.PREFIX_SHIRO_ACCESS_TOKEN + subject)) {
             RedisUtil.del(JwtConstant.PREFIX_SHIRO_ACCESS_TOKEN + subject);
         }
         // 设置RefreshToken，时间戳为当前时间戳，直接设置即可(不用先删后设，会覆盖已有的RefreshToken)

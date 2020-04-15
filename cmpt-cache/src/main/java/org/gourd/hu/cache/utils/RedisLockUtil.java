@@ -44,7 +44,7 @@ public class RedisLockUtil {
     public static void unlock(String lockKey) {
         distributedLocker.unlock(lockKey);
     }
-    
+
     /**
      * 释放锁
      * @param lock
@@ -61,7 +61,7 @@ public class RedisLockUtil {
     public static RLock lock(String lockKey, int timeout) {
         return distributedLocker.lock(lockKey, timeout);
     }
-    
+
     /**
      * 带超时的锁
      * @param lockKey
@@ -71,7 +71,7 @@ public class RedisLockUtil {
     public static RLock lock(String lockKey, int timeout,TimeUnit unit ) {
         return distributedLocker.lock(lockKey, unit, timeout);
     }
-    
+
     /**
      * 尝试获取锁
      * @param lockKey
@@ -82,7 +82,7 @@ public class RedisLockUtil {
     public static boolean tryLock(String lockKey, int waitTime, int leaseTime) {
         return distributedLocker.tryLock(lockKey, TimeUnit.SECONDS, waitTime, leaseTime);
     }
-    
+
     /**
      * 尝试获取锁
      * @param lockKey

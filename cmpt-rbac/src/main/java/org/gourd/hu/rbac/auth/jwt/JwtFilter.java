@@ -142,7 +142,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         // 获取当前userId
         String subject = JwtUtil.getSubject(token);
         // 判断Redis中RefreshToken是否存在
-        if (RedisUtil.exists(JwtConstant.PREFIX_SHIRO_REFRESH_TOKEN + subject)) {
+        if (RedisUtil.existAny(JwtConstant.PREFIX_SHIRO_REFRESH_TOKEN + subject)) {
             // Redis中RefreshToken还存在，获取RefreshToken的时间戳
             Long currentTimeMillisRedis = Long.valueOf(RedisUtil.get(JwtConstant.PREFIX_SHIRO_REFRESH_TOKEN + subject).toString());
             // 获取当前AccessToken中的时间戳，与RefreshToken的时间戳对比，如果当前时间戳一致，进行AccessToken刷新

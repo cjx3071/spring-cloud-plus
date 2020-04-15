@@ -74,7 +74,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>com.gourd.hu.ServiceSubApplication</mainClass>
+                    <mainClass>org.gourd.hu.SubWebApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

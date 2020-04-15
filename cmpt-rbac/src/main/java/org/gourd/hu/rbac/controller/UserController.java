@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.gourd.hu.base.common.response.BaseResponse;
 import org.gourd.hu.base.utils.PageUtil;
 import org.gourd.hu.rbac.dto.RbacUserCreateDTO;
-import org.gourd.hu.rbac.dto.RbacUserDeptSearchDTO;
+import org.gourd.hu.rbac.dto.RbacUserOrgSearchDTO;
 import org.gourd.hu.rbac.dto.RbacUserSearchDTO;
 import org.gourd.hu.rbac.dto.RbacUserUpdateDTO;
 import org.gourd.hu.rbac.service.RbacUserService;
@@ -94,12 +94,12 @@ public class UserController{
         return BaseResponse.ok("删除用户成功");
     }
 
-    @GetMapping("/users-dept")
+    @GetMapping("/users-org")
     @ApiOperation(value = "查询某部门的用户")
     @ApiImplicitParams({@ApiImplicitParam(name = "jwt-token", value = "jwt-token", required = true, dataType = "string", paramType = "header")})
-    public BaseResponse<IPage<UserVO>> findUsersDept(RbacUserDeptSearchDTO rbacUserDeptSearchDTO) {
-        Page page = PageUtil.buildPage(rbacUserDeptSearchDTO);
-        IPage<UserVO> rbacUserPage = userService.findUsersDept(rbacUserDeptSearchDTO, page);
+    public BaseResponse<IPage<UserVO>> findUsersOrg(RbacUserOrgSearchDTO rbacUserOrgSearchDTO) {
+        Page page = PageUtil.buildPage(rbacUserOrgSearchDTO);
+        IPage<UserVO> rbacUserPage = userService.findUsersOrg(rbacUserOrgSearchDTO, page);
         return BaseResponse.ok(rbacUserPage);
 
     }

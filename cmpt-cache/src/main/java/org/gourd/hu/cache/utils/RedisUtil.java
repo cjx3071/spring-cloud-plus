@@ -6,10 +6,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -32,6 +29,7 @@ public class RedisUtil {
         redisTemplate = stringObjectRedisTemplate;
     }
 
+//    ----------------------------- String 操作 ------------------------
     /**
      * 获取普通对象
      *
@@ -40,6 +38,33 @@ public class RedisUtil {
      */
     public static Object get(final String key) {
         return redisTemplate.opsForValue().get(key);
+    }
+    /**
+     * 批量获取普通对象
+     *
+     * @param keys 键
+     * @return 对象
+     */
+    public static List<Object> mGet(final String... keys) {
+        if(keys == null || keys.length <=0 ){
+            return null;
+        }
+        ArrayList keyList = new ArrayList();
+        for(String key : keys) {
+            keyList.add(key);
+        }
+        return mGet(keyList);
+    }
+
+
+    /**
+     * 批量获取普通对象
+     *
+     * @param keys 键
+     * @return 对象
+     */
+    public static List<Object> mGet(final Collection<String> keys) {
+        return redisTemplate.opsForValue().multiGet(keys);
     }
 
     /**
@@ -61,7 +86,6 @@ public class RedisUtil {
      * @param timeout 有效期，单位秒
      */
     public static void setExpire(final String key, final Object value, final long timeout) {
-
         redisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
     }
 
@@ -71,7 +95,7 @@ public class RedisUtil {
      * @param keys 键
      * @return 对象
      */
-    public static Boolean exists(final String... keys) {
+    public static Boolean existAny(final String... keys) {
         if(keys == null || keys.length ==0){
             return Boolean.FALSE;
         }
@@ -121,7 +145,7 @@ public class RedisUtil {
     }
 
     /**
-     * 删除单个key
+     * 删除多个key
      *
      * @param keys 键
      *  @return 成功删除的个数
@@ -144,7 +168,6 @@ public class RedisUtil {
      * @return 成功删除的个数
      */
     public static long del(final Collection<String> keys) {
-
         Long ret = redisTemplate.delete(keys);
         return ret == null ? 0 : ret;
     }
@@ -174,30 +197,7 @@ public class RedisUtil {
         return redisTemplate.opsForValue().increment(key, -delta);
     }
 
-    // 存储Hash操作
-
-    /**
-     * 往Hash中存入数据
-     *
-     * @param key Redis键
-     * @param hKey Hash键
-     * @param value 值
-     */
-    public static void hPut(final String key, final String hKey, final Object value) {
-
-        redisTemplate.opsForHash().put(key, hKey, value);
-    }
-
-    /**
-     * 往Hash中存入多个数据
-     *
-     * @param key Redis键
-     * @param values Hash键值对
-     */
-    public static void hPutAll(final String key, final Map<String, Object> values) {
-
-        redisTemplate.opsForHash().putAll(key, values);
-    }
+//    ----------------------------- Hash 操作 ------------------------
 
     /**
      * 获取Hash中的数据
@@ -207,7 +207,6 @@ public class RedisUtil {
      * @return Hash中的对象
      */
     public static Object hGet(final String key, final String hKey) {
-
         return redisTemplate.opsForHash().get(key, hKey);
     }
 
@@ -219,11 +218,54 @@ public class RedisUtil {
      * @return Hash对象集合
      */
     public static List<Object> hMultiGet(final String key, final Collection<Object> hKeys) {
-
         return redisTemplate.opsForHash().multiGet(key, hKeys);
     }
 
-    // 存储Set相关操作
+
+    /**
+     * 往Hash中存入数据
+     *
+     * @param key Redis键
+     * @param hKey Hash键
+     * @param value 值
+     */
+    public static void hPut(final String key, final String hKey, final Object value) {
+        redisTemplate.opsForHash().put(key, hKey, value);
+    }
+
+    /**
+     * 往Hash中存入多个数据
+     *
+     * @param key Redis键
+     * @param values Hash键值对
+     */
+    public static void hPutAll(final String key, final Map<String, Object> values) {
+        redisTemplate.opsForHash().putAll(key, values);
+    }
+
+//    ----------------------------- Set 操作 ------------------------
+
+    /**
+     * 获取Set中是否存在key,value的数据
+     *
+     * @param key Redis键
+     * @return 是否存在
+     */
+    public static Set<Object> sGet(final String key) {
+        Set<Object> objectSet = redisTemplate.opsForSet().members(key);
+        return objectSet;
+    }
+
+    /**
+     * 获取Set中key的数据
+     *
+     * @param key Redis键
+     * @return Set中key的数据
+     */
+    public static Boolean sExist(final String key,Object value) {
+        Boolean exists = redisTemplate.opsForSet().isMember(key,value);
+        return exists;
+    }
 
     /**
      * 往Set中存入数据
@@ -249,7 +291,19 @@ public class RedisUtil {
         return count == null ? 0 : count;
     }
 
-    // 存储List相关操作
+//    ----------------------------- List 操作 ------------------------
+
+    /**
+     * 从List中获取begin到end之间的元素
+     *
+     * @param key Redis键
+     * @param start 开始位置
+     * @param end 结束位置（start=0，end=-1表示获取全部元素）
+     * @return List对象
+     */
+    public static List<Object> lGet(final String key, final int start, final int end) {
+        return redisTemplate.opsForList().range(key, start, end);
+    }
 
     /**
      * 往List中存入数据
@@ -287,15 +341,5 @@ public class RedisUtil {
         return count == null ? 0 : count;
     }
 
-    /**
-     * 从List中获取begin到end之间的元素
-     *
-     * @param key Redis键
-     * @param start 开始位置
-     * @param end 结束位置（start=0，end=-1表示获取全部元素）
-     * @return List对象
-     */
-    public static List<Object> lGet(final String key, final int start, final int end) {
-        return redisTemplate.opsForList().range(key, start, end);
-    }
+
 }

@@ -45,7 +45,7 @@ public class ShiroRealm extends AuthorizingRealm {
         String token = (String) auth.getCredentials();
         // 开始认证，要AccessToken认证通过，且Redis中存在RefreshToken，且两个Token时间戳一致
         String subject = JwtUtil.getSubject(token);
-        if (JwtUtil.verify(token) && RedisUtil.exists(JwtConstant.PREFIX_SHIRO_REFRESH_TOKEN + subject)) {
+        if (JwtUtil.verify(token) && RedisUtil.existAny(JwtConstant.PREFIX_SHIRO_REFRESH_TOKEN + subject)) {
             // 获取RefreshToken的时间戳
             Long currentTimeMillisRedis = Long.valueOf(RedisUtil.get(JwtConstant.PREFIX_SHIRO_REFRESH_TOKEN + subject).toString());
             // 获取AccessToken时间戳，与RefreshToken的时间戳对比

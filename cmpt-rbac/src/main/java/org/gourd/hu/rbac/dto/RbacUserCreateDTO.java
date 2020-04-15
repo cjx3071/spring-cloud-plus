@@ -22,6 +22,11 @@ public class RbacUserCreateDTO {
     private Long id;
 
     /**
+     * 承租人id
+     */
+    private Long tenantId;
+
+    /**
      * 账号
      */
     @NotBlank(message = "账号不能为空")

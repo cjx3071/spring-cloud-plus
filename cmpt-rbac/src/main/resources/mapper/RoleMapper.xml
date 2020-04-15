@@ -44,7 +44,7 @@
             LEFT JOIN rbac_user_role rur ON rr.id = rur.role_id
         WHERE
             rur.user_id = #{userId}
-        UNION
+        union all
         SELECT
             rr.`id`,
             rr.`name`,
@@ -55,7 +55,7 @@
             LEFT JOIN rbac_org_user rou ON ror.org_id = rou.org_id
         WHERE
             rou.user_id = #{userId}
-        union
+        union all
         SELECT
             rr.`id`,
             rr.`name`,

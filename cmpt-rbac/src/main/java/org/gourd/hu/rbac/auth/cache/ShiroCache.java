@@ -38,7 +38,7 @@ public class ShiroCache<K,V> implements Cache<K,V> {
      */
     @Override
     public Object get(Object key) throws CacheException {
-        if(Boolean.FALSE.equals(RedisUtil.exists(this.getKey(key)))){
+        if(Boolean.FALSE.equals(RedisUtil.existAny(this.getKey(key)))){
             return null;
         }
         return RedisUtil.get(this.getKey(key));
@@ -64,7 +64,7 @@ public class ShiroCache<K,V> implements Cache<K,V> {
      */
     @Override
     public Object remove(Object key) throws CacheException {
-        if(Boolean.FALSE.equals(RedisUtil.exists(this.getKey(key)))){
+        if(Boolean.FALSE.equals(RedisUtil.existAny(this.getKey(key)))){
             return null;
         }
         RedisUtil.del(this.getKey(key));
