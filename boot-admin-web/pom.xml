@@ -9,7 +9,7 @@
     </parent>
     <artifactId>boot-admin-web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>admin-web</name>
+    <name>boot-admin-web</name>
     <description>boot项目监控中心</description>
 
     <properties>

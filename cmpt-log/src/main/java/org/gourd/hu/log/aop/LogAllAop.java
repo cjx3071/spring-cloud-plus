@@ -9,12 +9,16 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.gourd.hu.base.holder.RequestHolder;
 import org.gourd.hu.log.annotation.OperateLogIgnore;
 import org.gourd.hu.log.entity.SysOperateLog;
 import org.gourd.hu.log.service.OperateLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 拦截所有方法AOP
@@ -29,6 +33,9 @@ public class LogAllAop {
 
     @Autowired
     private OperateLogService operateLogService;
+
+    @Value("${logging.operate.type:POST,DELETE,PUT,PATCH}")
+    private String methodTypes;
 
     private static ThreadLocal<ProceedingJoinPoint> proceedingJoinPointThreadLocal = new ThreadLocal<>();
 
@@ -48,6 +55,7 @@ public class LogAllAop {
     @Around("logPointcut()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         proceedingJoinPointThreadLocal.set(joinPoint);
+        HttpServletRequest request = RequestHolder.getRequest();
         // 开始时间
         long startTime = System.currentTimeMillis();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
@@ -57,8 +65,8 @@ public class LogAllAop {
         Object result = joinPoint.proceed();
         // 返回结果
         sysLog.setResponseDetail(JSON.toJSONString(result));
-        if(operateLogIgnore ==null){
-            operateLogService.asyncSaveLog(joinPoint, startTime, sysLog);
+        if(operateLogIgnore ==null && methodTypes.contains(request.getMethod().toUpperCase())){
+            operateLogService.asyncSaveLog(request,joinPoint, startTime, sysLog);
         }
         return result;
     }
@@ -67,13 +75,14 @@ public class LogAllAop {
     public void afterThrowing(Exception exception){
         ProceedingJoinPoint proceedingJoinPoint = proceedingJoinPointThreadLocal.get();
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
+        HttpServletRequest request = RequestHolder.getRequest();
         // 操作日志忽略
         OperateLogIgnore operateLogIgnore = signature.getMethod().getAnnotation(OperateLogIgnore.class);
         SysOperateLog sysLog = new SysOperateLog();
         // 异常信息
         sysLog.setExceptionDetail(JSON.toJSONString(exception));
-        if(operateLogIgnore ==null){
-            operateLogService.asyncSaveLog(proceedingJoinPoint, null, sysLog);
+        if(operateLogIgnore ==null && methodTypes.contains(request.getMethod().toUpperCase())){
+            operateLogService.asyncSaveLog(request,proceedingJoinPoint, null, sysLog);
         }
     }
 }

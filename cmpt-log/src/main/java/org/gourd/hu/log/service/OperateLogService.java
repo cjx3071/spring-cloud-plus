@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.gourd.hu.log.entity.SysOperateLog;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -24,5 +25,5 @@ public interface OperateLogService extends IService<SysOperateLog> {
      * @param startTime
      * @param sysOperateLog
      */
-    void asyncSaveLog(ProceedingJoinPoint joinPoint, Long startTime, SysOperateLog sysOperateLog);
+    void asyncSaveLog(HttpServletRequest request,ProceedingJoinPoint joinPoint, Long startTime, SysOperateLog sysOperateLog);
 }

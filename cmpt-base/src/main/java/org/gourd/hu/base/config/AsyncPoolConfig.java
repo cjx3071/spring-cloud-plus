@@ -60,10 +60,12 @@ public class AsyncPoolConfig implements AsyncConfigurer {
     class ContextDecorator implements TaskDecorator {
         @Override
         public Runnable decorate(Runnable runnable) {
-            RequestAttributes context = RequestContextHolder.currentRequestAttributes();
+            try {
+                RequestAttributes context = RequestContextHolder.currentRequestAttributes();
+                RequestContextHolder.setRequestAttributes(context);
+            }catch (IllegalStateException e){}
             return () -> {
                 try {
-                    RequestContextHolder.setRequestAttributes(context);
                     runnable.run();
                 } finally {
                     RequestContextHolder.resetRequestAttributes();

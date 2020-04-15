@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.gourd.hu.base.holder.RequestHolder;
 import org.gourd.hu.base.utils.DateUtil;
 import org.gourd.hu.base.utils.IpAddressUtil;
 import org.gourd.hu.log.annotation.OperateLog;
@@ -53,7 +54,7 @@ public class OperateLogServiceImpl extends ServiceImpl<SysOperateLogDao, SysOper
      */
     @Async
     @Override
-    public void asyncSaveLog(ProceedingJoinPoint joinPoint, Long startTime, SysOperateLog sysOperateLog) {
+    public void asyncSaveLog(HttpServletRequest request,ProceedingJoinPoint joinPoint,Long startTime, SysOperateLog sysOperateLog) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         OperateLog operateLog = signature.getMethod().getAnnotation(OperateLog.class);
         if(operateLog != null){
@@ -69,7 +70,6 @@ public class OperateLogServiceImpl extends ServiceImpl<SysOperateLogDao, SysOper
         sysOperateLog.setExpireTime(expireTime);
         // 单位毫秒
         Long requestTime =startTime ==null? null: (System.currentTimeMillis() - startTime);
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         // 方法名
         sysOperateLog.setMethodName(signature.getName());
         // 方法类型

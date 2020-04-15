@@ -31,7 +31,7 @@
         id,tenant_id,version,module_name,business_name,description, exception_detail AS exceptionDetail, method_name AS methodName, method_type AS methodType, request_url AS requestUrl, request_param AS requestParam, request_ip AS requestIp, requestTime, user_id AS userId, user_name AS userName, response_detail AS responseDetail, is_deleted AS deleted, created_time AS createdTime, created_by AS createdBy, updated_time AS updatedTime, updated_by AS updatedBy
     </sql>
     <delete id="deleteByIds">
-        delete from sys_log where id IN
+        delete from sys_operate_log where id IN
         <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>

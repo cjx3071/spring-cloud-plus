@@ -9,12 +9,15 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.gourd.hu.base.holder.RequestHolder;
 import org.gourd.hu.log.annotation.OperateLogIgnore;
 import org.gourd.hu.log.entity.SysOperateLog;
 import org.gourd.hu.log.service.OperateLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 指定日志注解AOP
@@ -47,23 +50,25 @@ public class LogPointAop {
     @Around("logPointcut()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         proceedingJoinPointThreadLocal.set(joinPoint);
+        HttpServletRequest request = RequestHolder.getRequest();
         // 开始时间
         long startTime = System.currentTimeMillis();
         SysOperateLog sysLog = new SysOperateLog();
         Object result = joinPoint.proceed();
         // 返回结果
         sysLog.setResponseDetail(JSON.toJSONString(result));
-        operateLogService.asyncSaveLog(joinPoint, startTime, sysLog);
+        operateLogService.asyncSaveLog(request,joinPoint, startTime, sysLog);
         return result;
     }
 
     @AfterThrowing(pointcut="logPointcut()",throwing = "exception")
     public void afterThrowing(Exception exception){
         ProceedingJoinPoint proceedingJoinPoint = proceedingJoinPointThreadLocal.get();
+        HttpServletRequest request = RequestHolder.getRequest();
         SysOperateLog sysLog = new SysOperateLog();
         // 异常信息
         sysLog.setExceptionDetail(JSON.toJSONString(exception));
-        operateLogService.asyncSaveLog(proceedingJoinPoint, null, sysLog);
+        operateLogService.asyncSaveLog(request,proceedingJoinPoint, null, sysLog);
     }
 
 }

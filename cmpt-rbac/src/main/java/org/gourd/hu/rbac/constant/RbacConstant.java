@@ -30,11 +30,11 @@ public class RbacConstant {
 
     public static final String COLUMN_TENANT_ID = "tenant_id";
 
-    public static final List NO_FILTER_TABLES = Arrays.asList("sys_tenant");
+    public static final List NO_FILTER_TABLES = Arrays.asList("sys_tenant","sys_operate_log");
 
     public static final List NO_FILTER_SQLS = Arrays.asList(
             "org.gourd.hu.rbac.dao.RbacUserDao.getByAccountAndTenantId",
             "org.gourd.hu.rbac.dao.RbacRoleDao.findByUserId",
             "org.gourd.hu.rbac.dao.RbacPermissionDao.findByRoleIds"
-            );
+    );
 }
