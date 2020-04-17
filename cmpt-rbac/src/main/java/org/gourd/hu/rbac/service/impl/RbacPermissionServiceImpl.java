@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 权限service
@@ -26,7 +27,7 @@ public class RbacPermissionServiceImpl extends ServiceImpl<RbacPermissionDao, Rb
 
     @Override
     @DS("slave")
-    public List<RbacPermission> findByRoleIds(List<Long> roleIds){
+    public List<RbacPermission> findByRoleIds(Set<Long> roleIds){
         return  rbacPermissionMapper.findByRoleIds(roleIds);
     }
 

@@ -82,7 +82,7 @@ public class AuthServiceImpl implements AuthService {
         String[] permissionArray = new String[4];
         roleCodes.toArray(roleCodeArray);
         if(CollectionUtils.isNotEmpty(roleCodes)){
-            List<Long> roleIds = rbacRoleList.stream().map(e -> e.getId()).collect(Collectors.toList());
+            Set<Long> roleIds = rbacRoleList.stream().map(e -> e.getId()).collect(Collectors.toSet());
             // 得到用户角色的所有角色所有的权限
             List<RbacPermission> permissionList = rbacPermissionService.findByRoleIds(roleIds);
             Set<String> permissionCodes = permissionList.stream().map(e -> e.getCode()).collect(Collectors.toSet());

@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  */
 @Configuration
 @EnableConfigurationProperties({ServerProperties.class, ResourceProperties.class})
-public class CustomErrorWebFluxAutoConfiguration {
+public class CustomErrorWebFluxAutoConfig {
 
     private final ServerProperties serverProperties;
 
@@ -38,11 +38,11 @@ public class CustomErrorWebFluxAutoConfiguration {
 
     private final ServerCodecConfigurer serverCodecConfigurer;
 
-    public CustomErrorWebFluxAutoConfiguration(ServerProperties serverProperties,
-                                               ResourceProperties resourceProperties,
-                                               ObjectProvider<ViewResolver> viewResolversProvider,
-                                               ServerCodecConfigurer serverCodecConfigurer,
-                                               ApplicationContext applicationContext) {
+    public CustomErrorWebFluxAutoConfig(ServerProperties serverProperties,
+                                        ResourceProperties resourceProperties,
+                                        ObjectProvider<ViewResolver> viewResolversProvider,
+                                        ServerCodecConfigurer serverCodecConfigurer,
+                                        ApplicationContext applicationContext) {
         this.serverProperties = serverProperties;
         this.applicationContext = applicationContext;
         this.resourceProperties = resourceProperties;

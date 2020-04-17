@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 权限
@@ -16,6 +17,6 @@ import java.util.List;
 @Repository
 public interface RbacPermissionDao extends BaseMapper<RbacPermission> {
 
-    List<RbacPermission> findByRoleIds(@Param("roleIds") List<Long> roleIds);
+    List<RbacPermission> findByRoleIds(@Param("roleIds") Set<Long> roleIds);
 
 }

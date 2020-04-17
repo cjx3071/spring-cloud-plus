@@ -5,6 +5,7 @@ import org.apache.activemq.RedeliveryPolicy;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,9 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
+import org.springframework.util.backoff.BackOff;
+import org.springframework.util.backoff.BackOffExecution;
+import org.springframework.util.backoff.FixedBackOff;
 
 import javax.jms.Queue;
 import javax.jms.Topic;
@@ -115,6 +119,10 @@ public class ActiveMqConfig {
         //开启持久化订阅
         factory.setSubscriptionDurable(true);
         factory.setClientId(applicationName);
+        FixedBackOff backOff=new FixedBackOff();
+        backOff.setInterval(200);
+        backOff.setMaxAttempts(6);
+        factory.setBackOff(backOff);
         return factory;
     }
 

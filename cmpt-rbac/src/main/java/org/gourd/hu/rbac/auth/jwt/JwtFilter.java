@@ -4,6 +4,7 @@ import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import org.gourd.hu.base.common.exception.BusinessException;
 import org.gourd.hu.base.common.response.BaseResponse;
+import org.gourd.hu.base.constant.HeaderConstant;
 import org.gourd.hu.base.holder.SpringContextHolder;
 import org.gourd.hu.cache.utils.RedisUtil;
 import org.gourd.hu.core.utils.JsonConvertUtil;
@@ -105,6 +106,11 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         } else {
             // 没有携带Token
             HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
+            // 如果是feign调用不行鉴权
+            String tokenIgnoreFlag = httpServletRequest.getHeader(HeaderConstant.HEADER_TOKEN_IGNORE);
+            if(HeaderConstant.TOKEN_IGNORE_FLAG.equals(tokenIgnoreFlag)){
+                return true;
+            }
             // 获取当前请求类型
             String httpMethod = httpServletRequest.getMethod();
             // 获取当前请求URI

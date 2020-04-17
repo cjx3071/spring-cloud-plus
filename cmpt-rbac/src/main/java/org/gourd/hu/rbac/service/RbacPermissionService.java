@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.gourd.hu.rbac.entity.RbacPermission;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 权限
@@ -14,6 +15,6 @@ import java.util.List;
  */
 public interface RbacPermissionService extends IService<RbacPermission> {
 
-    List<RbacPermission> findByRoleIds(List<Long> roleIds);
+    List<RbacPermission> findByRoleIds(Set<Long> roleIds);
 
 }

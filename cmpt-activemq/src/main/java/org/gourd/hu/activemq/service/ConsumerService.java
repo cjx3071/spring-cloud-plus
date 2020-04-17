@@ -1,4 +1,4 @@
-package org.gourd.hu.activiti.service;
+package org.gourd.hu.activemq.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
