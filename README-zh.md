@@ -31,6 +31,9 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 - 搜索存储引擎：Elasticsearch
 - 接口文档：Swagger、knife4j
 - 应用监控：spring-boot-admin
+- 前置负载：Nginx
+- 链路追踪：Skywalking
+- 项目部署：docker-compose
 
 ### 组件模块
 |  模块   |   描述  |   功能  |
@@ -78,7 +81,9 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 ### 部署
 项目中设计的一些技术服务端都是使用docker部署的，包括：mysql、redis、nacos、seata等。
 大家可参考我的博客文章：https://blog.csdn.net/HXNLYW/article/details/88950291     
-项目也是用docker-compose部署的，具体可参考：https://blog.csdn.net/HXNLYW/article/details/104613163
+项目也是用docker-compose部署的，具体可参考：
+jar包部署：https://blog.csdn.net/HXNLYW/article/details/104613163
+war包部署：https://blog.csdn.net/HXNLYW/article/details/105585745
 
 ### 集成功能  
 **核心功能:**  

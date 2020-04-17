@@ -1,0 +1,17 @@
+version: '3'
+services:
+  openapi-service:
+    image: tomcat:9.0.33
+    ports:
+      - "8088:8080"
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPTS=-Xmx256m -Xms256m
+    entrypoint:
+      - "catalina.sh"
+      - "run"
+    volumes:
+      - "./tomcat-web/webapps:/usr/local/tomcat/webapps"
+      - "./tomcat-web/logs:/usr/local/tomcat/logs"
+    container_name: openapi
