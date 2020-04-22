@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: '@profiles.active@'
+    active: @profiles.active@
   application:
     name: admin
   cloud:
@@ -12,12 +12,12 @@ spring:
       config:
         # 是否开启配置中心，默认true
         enabled: true
-        server-addr: 111.231.111.150:8848
-        file-extension: yaml
+        server-addr: @nacos.server-addr@
+        file-extension: @nacos.file-extension@
         encode: UTF-8
         # 命名空间的id
-        namespace: d10ded89-2ce5-4cf9-ad2c-4e36f9b2be7e
-        group: CLOUD_PLUS
+        namespace: @nacos.namespace@
+        group: @nacos.group@
         shared-configs[0]:
           dataId: common-${spring.profiles.active}.yaml
           group:  ${spring.cloud.nacos.config.group}
