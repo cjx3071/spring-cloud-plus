@@ -17,7 +17,8 @@ public class OpenapiWebApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(OpenapiWebApplication.class);
+        return application.sources(OpenapiWebApplication.class)
+                .properties("--spring.profiles.active=local");
     }
 
     public static void main(String[] args) {
