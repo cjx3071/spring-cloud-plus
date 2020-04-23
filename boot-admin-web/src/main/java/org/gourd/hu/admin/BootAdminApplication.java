@@ -23,7 +23,6 @@ public class BootAdminApplication {
                 .properties("--spring.profiles.active=local")
                 .web(WebApplicationType.SERVLET)
                 .run(args);
-        SpringApplication.run(BootAdminApplication.class, args);
     }
 
 }

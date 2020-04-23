@@ -1,7 +1,7 @@
 package org.gourd.hu.sub.api;
 
-import org.gourd.hu.base.common.response.BaseResponse;
 import org.gourd.hu.sub.fallback.SubFallbackFactory;
+import org.gourd.hu.sub.response.BaseResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;

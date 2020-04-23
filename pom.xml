@@ -20,10 +20,10 @@
         <module>cmpt-activemq</module>
         <module>cmpt-activiti</module>
         <module>cmpt-cloud</module>
-        <module>cmpt-cache</module>
+        <module>cache-plus-starter</module>
         <module>cmpt-es</module>
         <module>cmpt-file</module>
-        <module>cmpt-log</module>
+        <module>log-plus-starter</module>
         <module>cmpt-quartz</module>
         <module>cmpt-notice</module>
         <module>cmpt-rbac</module>

@@ -99,7 +99,7 @@
         <!--缓存组件-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>cache</artifactId>
+            <artifactId>cache-plus-starter</artifactId>
             <version>${cloud.version}</version>
         </dependency>
         <!--sub服务api-->
@@ -111,7 +111,7 @@
         <!--日志模块-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>log</artifactId>
+            <artifactId>log-plus-starter</artifactId>
             <version>${cloud.version}</version>
         </dependency>
     </dependencies>

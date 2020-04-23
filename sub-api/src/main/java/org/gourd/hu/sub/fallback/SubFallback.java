@@ -1,8 +1,8 @@
 package org.gourd.hu.sub.fallback;
 
 import lombok.extern.slf4j.Slf4j;
-import org.gourd.hu.base.common.response.BaseResponse;
 import org.gourd.hu.sub.api.SubApi;
+import org.gourd.hu.sub.response.BaseResponse;
 
 /**
  * 熔断回调类

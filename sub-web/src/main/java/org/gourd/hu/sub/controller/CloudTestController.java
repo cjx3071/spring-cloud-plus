@@ -1,5 +1,6 @@
 package org.gourd.hu.sub.controller;
 
+import org.gourd.hu.sub.api.SubApi;
 import org.gourd.hu.sub.response.BaseResponse;
 import org.gourd.hu.sub.service.CloudTestService;
 import io.seata.core.context.RootContext;
@@ -12,23 +13,22 @@ import org.springframework.web.bind.annotation.*;
  * @author gourd
  */
 @RestController
-@RequestMapping("/test")
 @Slf4j
-public class CloudTestController {
+public class CloudTestController implements SubApi {
 
-    @GetMapping("/hello/{id}")
+    @Override
     public BaseResponse helloTest(@PathVariable Long id) {
         log.info("连接成功:"+ id );
         return BaseResponse.ok("sub服务，success!");
     }
 
-    @GetMapping("/hello")
+    @Override
     public BaseResponse helloTestParam(@RequestParam Long id) {
         log.info("连接成功:"+ id );
         return BaseResponse.ok("sub服务，success!");
     }
 
-    @PostMapping("/hello")
+    @Override
     public BaseResponse helloTestP(String name) {
         log.info("连接成功:"+ name);
         return BaseResponse.ok("sub服务post方法，success!");
@@ -41,9 +41,10 @@ public class CloudTestController {
      * 分布式事务测试
      * @return
      */
-    @PostMapping("/seata-tx")
-    public void seataTxTest(){
+    @Override
+    public BaseResponse seataTxTest(){
         log.info("sub Service ... xid: " + RootContext.getXID());
         cloudTestService.testSeata();
+        return BaseResponse.ok("分布式事务测试方法，success!");
     }
 }
