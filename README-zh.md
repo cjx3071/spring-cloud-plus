@@ -71,11 +71,10 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 ![接口文档](https://images.gitee.com/uploads/images/2020/0410/142244_fefca957_4866886.jpeg "1586499715(1).jpg")
 
 ### 如何开始
-项目启动需要设置 local环境配置：
-![启动](https://images.gitee.com/uploads/images/2020/0410/134332_1b8d28fd_4866886.jpeg "1586497382(1).jpg")
-所有项目模块都可以直接启动，配置信息都放在Nacos中了。如果需要修改配置地址信息等，可自己添加application.yaml然后修改，项目中提供了一份demo文件可参考：
+- 项目默认环境为： local
+- 所有项目模块都可以直接启动，配置信息都放在Nacos中了。如果需要修改配置地址信息等，可自己添加application.yaml然后修改，项目中提供了一份demo文件可参考：
 ![配置](https://images.gitee.com/uploads/images/2020/0410/134808_6d0180a8_4866886.jpeg "1586497644(1).jpg")
-有时会报Sentinel的配置类型转换异常，需要调整JDK版本，我使用的版本是：1.8.0_231 是可以正常启动的。具体参看：
+- 有时会报Sentinel的配置类型转换异常，需要调整JDK版本，我使用的版本是：1.8.0_231 是可以正常启动的。具体参看：
 ![sentinel异常](https://images.gitee.com/uploads/images/2020/0410/135701_27b74345_4866886.png "227dcfc3ddcce4aeaed6055423ee8a8.png")
 
 ### 部署
