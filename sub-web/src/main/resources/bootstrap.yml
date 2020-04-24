@@ -2,9 +2,6 @@ spring:
   application:
     name: sub
   cloud:
-    alibaba:
-      seata:
-        tx-service-group: ${spring.application.name}-seata-service-group
     # nacos-配置
     nacos:
       # 配置中心

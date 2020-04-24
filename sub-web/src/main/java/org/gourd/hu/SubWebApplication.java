@@ -11,10 +11,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 /**
  * @author gourd
  */
+@Slf4j
 @SpringBootApplication
 @EnableFeignClients
 @EnableDiscoveryClient
-@Slf4j
 public class SubWebApplication {
     public static void main(String[] args) {
         new SpringApplicationBuilder()

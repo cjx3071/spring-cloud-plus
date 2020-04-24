@@ -97,57 +97,6 @@ spring:
     #        report-queue-name: Alicom-Queue-********-SmsReport
     #        up-queue-name: Alicom-Queue-********-SmsUp
 
-    # rocketMq
-    stream:
-      bindings:
-        output1:
-          content-type: application/json
-          destination: GOURD_TEST_TOPIC
-        output2:
-          content-type: application/json
-          destination: GOURD_TX_TOPIC
-        output3:
-          content-type: text/plain
-          destination: GOURD_PULL_TOPIC
-        input1:
-          consumer:
-            concurrency: 20
-            maxAttempts: 1
-          content-type: text/plain
-          destination: GOURD_TEST_TOPIC
-          group: GOURD_TEST_GROUP
-        input2:
-          consumer:
-            concurrency: 20
-            maxAttempts: 1
-          content-type: text/plain
-          destination: GOURD_TEST_TOPIC
-          group: GOURD_TEST_GROUP2
-      rocketmq:
-        binder:
-          # 需改成自己的地址
-          name-server: xxx:9876
-        bindings:
-          output1:
-            producer:
-              group: TEST_GROUP
-              sync: true
-          output2:
-            producer:
-              group: TX_GROUP
-              transactional: true
-          output3:
-            producer:
-              group: PULL_GROUP
-          input1:
-            consumer:
-              orderly: false
-              tags: tagStr
-          input2:
-            consumer:
-              orderly: false
-              tags: tagObj
-
   # ES搜索引擎
   data:
     elasticsearch:
@@ -188,10 +137,24 @@ fdfs:
   # 存储服务器storage_server访问地址
   web-server-url: http://xxx/
 
-# 记录日志过期天数，默认30
-log:
-  expire:
-    days: 30
+# seata 分布式事务
+seata:
+  enabled: true
+  enableAutoDataSourceProxy: true
+  tx-service-group: admin
+  service:
+    disable-global-transaction: false
+    grouplist:
+      # seata seaver的 地址配置，此处可以集群配置是个数组
+      default: xxx:8091
+    vgroup-mapping:
+      # key一定要与tx-service-group一致
+      admin: default
+  registry:
+    type: nacos
+    nacos:
+      server-addr: xxx:8848
+      cluster: default
 
 # 定时任务执行ip地址
 schedule:
