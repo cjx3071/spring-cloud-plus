@@ -28,7 +28,6 @@ public class GatewayApplication {
                 .sources(GatewayApplication.class)
                 // default properties
                 .properties("--spring.profiles.active=local")
-                .web(WebApplicationType.SERVLET)
                 .run(args);
         log.info(">o< 网关服务启动成功！温馨提示：代码千万行，注释第一行，命名不规范，同事泪两行 >o<");
 

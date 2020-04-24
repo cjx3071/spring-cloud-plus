@@ -40,7 +40,7 @@ public class NacosDynamicRouteService implements ApplicationEventPublisherAware 
 
     private static final List<String> ROUTE_LIST = new ArrayList<>();
 
-    @Value("${spring.cloud.nacos.config.gateway.dataId:gourd-gateway-router}")
+    @Value("${spring.cloud.nacos.config.router-data-id:gateway-router.json}")
     private String routerDataId;
 
 
