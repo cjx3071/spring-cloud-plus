@@ -89,7 +89,8 @@ war包部署：https://blog.csdn.net/HXNLYW/article/details/105585745
 - 用户权限管理:   
 >   框架：shiro +jwt，使用jwt-token作为用户身份Id；  
 >   支持承租人模式；token续期等  
-- 网关: 
+- 网关:
+> 框架：gateway +nacos, 支持动态路由，http://localhost:port/actuator/gateway/routes 查看当前路由配置；   
 > 负责服务路由转发，可作为服务统一入口
 - 开放平台:
 > 通过签名验证方式，鉴权外部接口调用    
