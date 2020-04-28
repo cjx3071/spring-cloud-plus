@@ -44,13 +44,11 @@
         <slf4j-api.version>1.7.25</slf4j-api.version>
         <druid.version>1.1.9</druid.version>
         <mysql.version>8.0.18</mysql.version>
-        <swagger2.version>2.9.2</swagger2.version>
-        <knife4j-ui.version>2.0.2</knife4j-ui.version>
         <fastjson.version>1.2.58</fastjson.version>
         <!--mybatis-plus-->
         <mybatis-plus.version>3.3.0</mybatis-plus.version>
         <dynamic-plus.version>2.5.7</dynamic-plus.version>
-        <swagger2.version>2.7.0</swagger2.version>
+        <knife4j.version>2.0.0</knife4j.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
         <alibaba-cloud.version>2.2.0.RELEASE</alibaba-cloud.version>
         <netty-websocket.version>0.8.0</netty-websocket.version>
@@ -113,16 +111,16 @@
                 <groupId>com.alibaba</groupId>
                 <version>${fastjson.version}</version>
             </dependency>
+            <dependency>
+                <artifactId>guava</artifactId>
+                <groupId>com.google.guava</groupId>
+                <version>20.0</version>
+            </dependency>
             <!--gourd-->
             <dependency>
                 <groupId>org.gourd.hu</groupId>
                 <artifactId>base</artifactId>
                 <version>${cloud.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-all</artifactId>
-                <version>1.0.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

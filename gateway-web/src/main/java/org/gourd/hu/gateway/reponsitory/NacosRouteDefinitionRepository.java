@@ -82,6 +82,11 @@ public class NacosRouteDefinitionRepository implements RouteDefinitionRepository
         return null;
     }
 
+    /**
+     * 解析路由
+     * @param content
+     * @return
+     */
     private List<RouteDefinition> getListByStr(String content) {
         if (StringUtils.isNotEmpty(content)) {
             return JSONObject.parseArray(content, RouteDefinition.class);
