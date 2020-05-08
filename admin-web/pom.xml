@@ -153,20 +153,12 @@
             </activation>
             <properties>
                 <profiles.active>local</profiles.active>
-                <nacos.server-addr>111.231.111.150:8848</nacos.server-addr>
-                <nacos.namespace>d10ded89-2ce5-4cf9-ad2c-4e36f9b2be7e</nacos.namespace>
-                <nacos.group>CLOUD_PLUS</nacos.group>
-                <nacos.file-extension>yaml</nacos.file-extension>
             </properties>
         </profile>
         <profile>
             <id>test</id>
             <properties>
                 <profiles.active>test</profiles.active>
-                <nacos.server-addr>111.231.111.150:8848</nacos.server-addr>
-                <nacos.namespace>d10ded89-2ce5-4cf9-ad2c-4e36f9b2be7e</nacos.namespace>
-                <nacos.group>CLOUD_PLUS</nacos.group>
-                <nacos.file-extension>yaml</nacos.file-extension>
             </properties>
         </profile>
     </profiles>
