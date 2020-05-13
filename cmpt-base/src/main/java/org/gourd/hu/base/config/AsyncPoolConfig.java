@@ -48,6 +48,8 @@ public class AsyncPoolConfig implements AsyncConfigurer {
         executor.initialize();
         return executor;
     }
+
+
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
         return null;
@@ -60,12 +62,11 @@ public class AsyncPoolConfig implements AsyncConfigurer {
     class ContextDecorator implements TaskDecorator {
         @Override
         public Runnable decorate(Runnable runnable) {
-            try {
-                RequestAttributes context = RequestContextHolder.currentRequestAttributes();
-                RequestContextHolder.setRequestAttributes(context);
-            }catch (IllegalStateException e){}
+            RequestAttributes context = RequestContextHolder.currentRequestAttributes();
             return () -> {
                 try {
+                    // 传递上下文
+                    RequestContextHolder.setRequestAttributes(context);
                     runnable.run();
                 } finally {
                     RequestContextHolder.resetRequestAttributes();
