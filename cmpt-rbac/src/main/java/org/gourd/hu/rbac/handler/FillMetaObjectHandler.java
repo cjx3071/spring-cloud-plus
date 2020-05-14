@@ -24,9 +24,10 @@ public class FillMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         Long userId = JwtUtil.getCurrentUser() == null? 0L:(JwtUtil.getCurrentUser().getUserId()==null?0L:JwtUtil.getCurrentUser().getUserId());
+        // 创建填充
         fillCreateMeta(metaObject, userId);
+        // 更新填充
         fillUpdateMeta(metaObject, userId);
-        fillCommonMeta(metaObject);
     }
 
     /**
@@ -40,21 +41,23 @@ public class FillMetaObjectHandler implements MetaObjectHandler {
         fillUpdateMeta(metaObject,userId);
     }
 
-    private void fillCommonMeta(MetaObject metaObject) {
-        if (metaObject.hasGetter(RbacConstant.META_VERSION)) {
-            setFieldValByName(RbacConstant.META_VERSION,1L,metaObject);
-        }
-        if(metaObject.hasGetter(RbacConstant.META_DELETED)){
-            setFieldValByName(RbacConstant.META_DELETED,false,metaObject);
-        }
-    }
-
+    /**
+     * 填充创建数据
+     * @param metaObject
+     * @param userId
+     */
     private void fillCreateMeta(MetaObject metaObject, Long userId) {
         if (metaObject.hasGetter(RbacConstant.META_CREATED_BY) && metaObject.hasGetter(RbacConstant.META_CREATED_TIME)) {
             setFieldValByName(RbacConstant.META_CREATED_BY, userId, metaObject);
             setFieldValByName(RbacConstant.META_CREATED_TIME, new Date(), metaObject);
         }
     }
+
+    /**
+     * 填充更新数据
+     * @param metaObject
+     * @param userId
+     */
     private void fillUpdateMeta(MetaObject metaObject, Long userId) {
         if (metaObject.hasGetter(RbacConstant.META_UPDATED_BY) && metaObject.hasGetter(RbacConstant.META_UPDATED_TIME)) {
             setFieldValByName(RbacConstant.META_UPDATED_BY, userId, metaObject);

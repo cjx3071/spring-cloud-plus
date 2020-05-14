@@ -6,14 +6,12 @@ import org.redisson.api.RLock;
 import org.redisson.api.RSemaphore;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author gourd
  */
-@Component
 public class RedisDistributedLocker implements DistributedLocker {
 
     @Autowired

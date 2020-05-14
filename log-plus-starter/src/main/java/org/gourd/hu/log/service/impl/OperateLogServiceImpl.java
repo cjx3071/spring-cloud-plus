@@ -5,20 +5,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.gourd.hu.base.holder.RequestHolder;
 import org.gourd.hu.base.utils.DateUtil;
 import org.gourd.hu.base.utils.IpAddressUtil;
 import org.gourd.hu.log.annotation.OperateLog;
 import org.gourd.hu.log.dao.SysOperateLogDao;
 import org.gourd.hu.log.entity.SysOperateLog;
 import org.gourd.hu.log.service.OperateLogService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
@@ -27,11 +23,10 @@ import java.util.List;
  * @author gourd
  * @date 2018-11-24
  */
-@Service
 @Slf4j
 public class OperateLogServiceImpl extends ServiceImpl<SysOperateLogDao, SysOperateLog> implements OperateLogService {
 
-    @Autowired
+    @Resource
     private SysOperateLogDao sysOperateLogDao;
 
     /**

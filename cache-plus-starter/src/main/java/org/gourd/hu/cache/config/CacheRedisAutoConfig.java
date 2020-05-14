@@ -4,11 +4,14 @@ import com.alibaba.fastjson.parser.ParserConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import lombok.Data;
+import org.gourd.hu.cache.aop.NoRepeatSubmitAop;
+import org.gourd.hu.cache.utils.RedisUtil;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -16,7 +19,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 
@@ -29,6 +31,7 @@ import java.time.Duration;
 @Data
 @EnableCaching
 @Configuration
+@Import({NoRepeatSubmitAop.class, RedisUtil.class})
 public class CacheRedisAutoConfig extends CachingConfigurerSupport {
 
     /**

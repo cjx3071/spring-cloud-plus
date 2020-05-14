@@ -12,7 +12,6 @@ import org.gourd.hu.base.holder.RequestHolder;
 import org.gourd.hu.cache.annotation.NoRepeatSubmit;
 import org.gourd.hu.cache.utils.RedisUtil;
 import org.gourd.hu.core.utils.Md5Util;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2018-08-26
  */
 @Aspect
-@Component
 @Slf4j
 public class NoRepeatSubmitAop {
 

@@ -3,7 +3,6 @@ package org.gourd.hu.cache.utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
@@ -16,7 +15,6 @@ import java.util.concurrent.TimeUnit;
  * @Date 2018年1月15日
  */
 @Slf4j
-@Component
 public class RedisUtil {
 
     @Autowired

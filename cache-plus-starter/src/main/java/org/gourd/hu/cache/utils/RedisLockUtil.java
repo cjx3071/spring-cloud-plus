@@ -16,7 +16,6 @@ import java.util.concurrent.TimeUnit;
  * @author gourd
  *
  */
-@Component
 public class RedisLockUtil {
 
     @Autowired
