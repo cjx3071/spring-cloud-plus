@@ -4,7 +4,8 @@ package org.gourd.hu.cache.utils;
 import org.apache.commons.lang3.StringUtils;
 import org.gourd.hu.base.utils.DateUtil;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author gourd
@@ -16,7 +17,7 @@ public class OrderNumberUtil {
      * @return
      */
     public static String getOrderNumber(){
-        String nowDateStr = DateUtil.date2Str(new Date(), DateUtil.DATE_FORMAT_YYYYMMDD);
+        String nowDateStr = DateTimeFormatter.ofPattern(DateUtil.DATE_FORMAT_YYYYMMDD).format(LocalDateTime.now());
         long number = 1;
         if(RedisUtil.existAny(nowDateStr)){
             number = RedisUtil.incr(nowDateStr,1);

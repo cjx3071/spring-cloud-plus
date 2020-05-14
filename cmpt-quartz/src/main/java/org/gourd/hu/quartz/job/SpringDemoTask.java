@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author gourd
@@ -30,6 +30,6 @@ public class SpringDemoTask {
         if(!ip.equals(runHost)){
             return;
         }
-        log.info(">o< 定时任务执行： "+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "  "+ Thread.currentThread().getName());
+        log.info(">o< 定时任务执行： "+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()) + "  "+ Thread.currentThread().getName());
     }
 }

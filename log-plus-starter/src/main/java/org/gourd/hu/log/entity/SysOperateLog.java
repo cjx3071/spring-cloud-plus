@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.gourd.hu.base.common.entity.BaseEntity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -57,6 +57,6 @@ public class SysOperateLog extends BaseEntity<SysOperateLog> {
     private String exceptionDetail;
 
     @ApiModelProperty(value = "过期删除时间")
-    private Date expireTime;
+    private LocalDateTime expireTime;
 
 }

@@ -7,7 +7,7 @@ import lombok.Data;
 import org.gourd.hu.file.excel.converter.SexConverter;
 import org.gourd.hu.file.excel.enums.SexEnum;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 用户导出导入实体
@@ -41,7 +41,7 @@ public class UserPO {
      */
     @ExcelProperty(index = 3,value = "生日")
     @DateTimeFormat("yyyy年MM月dd日")
-    private Date birth;
+    private LocalDateTime birth;
 
     /**
      * 邮箱

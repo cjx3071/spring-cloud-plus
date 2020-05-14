@@ -16,20 +16,22 @@ import java.util.Map;
  */
 public class MybatisPlusGenerator {
 	/** 生成文件所在项目路径*/
-	private static String baseProjectPath = "E:\\gourd-hu\\cloudplus";
+	private static String baseProjectPath = "E:\\gourd-hu\\paperless-fleet";
 	/**基本包名*/
-	private static String basePackage = "org.gourd.hu.rbac";
+	private static String basePackage = "com.yunlsp.tcg.fleet";
 	/** 作者*/
 	private static String authorName = "gourd.hu";
 	/** 要生成的表名*/
-	private static String[] tables = { "sys_operate_log"};
+	private static String[] tables = { "car_box","car_dirver_relation","car_info","car_njtollgate","car_trip","chk_abnormal_part","chk_abnormal_relation","chk_abnormal_type","chk_error","chk_info","chk_url","chk_user_relation","eir_address_apply","eir_address_apply_trip","eir_apply","eir_apply_cntr","eir_apply_cntr_use","eir_change_apply","eir_change_apply_cntr","eir_fly_apply","eir_info","eir_mix_apply","eir_mix_apply_cntr","eir_resource_pool","eir_resource_pool_related","eir_sign",
+			"eir_trip","eir_trunk_apply","eir_trunk_apply_cntr","fr_carrier_config","fr_company_config","fr_ctrn_config","make_cargo_plan","make_cntr_use","ops_handle_type","ops_notice","ops_notice_detail","ops_operation","port_gate_in_out","port_in_out_voucher","port_pre_record","port_pre_record_ext","port_pre_record_ext_bill","port_reserve_empty","port_reserve_weight","port_reserve_weight","rec_container","rec_ip_config","rec_lorry_info","sys_auto_config","sys_basic_config","sys_change_config","sys_driver_check","sys_pro_company",
+			"sys_trailer","sys_vehicle","sys_vehicle_trailer","yard_record","yard_record_relation","eir_resource_pool_cntr_use"};
 	/**table前缀*/
 	private static String prefix = "";
 	/** 数据库配置四要素*/
 	private static String driverName = "com.mysql.cj.jdbc.Driver";
-	private static String url = "jdbc:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true";
-	private static String username = "root";
-	private static String password = "gourd123";
+	private static String url = "jdbc:mysql://218.4.219.84:61186/paperless_common?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true";
+	private static String username = "yunlsp";
+	private static String password = "Yunlsp@789.";
 
 	public static void main(String[] args) {
 		doMpGen();
@@ -62,7 +64,7 @@ public class MybatisPlusGenerator {
 				.setBaseColumnList(true)
 				// 生成后打开文件夹
 				.setOpen(false)
-				.setSwagger2(true)
+				.setSwagger2(false)
 				.setAuthor(authorName)
 				.setIdType(IdType.INPUT)
 				// 自定义文件命名，注意 %s 会自动填充表实体属性！
@@ -81,9 +83,9 @@ public class MybatisPlusGenerator {
 				.setInclude(tables)
 				.setRestControllerStyle(true)
 				// 自定义实体父类
-				 .setSuperEntityClass("org.gourd.hu.base.common.entity.BaseEntity")
+				 .setSuperEntityClass("com.yunlsp.tcg.fleet.common.entity.BaseEntity")
 				// 自定义实体，公共字段
-				.setSuperEntityColumns(new String[]{"id","createdTime","createdBy","updatedTime","updatedBy","version"})
+				.setSuperEntityColumns(new String[]{"id","createTime","createBy","updateTime","updateBy","version"})
 				// 【实体】是否为lombok模型（默认 false）<a href="https://projectlombok.org/">document</a>
 				.setEntityLombokModel(true)
 				// Boolean类型字段是否移除is前缀处理
@@ -98,11 +100,11 @@ public class MybatisPlusGenerator {
 		// 自定义包路径
 		packageConfig.setParent(basePackage);
 		// 这里是控制器包名，默认 web
-		packageConfig.setController("controller");
-		packageConfig.setEntity("entity");
-		packageConfig.setMapper("dao");
-		packageConfig.setService("service");
-		packageConfig.setServiceImpl("service.impl");
+		packageConfig.setController("endpoints.workshop");
+		packageConfig.setEntity("repository.model");
+		packageConfig.setMapper("repository");
+		packageConfig.setService("workshop.service");
+		packageConfig.setServiceImpl("workshop.service.impl");
 		packageConfig.setXml("mapper");
 		gen.setPackageInfo(packageConfig);
 

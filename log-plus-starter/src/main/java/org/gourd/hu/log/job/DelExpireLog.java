@@ -4,16 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.gourd.hu.base.utils.PageUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.gourd.hu.log.entity.SysOperateLog;
 import org.gourd.hu.log.service.OperateLogService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
@@ -34,13 +32,13 @@ public class DelExpireLog {
     /**
      * 每天0点执行一次删除过期日志
      */
-    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(cron = "0 0/1 * * * ?")
     public void doTask(){
-        log.info(">o< 删除过期日志定时任务开始执行： "+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "  "+ Thread.currentThread().getName());
+        log.info(">o< 删除过期日志定时任务开始执行： "+ DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()) + "  "+ Thread.currentThread().getName());
         while(true){
             Page page = new Page<>(1,500);
             QueryWrapper queryWrapper = new QueryWrapper();
-            queryWrapper.le("expire_time",new Date());
+            queryWrapper.le("expire_time", LocalDateTime.now());
             IPage<SysOperateLog> logIPage= operateLogService.page(page, queryWrapper);
             List<SysOperateLog> logPOS = logIPage.getRecords();
             if(CollectionUtils.isEmpty(logPOS)){
@@ -49,6 +47,6 @@ public class DelExpireLog {
             List<Long> logIds = logPOS.stream().map(e -> e.getId()).collect(Collectors.toList());
             asyncExecutor.execute(() -> operateLogService.deleteLogs(logIds));
         }
-        log.info(">o< 删除过期日志定时任务结束： "+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "  "+ Thread.currentThread().getName());
+        log.info(">o< 删除过期日志定时任务结束： "+DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()) + "  "+ Thread.currentThread().getName());
     }
 }

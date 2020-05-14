@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -69,7 +69,7 @@ public class EasyExcelController {
         userPO.setAge(100);
         userPO.setName("gourd-hu");
         userPO.setSex(SexEnum.X);
-        userPO.setBirth(new Date());
+        userPO.setBirth(LocalDateTime.now());
         userPO.setEmail("xxx.com");
         userPO.setMobilePhone("xxxx");
         userPOList.add(userPO);
@@ -91,7 +91,7 @@ public class EasyExcelController {
         userPO.setAge(100);
         userPO.setName("gourd-hu");
         userPO.setSex(SexEnum.X);
-        userPO.setBirth(new Date());
+        userPO.setBirth(LocalDateTime.now());
         userPO.setEmail("xxx.com");
         userPO.setMobilePhone("xxxx");
         userPOList.add(userPO);

@@ -1,12 +1,12 @@
 package org.gourd.hu.rbac.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import org.gourd.hu.rbac.constant.RbacConstant;
-import org.gourd.hu.rbac.auth.jwt.JwtUtil;
 import org.apache.ibatis.reflection.MetaObject;
+import org.gourd.hu.rbac.auth.jwt.JwtUtil;
+import org.gourd.hu.rbac.constant.RbacConstant;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 元对象字段填充控制器
@@ -49,7 +49,7 @@ public class FillMetaObjectHandler implements MetaObjectHandler {
     private void fillCreateMeta(MetaObject metaObject, Long userId) {
         if (metaObject.hasGetter(RbacConstant.META_CREATED_BY) && metaObject.hasGetter(RbacConstant.META_CREATED_TIME)) {
             setFieldValByName(RbacConstant.META_CREATED_BY, userId, metaObject);
-            setFieldValByName(RbacConstant.META_CREATED_TIME, new Date(), metaObject);
+            setFieldValByName(RbacConstant.META_CREATED_TIME, LocalDateTime.now(), metaObject);
         }
     }
 
@@ -61,7 +61,7 @@ public class FillMetaObjectHandler implements MetaObjectHandler {
     private void fillUpdateMeta(MetaObject metaObject, Long userId) {
         if (metaObject.hasGetter(RbacConstant.META_UPDATED_BY) && metaObject.hasGetter(RbacConstant.META_UPDATED_TIME)) {
             setFieldValByName(RbacConstant.META_UPDATED_BY, userId, metaObject);
-            setFieldValByName(RbacConstant.META_UPDATED_TIME, new Date(), metaObject);
+            setFieldValByName(RbacConstant.META_UPDATED_TIME, LocalDateTime.now(), metaObject);
         }
     }
 }

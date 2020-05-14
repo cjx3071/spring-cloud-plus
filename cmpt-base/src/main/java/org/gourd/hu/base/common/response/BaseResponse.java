@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,10 +54,10 @@ public class BaseResponse<T> implements Serializable {
      */
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date time;
+    private LocalDateTime time;
 
     public BaseResponse() {
-        time  = new Date();
+        time  = LocalDateTime.now();
     }
 
     public static BaseResponse<Boolean> result(boolean flag){
@@ -89,7 +89,7 @@ public class BaseResponse<T> implements Serializable {
                 .message(message)
                 .data(data)
                 .success(success)
-                .time(new Date())
+                .time(LocalDateTime.now())
                 .build();
     }
 

@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 公共实体父类
@@ -30,7 +30,7 @@ public class BaseEntity<T> extends Model{
 
     @ApiModelProperty(value = "创建时间")
     @TableField(value = "created_time",fill = FieldFill.INSERT)
-    private Date createdTime;
+    private LocalDateTime createdTime;
 
     @ApiModelProperty(value = "更新人")
     @TableField(value = "updated_by",fill = FieldFill.INSERT_UPDATE)
@@ -38,7 +38,7 @@ public class BaseEntity<T> extends Model{
 
     @ApiModelProperty(value = "更新时间")
     @TableField(value = "updated_time",fill = FieldFill.INSERT_UPDATE)
-    private Date updatedTime;
+    private LocalDateTime updatedTime;
 
     @ApiModelProperty(value = "版本号")
     @Version

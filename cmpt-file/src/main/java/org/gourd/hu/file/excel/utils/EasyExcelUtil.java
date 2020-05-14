@@ -9,7 +9,6 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.gourd.hu.base.common.response.BaseResponse;
 import org.gourd.hu.base.holder.RequestHolder;
-import org.gourd.hu.base.utils.DateUtil;
 import org.gourd.hu.file.excel.entity.SheetExcelData;
 import org.gourd.hu.file.excel.handler.CustomCellWriteHandler;
 import org.gourd.hu.file.excel.listener.ExcelListener;
@@ -21,8 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -167,8 +167,9 @@ public class EasyExcelUtil {
         response.setContentType("application/vnd.ms-excel;charset=utf-8");
         response.setCharacterEncoding("utf-8");
         // 这里URLEncoder.encode可以防止中文乱码
-        fileName = URLEncoder.encode(fileName + DateUtil.date2Str(new Date(),"yyyy-MM-dd_HH_mm_ss") + ExcelTypeEnum.XLSX.getValue(), "UTF-8");
+        fileName = URLEncoder.encode(fileName + DateTimeFormatter.ofPattern("yyyy-MM-dd_HH_mm_ss").format(LocalDateTime.now()) + ExcelTypeEnum.XLSX.getValue(), "UTF-8");
         response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+
     }
 
 

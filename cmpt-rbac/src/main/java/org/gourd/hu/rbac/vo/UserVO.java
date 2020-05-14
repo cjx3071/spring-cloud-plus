@@ -11,7 +11,7 @@ import org.gourd.hu.core.enums.FieldShowEnum;
 import org.gourd.hu.core.enums.SensitiveTypeEnum;
 import org.gourd.hu.core.enums.SexEnum;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author gourd
@@ -47,7 +47,7 @@ public class UserVO extends BaseVO {
      * 生日
      */
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
-    private Date birth;
+    private LocalDateTime birth;
 
     /**
      * 昵称
