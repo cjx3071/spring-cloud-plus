@@ -3,8 +3,6 @@ package org.gourd.hu;
 import com.netflix.loadbalancer.IRule;
 import lombok.extern.slf4j.Slf4j;
 import org.gourd.hu.gateway.config.NacosCustomerRule;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;

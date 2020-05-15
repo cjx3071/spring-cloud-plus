@@ -1,8 +1,8 @@
 package org.gourd.hu.rbac.service;
 
 
-import org.gourd.hu.rbac.dto.RbacUserRegisterDTO;
 import org.gourd.hu.rbac.auth.jwt.JwtToken;
+import org.gourd.hu.rbac.dto.RbacUserRegisterDTO;
 import org.gourd.hu.rbac.vo.UserVO;
 
 /**

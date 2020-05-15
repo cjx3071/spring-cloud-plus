@@ -1,8 +1,8 @@
 package org.gourd.hu.notice.mail.impl;
 
-import org.gourd.hu.notice.mail.GourdMailService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.gourd.hu.notice.mail.GourdMailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;

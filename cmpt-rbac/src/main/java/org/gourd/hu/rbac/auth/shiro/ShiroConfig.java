@@ -4,9 +4,6 @@
 
 package org.gourd.hu.rbac.auth.shiro;
 
-import org.gourd.hu.rbac.auth.cache.ShiroCacheManager;
-import org.gourd.hu.rbac.properties.AuthProperties;
-import org.gourd.hu.rbac.auth.jwt.JwtFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.mgt.DefaultSecurityManager;
@@ -16,6 +13,9 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.gourd.hu.rbac.auth.cache.ShiroCacheManager;
+import org.gourd.hu.rbac.auth.jwt.JwtFilter;
+import org.gourd.hu.rbac.properties.AuthProperties;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

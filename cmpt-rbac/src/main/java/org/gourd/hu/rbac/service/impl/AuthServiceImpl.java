@@ -13,7 +13,6 @@ import org.gourd.hu.rbac.auth.jwt.JwtClaim;
 import org.gourd.hu.rbac.auth.jwt.JwtToken;
 import org.gourd.hu.rbac.auth.jwt.JwtUtil;
 import org.gourd.hu.rbac.constant.JwtConstant;
-import org.gourd.hu.rbac.dao.RbacUserDao;
 import org.gourd.hu.rbac.dto.RbacUserRegisterDTO;
 import org.gourd.hu.rbac.entity.RbacPermission;
 import org.gourd.hu.rbac.entity.RbacRole;

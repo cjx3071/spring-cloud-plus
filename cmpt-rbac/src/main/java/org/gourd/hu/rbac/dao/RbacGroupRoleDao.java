@@ -1,7 +1,7 @@
 package org.gourd.hu.rbac.dao;
 
-import org.gourd.hu.rbac.entity.RbacGroupRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.gourd.hu.rbac.entity.RbacGroupRole;
 import org.springframework.stereotype.Repository;
 
 /**

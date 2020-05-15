@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.gourd.hu.base.common.entity.BaseEntity;
+import org.gourd.hu.core.enums.SexEnum;
 
 import java.time.LocalDateTime;
 
@@ -33,7 +34,7 @@ public class RbacUser extends BaseEntity<RbacUser> {
     private String pinYin;
 
     @ApiModelProperty(value = "性别（M-男，F-女，X-未知）")
-    private String sex;
+    private SexEnum sex;
 
     @ApiModelProperty(value = "生日")
     private LocalDateTime birth;

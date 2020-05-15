@@ -48,8 +48,8 @@ public class FillMetaObjectHandler implements MetaObjectHandler {
      */
     private void fillCreateMeta(MetaObject metaObject, Long userId) {
         if (metaObject.hasGetter(RbacConstant.META_CREATED_BY) && metaObject.hasGetter(RbacConstant.META_CREATED_TIME)) {
-            setFieldValByName(RbacConstant.META_CREATED_BY, userId, metaObject);
-            setFieldValByName(RbacConstant.META_CREATED_TIME, LocalDateTime.now(), metaObject);
+            this.fillStrategy(metaObject,RbacConstant.META_CREATED_BY, userId);
+            this.fillStrategy(metaObject,RbacConstant.META_CREATED_TIME, LocalDateTime.now());
         }
     }
 
@@ -60,8 +60,8 @@ public class FillMetaObjectHandler implements MetaObjectHandler {
      */
     private void fillUpdateMeta(MetaObject metaObject, Long userId) {
         if (metaObject.hasGetter(RbacConstant.META_UPDATED_BY) && metaObject.hasGetter(RbacConstant.META_UPDATED_TIME)) {
-            setFieldValByName(RbacConstant.META_UPDATED_BY, userId, metaObject);
-            setFieldValByName(RbacConstant.META_UPDATED_TIME, LocalDateTime.now(), metaObject);
+            this.fillStrategy(metaObject,RbacConstant.META_UPDATED_BY, userId);
+            this.fillStrategy(metaObject,RbacConstant.META_UPDATED_TIME, LocalDateTime.now());
         }
     }
 }

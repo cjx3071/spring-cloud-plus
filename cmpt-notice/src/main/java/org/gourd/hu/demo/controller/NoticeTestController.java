@@ -1,9 +1,9 @@
 package org.gourd.hu.demo.controller;
 
-import org.gourd.hu.notice.utils.MailUtil;
-import org.gourd.hu.notice.utils.SmsUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.gourd.hu.notice.utils.MailUtil;
+import org.gourd.hu.notice.utils.SmsUtil;
 import org.gourd.hu.notice.utils.ValidateCodeUtil;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

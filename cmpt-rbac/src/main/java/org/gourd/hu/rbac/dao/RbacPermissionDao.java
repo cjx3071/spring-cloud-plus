@@ -1,8 +1,8 @@
 package org.gourd.hu.rbac.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.gourd.hu.rbac.entity.RbacPermission;
 import org.apache.ibatis.annotations.Param;
+import org.gourd.hu.rbac.entity.RbacPermission;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

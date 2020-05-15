@@ -1,6 +1,8 @@
 package org.gourd.hu.core.enums;
 
 import com.alibaba.fastjson.annotation.JSONType;
+import com.baomidou.mybatisplus.core.enums.IEnum;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +13,8 @@ import lombok.Setter;
  * @create 2018-07-04 15:41
  **/
 @JSONType(serializeEnumAsJavaBean = true)
-public enum FileTypeEnum{
+@AllArgsConstructor
+public enum FileTypeEnum implements IEnum<String> {
     PPT("PPT","ppt"),
     FILE("FILE","文本"),
     WORD("WORD","word"),
@@ -31,10 +34,34 @@ public enum FileTypeEnum{
 
     @Getter
     @Setter
-    private String desc;
+    private String label;
 
-    FileTypeEnum(String value, String desc) {
-        this.value = value;
-        this.desc = desc;
+
+    /**
+     * 获取枚举labels
+     * @return
+     */
+    public static String[] getLabels(){
+        String[] labels = new String[2];
+        FileTypeEnum[] values = FileTypeEnum.values();
+        for(int i=0;i< values.length;i++){
+            labels[i] = values[i].getLabel();
+        }
+        return labels;
+    }
+
+    /**
+     * 根据label获取枚举
+     * @param label
+     * @return
+     */
+    public static FileTypeEnum getByLabel(String label){
+        FileTypeEnum[] values = FileTypeEnum.values();
+        for(int i=0;i< values.length;i++){
+            if(values[i].getLabel().equals(label)){
+                return values[i];
+            }
+        }
+        return null;
     }
 }

@@ -1,12 +1,12 @@
 package org.gourd.hu.rbac.auth.cache;
 
+import org.apache.shiro.cache.Cache;
+import org.apache.shiro.cache.CacheException;
 import org.gourd.hu.base.holder.SpringContextHolder;
 import org.gourd.hu.cache.utils.RedisUtil;
 import org.gourd.hu.rbac.auth.jwt.JwtUtil;
 import org.gourd.hu.rbac.constant.JwtConstant;
 import org.gourd.hu.rbac.properties.AuthProperties;
-import org.apache.shiro.cache.Cache;
-import org.apache.shiro.cache.CacheException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

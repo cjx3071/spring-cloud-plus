@@ -5,10 +5,6 @@
 package org.gourd.hu.rbac.auth.shiro;
 
 import com.auth0.jwt.interfaces.Claim;
-import org.gourd.hu.cache.utils.RedisUtil;
-import org.gourd.hu.rbac.auth.jwt.JwtUtil;
-import org.gourd.hu.rbac.constant.JwtConstant;
-import org.gourd.hu.rbac.auth.jwt.JwtToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -20,6 +16,10 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.gourd.hu.cache.utils.RedisUtil;
+import org.gourd.hu.rbac.auth.jwt.JwtToken;
+import org.gourd.hu.rbac.auth.jwt.JwtUtil;
+import org.gourd.hu.rbac.constant.JwtConstant;
 
 import java.util.List;
 import java.util.Map;

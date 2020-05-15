@@ -1,12 +1,12 @@
 package org.gourd.hu.demo.controller;
 
 
-import org.gourd.hu.quartz.job.DemoJob;
-import org.gourd.hu.quartz.job.DynamicDemoTask;
-import org.gourd.hu.quartz.service.QuartzService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.gourd.hu.quartz.job.DemoJob;
+import org.gourd.hu.quartz.job.DynamicDemoTask;
+import org.gourd.hu.quartz.service.QuartzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

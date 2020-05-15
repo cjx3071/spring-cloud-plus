@@ -32,7 +32,7 @@ public class DelExpireLog {
     /**
      * 每天0点执行一次删除过期日志
      */
-    @Scheduled(cron = "0 0/1 * * * ?")
+    @Scheduled(cron = "0 0 0 * * ?")
     public void doTask(){
         log.info(">o< 删除过期日志定时任务开始执行： "+ DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()) + "  "+ Thread.currentThread().getName());
         while(true){

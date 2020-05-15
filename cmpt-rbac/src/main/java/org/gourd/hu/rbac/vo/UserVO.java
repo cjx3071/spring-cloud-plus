@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.gourd.hu.base.common.vo.BaseVO;
 import org.gourd.hu.core.annotation.SensitiveInfo;
-import org.gourd.hu.core.annotation.SexShow;
-import org.gourd.hu.core.enums.FieldShowEnum;
 import org.gourd.hu.core.enums.SensitiveTypeEnum;
 import org.gourd.hu.core.enums.SexEnum;
 
@@ -40,7 +38,6 @@ public class UserVO extends BaseVO {
     /**
      * 性别
      */
-    @SexShow(type = FieldShowEnum.LABEL)
     private SexEnum sex;
 
     /**
