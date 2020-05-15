@@ -2,7 +2,7 @@ package org.gourd.hu.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.gourd.hu.base.common.dto.BaseFindDTO;
+import org.gourd.hu.core.base.dto.BaseFindDTO;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;

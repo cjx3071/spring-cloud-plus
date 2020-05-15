@@ -7,7 +7,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.gourd.hu.base.common.exception.BusinessException;
+import org.gourd.hu.base.exceptions.BusinessException;
 import org.gourd.hu.base.holder.RequestHolder;
 import org.gourd.hu.cache.annotation.NoRepeatSubmit;
 import org.gourd.hu.cache.utils.RedisUtil;

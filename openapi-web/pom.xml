@@ -17,7 +17,7 @@
         <!--基础模块-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>base</artifactId>
+            <artifactId>base-plus-starter</artifactId>
         </dependency>
         <!--日志模块-->
         <dependency>

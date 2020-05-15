@@ -14,10 +14,17 @@
     <description>日志模块</description>
 
     <dependencies>
-        <!--base-->
+        <!--core-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>base</artifactId>
+            <artifactId>core</artifactId>
+            <version>${cloud.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <!--base-plus-starter-->
+        <dependency>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>base-plus-starter</artifactId>
             <optional>true</optional>
         </dependency>
     </dependencies>

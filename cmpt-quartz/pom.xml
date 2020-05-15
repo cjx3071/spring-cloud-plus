@@ -13,10 +13,10 @@
     <description>定时任务、调度</description>
 
     <dependencies>
-        <!--base-->
+        <!--base-plus-starter-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>base</artifactId>
+            <artifactId>base-plus-starter</artifactId>
             <optional>true</optional>
         </dependency>
         <!--quartz-->

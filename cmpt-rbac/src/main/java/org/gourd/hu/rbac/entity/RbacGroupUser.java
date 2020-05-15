@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.gourd.hu.base.common.entity.BaseEntity;
+import org.gourd.hu.core.base.entity.BaseEntity;
 
 /**
  * <p>

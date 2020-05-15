@@ -4,7 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.gourd.hu.base.common.response.BaseResponse;
+import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.rbac.auth.jwt.JwtToken;
 import org.gourd.hu.rbac.dto.RbacUserLoginDTO;
 import org.gourd.hu.rbac.dto.RbacUserRegisterDTO;

@@ -3,7 +3,7 @@ package org.gourd.hu.cloud.config;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
-import org.gourd.hu.base.constant.HeaderConstant;
+import org.gourd.hu.core.constant.HeaderConstant;
 import org.springframework.context.annotation.Configuration;
 
 /**

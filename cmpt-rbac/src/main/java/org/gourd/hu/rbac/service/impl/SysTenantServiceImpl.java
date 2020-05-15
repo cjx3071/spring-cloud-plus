@@ -1,7 +1,7 @@
 package org.gourd.hu.rbac.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.gourd.hu.base.common.exception.BusinessException;
+import org.gourd.hu.base.exceptions.BusinessException;
 import org.gourd.hu.core.constant.MessageConstant;
 import org.gourd.hu.rbac.dao.SysTenantDao;
 import org.gourd.hu.rbac.entity.SysTenant;

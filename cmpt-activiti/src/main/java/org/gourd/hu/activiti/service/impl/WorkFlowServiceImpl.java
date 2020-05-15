@@ -14,7 +14,7 @@ import org.activiti.engine.task.DelegationState;
 import org.activiti.engine.task.Task;
 import org.activiti.image.ProcessDiagramGenerator;
 import org.gourd.hu.activiti.service.WorkFlowService;
-import org.gourd.hu.base.common.exception.BusinessException;
+import org.gourd.hu.base.exceptions.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

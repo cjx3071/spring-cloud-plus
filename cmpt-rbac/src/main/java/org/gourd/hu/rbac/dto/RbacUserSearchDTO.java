@@ -1,7 +1,7 @@
 package org.gourd.hu.rbac.dto;
 
 import lombok.Data;
-import org.gourd.hu.base.common.dto.BaseFindDTO;
+import org.gourd.hu.core.base.dto.BaseFindDTO;
 
 /**
  * @author gourd

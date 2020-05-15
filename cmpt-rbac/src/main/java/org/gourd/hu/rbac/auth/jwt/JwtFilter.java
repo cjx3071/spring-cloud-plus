@@ -6,9 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
-import org.gourd.hu.base.common.exception.BusinessException;
-import org.gourd.hu.base.common.response.BaseResponse;
-import org.gourd.hu.base.constant.HeaderConstant;
+import org.gourd.hu.base.exceptions.BusinessException;
+import org.gourd.hu.base.response.BaseResponse;
+import org.gourd.hu.core.constant.HeaderConstant;
 import org.gourd.hu.base.holder.SpringContextHolder;
 import org.gourd.hu.cache.utils.RedisUtil;
 import org.gourd.hu.core.utils.JsonConvertUtil;
@@ -182,7 +182,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json; charset=utf-8");
         try (PrintWriter out = httpServletResponse.getWriter()) {
-            String data = JsonConvertUtil.objectToJson( BaseResponse.fail(HttpStatus.UNAUTHORIZED.value(), "无权访问(Unauthorized):" + msg));
+            String data = JsonConvertUtil.objectToJson( BaseResponse.fail(HttpStatus.UNAUTHORIZED, "无权访问(Unauthorized):" + msg));
             out.append(data);
         } catch (IOException e) {
             log.error("直接返回Response信息出现IOException异常:{}", e.getMessage());

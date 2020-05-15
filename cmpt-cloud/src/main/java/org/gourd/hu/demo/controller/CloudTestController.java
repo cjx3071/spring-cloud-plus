@@ -4,7 +4,7 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.gourd.hu.base.common.response.BaseResponse;
+import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.demo.service.CloudTestService;
 import org.gourd.hu.sub.api.SubApi;
 import org.springframework.beans.factory.annotation.Autowired;

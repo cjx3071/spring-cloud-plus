@@ -2,7 +2,7 @@ package org.gourd.hu.demo.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.gourd.hu.base.common.response.BaseResponse;
+import org.gourd.hu.base.response.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;

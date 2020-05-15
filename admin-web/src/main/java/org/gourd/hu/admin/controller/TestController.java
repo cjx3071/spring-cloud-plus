@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.gourd.hu.admin.service.TestService;
-import org.gourd.hu.base.common.response.BaseResponse;
+import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.cache.annotation.NoRepeatSubmit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,6 @@
 package org.gourd.hu.admin.service;
 
-import org.gourd.hu.base.common.response.BaseResponse;
+import org.gourd.hu.base.response.BaseResponse;
 import org.springframework.retry.RetryException;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;

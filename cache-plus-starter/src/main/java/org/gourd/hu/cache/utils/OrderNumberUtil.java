@@ -2,7 +2,7 @@ package org.gourd.hu.cache.utils;
 
 
 import org.apache.commons.lang3.StringUtils;
-import org.gourd.hu.base.utils.DateUtil;
+import org.gourd.hu.core.utils.DateUtil;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

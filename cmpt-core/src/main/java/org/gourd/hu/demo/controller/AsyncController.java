@@ -3,14 +3,14 @@ package org.gourd.hu.demo.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.gourd.hu.base.common.response.BaseResponse;
+import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.core.async.AsyncService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
 
 /**
@@ -31,7 +31,7 @@ public class AsyncController {
      * 直接使用异步线程池
      */
     @Autowired
-    private Executor asyncExecutor;
+    private AsyncTaskExecutor asyncTaskExecutor;
 
     @GetMapping(value = "/async-task" )
     @ApiOperation(value = "异步任务测试", notes = "异步任务测试")
@@ -42,7 +42,7 @@ public class AsyncController {
             Future<BaseResponse> r2 = asyncService.doTaskTwo();
             asyncService.doTaskThree();
             // 异步线程池执行
-            asyncExecutor.execute(() -> log.info("^o^============异步线程池执行...."));
+            asyncTaskExecutor.execute(() -> log.info("^o^============异步线程池执行...."));
             while (true) {
                 if (r1.isDone() && r2.isDone()) {
                     log.info("异步任务一、二已完成");

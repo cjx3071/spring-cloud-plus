@@ -1,0 +1,515 @@
+server:
+  port: 10001
+
+# 日志
+logging:
+  file:
+    path: ./logs
+  level:
+    root: info
+  operate:
+    all: true
+    type: POST,DELETE,PUT,PATCH
+    # 操作记录日志过期天数，默认30
+    expire:
+      days: 30
+
+# jasypt加密密钥
+jasypt:
+  encryptor:
+    password: GOURD-HXN-1314
+
+# spring配置
+spring:
+  cloud:
+    # nacos-配置
+    nacos:
+      # 注册发现中心
+      discovery:
+        # 是否开启注册中心，默认true
+        enabled: true
+        group: ${spring.cloud.nacos.config.group}
+        # 默认应用名
+        service: ${spring.application.name}
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+        namespace: ${spring.cloud.nacos.config.namespace}
+
+    #  sentinel 流控
+    sentinel:
+      # 是否开启sentinel
+      enabled: true
+      # 取消Sentinel控制台懒加载
+      eager: true
+      # 控制台地址
+      transport:
+        dashboard: 111.231.111.150:9090
+      #  持久化数据库-nacos
+      datasource:
+        # 限流
+        flow:
+          nacos:
+            dataId: ${spring.application.name}-${spring.profiles.active}-sentinel-flow.json
+            groupId: ${spring.cloud.nacos.config.group}
+            data-type: json
+            # 规则
+            ruleType: FLOW
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+        # 熔断降级
+        degrade:
+          nacos:
+            dataId: ${spring.application.name}-${spring.profiles.active}-sentinel-degrade.json
+            groupId: ${spring.cloud.nacos.config.group}
+            data-type: json
+            # 规则
+            ruleType: DEGRADE
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+        # 系统保护
+        system:
+          nacos:
+            dataId: ${spring.application.name}-${spring.profiles.active}-sentinel-system.json
+            groupId: ${spring.cloud.nacos.config.group}
+            data-type: json
+            # 规则
+            ruleType: SYSTEM
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+        # 授权
+        authority:
+          nacos:
+            dataId: ${spring.application.name}-${spring.profiles.active}-sentinel-authority.json
+            groupId: ${spring.cloud.nacos.config.group}
+            data-type: json
+            # 规则
+            ruleType: AUTHORITY
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+        # 热点
+        hot:
+          nacos:
+            dataId: ${spring.application.name}-${spring.profiles.active}-sentinel-hot.json
+            groupId: ${spring.cloud.nacos.config.group}
+            data-type: json
+            # 规则
+            ruleType: PARAM_FLOW
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+    # 这里配置分组
+    alibaba:
+      seata:
+        tx-service-group: ${spring.application.name}-seata-service-group
+    # 短信
+    alicloud:
+      access-key: ENC(VE61YIYweeEsuhe9Mf+LzBn4bo0MKIRU9vQhZd0FaLs=)
+      secret-key: ENC(QBjoRS+g18ZQQE/rb8W5epM0wmc/SW/AUD7a9krViLz8T29mO0/Qmw==)
+      sms:
+  #        report-queue-name: Alicom-Queue-********-SmsReport
+  #        up-queue-name: Alicom-Queue-********-SmsUp
+  # flyway配置
+  flyway:
+    enabled: true
+    baselineOnMigrate: true  # 设置为true，当迁移发现数据库非空且存在没有元数据的表时，自动执行基准迁移
+    locations: classpath:/db/ #可以配置多个值
+
+    # 排除原生Druid的快速配置类
+  autoconfigure:
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+  # mvc
+  mvc:
+    throw-exception-if-no-handler-found: true
+    resources.add-mappings: false
+    static-path-pattern: /**
+    async:
+      request-timeout: 60000 # 设置接口超时时间60s
+  http:
+    encoding:
+      force: true
+      enabled: true
+      charset: UTF-8
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: NON_NULL #not_null如果有null默认过滤
+  session:
+    store-type: redis
+  # 数据库配置
+  datasource:
+    druid:
+      # 访问地址：http://localhost:8088/hu/druid/index.html
+      stat-view-servlet:
+        loginUsername: admin
+        loginPassword: 123456
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      datasource:
+        master:
+          url: jdbc:p6spy:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
+          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+          username: root
+          password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
+          # 不加这个会报错(testWhileIdle is true, validationQuery not set)
+          validation-query: ${spring.datasource.dynamic.druid.validation-query}
+        slave:
+          url: jdbc:p6spy:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
+          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+          username: root
+          password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
+          validation-query: ${spring.datasource.dynamic.druid.validation-query}
+        activiti:
+          url: jdbc:mysql://111.231.111.150:3306/activiti?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          username: root
+          password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
+          validation-query: ${spring.datasource.dynamic.druid.validation-query}
+        quartz:
+          url: jdbc:mysql://111.231.111.150:3306/quartz?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          username: root
+          password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
+          validation-query: ${spring.datasource.dynamic.druid.validation-query}
+      # druid
+      druid:
+        # 初始化时建立物理连接的个数
+        initial-size: 5
+        # 获取连接时最大等待时间，单位毫秒
+        max-wait: 60000
+        # 最小连接池数量
+        min-idle: 1
+        # 最大连接池数量
+        max-active: 20
+        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        time-between-eviction-runs-millis: 60000
+        # 配置一个连接在池中最小生存的时间，单位是毫秒
+        min-evictable-idle-time-millis: 300000
+        validation-query: select 1 FROM DUAL
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        pool-prepared-statements: true
+        max-open-prepared-statements: 50
+        max-pool-prepared-statement-per-connection-size: 20
+        filter:
+          # 打开mergeSql功能；慢SQL记录
+          stat:
+            log-slow-sql: true
+            merge-sql: true
+            slow-sql-millis: 5000
+        #  配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+        filters: stat,wall,logback,config
+  # thymeleaf
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML
+    cache: false
+    servlet:
+      content-type: text/html
+  # 静态资源映射
+  resources:
+    static-locations: classpath:/static/
+  # 邮件
+  mail:
+    host: smtp.163.com
+    username: 13584278267@163.com
+    # 客户端授权码不是邮箱密码
+    password: ENC(EkWECKBjj3DWUCPveIj9wPhimh341Ptz)
+    senderName: 胡向南
+    port: 25
+    protocol: smtp
+    default-encoding: UTF-8
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+      mail.smtp.socketFactory.port: 465
+      mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+      mail.smtp.socketFactory.fallback: false
+  # 工作流
+  activiti:
+    # 自动部署验证设置:
+    # true（默认）自动部署流程
+    # false 不自动部署，需要手动部署发布流程
+    check-process-definitions: true
+    # 可选值为: false,true,create-drop,drop-create
+    # 默认为true。为true表示activiti会对数据库中的表进行更新操作，如果不存在，则进行创建。
+    database-schema-update: true
+
+  # quartz定时任务
+  quartz:
+    jdbc:
+      # 初始化Quartz表结构,项目第一次启动配置程always,然后改成never 否则已生成的job会被初始化掉
+      initialize-schema: never
+    #设置quartz任务的数据持久化方式，默认是内存方式
+    job-store-type: jdbc
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: etlCleanScheduler
+            instanceId: AUTO
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            tablePrefix: QRTZ_  #Quartz表前缀
+            isClustered: true
+            clusterCheckinInterval: 10000
+            useProperties: false
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            #线程数 一个任务使用一个线程
+            threadCount: 100
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
+
+  # redis
+  redis:
+    cluster:
+      nodes:
+        - redis://111.231.111.150:7000
+        - redis://111.231.111.150:7001
+        - redis://111.231.111.150:7002
+        - redis://111.231.111.150:7003
+        - redis://111.231.111.150:7004
+        - redis://111.231.111.150:7005
+      max-redirects: 3  # 获取失败 最大重定向次数
+      scan-interval: 5000
+    timeout: 6000  # 连接超时时长（毫秒）
+
+  # 缓存
+  cache:
+    redis:
+      time-to-live: 20s
+
+  # activemq
+  activemq:
+    broker-url: tcp://111.231.111.150:61616
+    user: admin
+    password: admin
+    pool:
+      enabled: true
+      max-connections: 100
+    packages:
+      trust-all: true #注意 对象传输需开启包白名单 否则会报错- -
+    in-memory: true
+    queue-name: gourd-queue
+    topic-name: gourd-topic
+  jms:
+    pub-sub-domain: true
+
+  # ES搜索引擎
+  data:
+    elasticsearch:
+      # 注意端口为9300  9300 是 Java 客户端的端口,支持集群之间的通信。9200 是支持 Restful HTTP 的接口
+      cluster-nodes: 111.231.111.150:9300
+      # es的cluster集群名称可以查看服务器安装的集群名称 curl http://192.168.92.130:9200 获取到集群名称
+      cluster-name: docker-cluster
+      repositories:
+        enabled: true
+
+# OpenOffice-配置
+openOffice:
+  ip: 47.103.5.190
+  port: 6080
+  windowsFileTempLoc: C:\Users\Administrator\Desktop\
+  linuxFileTempLoc: /usr/gourd/tmp/
+
+# 分布式文件系统fastDfs配置
+fdfs:
+  # socket连接超时时长
+  soTimeout: 1500
+  # 连接tracker服务器超时时长
+  connectTimeout: 600
+  pool:
+    # 从池中借出的对象的最大数目
+    max-total: 200
+    max-total-per-key: 50
+    # 获取连接时的最大等待毫秒数100
+    max-wait-millis: 5000
+  # 缩略图生成参数，可选
+  thumb-image:
+    width: 150
+    height: 150
+  # 跟踪服务器tracker_server请求地址,支持多个
+  trackerList:
+    - 47.103.5.190:22122
+  #
+  # 存储服务器storage_server访问地址
+  web-server-url: http://47.103.5.190/
+
+# seata 分布式事务
+seata:
+  enabled: true
+  enableAutoDataSourceProxy: true
+  tx-service-group: admin
+  service:
+    disable-global-transaction: false
+    grouplist:
+      # seata seaver的 地址配置，此处可以集群配置是个数组
+      default: 111.231.111.150:8091
+    vgroup-mapping:
+      # key一定要与tx-service-group一致
+      admin: default
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 111.231.111.150:8848
+      cluster: default
+
+# 定时任务执行ip地址
+schedule:
+  task:
+    run-host: 127.0.0.1
+
+# 测试
+test:
+  nacos:
+    value: 测试热更新
+
+# websocket
+netty-websocket:
+  port: 8090
+
+ribbon:
+  eager-load:
+    enabled: true #开启饥饿加载
+    clients: gourdsub,gourdhu #为哪些服务的名称开启饥饿加载,多个用逗号分隔
+  MaxAutoRetries: 1  #最大重试次数，当注册中心中可以找到服务，但是服务连不上时将会重试
+  MaxAutoRetriesNextServer: 1  #切换实例的重试次数
+  OkToRetryOnAllOperations: false  #对所有操作请求都进行重试，如果是get则可以，如果是post，put等操作没有实现幂等的情况下是很危险的,所以设置为false
+  ConnectTimeout: 10000 #请求连接的超时时间
+  ReadTimeout: 20000 #请求处理的超时时间
+
+# feign 配置
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  client:
+    config:
+      default:
+        # 连接超时时间5s
+        connectTimeout: 5000
+        # 接口超时时间60s
+        readTimeout: 60000
+  # 开启feign的熔断功能
+  sentinel:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" #暴露所有节点
+    logfile:
+      external-file: ./logs
+    health:
+      mail:
+        enabled: false
+      elasticsearch:
+        enabled: false
+      elasticsearchRest:
+        enabled: false
+  endpoint:
+    health:
+      show-details: ALWAYS  #显示详细信息
+
+  #MyBatisPlus
+  #文档： https://mp.baomidou.com/config/#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  scripting-language-driver:
+  global-config:
+    banner: false # 关闭打印mybatis-plus的LOGO
+    db-config:
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+# kaptcha 图形验证码
+kaptcha:
+  height: 50
+  width: 200
+  content:
+    length: 4
+    source: abcdefghjklmnopqrstuvwxyz23456789
+    space: 2
+  font:
+    color: black
+    name: Arial
+    size: 40
+  background-color:
+    from: lightGray
+    to: white
+  border:
+    enabled: true
+    color: black
+    thickness: 1
+
+# 鉴权
+auth:
+  # JWT
+  jwt:
+    header: jwt-token
+    encryptJWTKey: U0JBUElKV1RkV2FuZzkyNjQ1NA==
+    # AccessToken过期时间-5分钟-5*60(秒为单位)
+    accessTokenExpireTime: 300
+    # RefreshToken过期时间-30分钟-30*60(秒为单位)
+    refreshTokenExpireTime: 1800
+    # Shiro缓存过期时间-5分钟-5*60(秒为单位)(一般设置与AccessToken过期时间一致)
+    shiroCacheExpireTime: 300
+  # 不需要鉴权的路径
+  ignores:
+    - "/"
+    - "/notice/**"
+    - "/excel/**"
+    - "/file/**"
+    - "/pdf/**"
+    - "/user-es/**"
+    - "/quartz/**"
+    - "/test/**"
+    - "/cloud/**"
+    - "/rocket-mq/**"
+    - "/activeMq/**"
+    - "/kaptcha/**"
+    - "/activiti/**"
+    - "/openOffice/**"
+    - "/auth/register"
+    - "/auth/login"
+    - "/auth/logout"
+    - "/api/**"
+    - "/resources/**"
+    - "/templates/**"
+    - "/websocket.html"
+    - "/error.html"
+    - "/kaptcha.html"
+    - "/imgs/**"
+    - "*.css"
+    - "*.js"
+    - "*.gif"
+    - "*.jpg"
+    - "*.png"
+    - "*.ico"
+    - "/favicon.ico"
+    - "/druid/**"
+    - "/public/**"
+    - "/actuator/**"
+    - "/swagger-ui.html"
+    - "/doc.html"
+    - "/swagger-resources/**"
+    - "/service-worker.js"
+    - "/v2/**"
+    - "/webjars/**"
+
+
+
+
+
+
+
+
+

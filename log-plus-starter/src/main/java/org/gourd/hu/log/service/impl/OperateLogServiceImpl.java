@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.gourd.hu.base.utils.IpAddressUtil;
+import org.gourd.hu.core.utils.IpAddressUtil;
 import org.gourd.hu.log.annotation.OperateLog;
 import org.gourd.hu.log.dao.SysOperateLogDao;
 import org.gourd.hu.log.entity.SysOperateLog;

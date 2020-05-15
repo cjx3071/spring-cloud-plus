@@ -4,7 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.*;
-import org.gourd.hu.base.common.response.BaseResponse;
+import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.demo.dto.UserEsFindDTO;
 import org.gourd.hu.demo.entity.UserEs;
 import org.gourd.hu.demo.repositoty.UserRepository;
@@ -68,7 +68,7 @@ public class UserEsController {
      * @return
      */
     @DeleteMapping(value = "/delete/{id}")
-    @ApiOperation(value = "单个保存索引")
+    @ApiOperation(value = "删除")
     public BaseResponse delete(@PathVariable Long id){
         userRepository.deleteById(id);
         return BaseResponse.ok();

@@ -12,10 +12,10 @@
     <description>active消息</description>
     <version>1.0-SNAPSHOT</version>
     <dependencies>
-        <!--base-->
+        <!--base-plus-starter-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>base</artifactId>
+            <artifactId>base-plus-starter</artifactId>
             <optional>true</optional>
         </dependency>
         <!--activemq-->

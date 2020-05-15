@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
-import org.gourd.hu.base.common.response.BaseResponse;
+import org.gourd.hu.base.response.BaseResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -26,7 +26,7 @@ public class ShiroExceptionHandler {
     @ExceptionHandler(ShiroException.class)
     public BaseResponse handle401(ShiroException e) {
         log.error("异常信息：",e);
-        return BaseResponse.fail(HttpStatus.UNAUTHORIZED.value(), "无权访问(Unauthorized):" + e.getMessage());
+        return BaseResponse.fail(HttpStatus.UNAUTHORIZED, "无权访问(Unauthorized):" + e.getMessage());
     }
 
     /**
@@ -39,7 +39,7 @@ public class ShiroExceptionHandler {
     @ExceptionHandler(UnauthorizedException.class)
     public BaseResponse handle401(UnauthorizedException e) {
         log.error("异常信息：",e);
-        return BaseResponse.fail(HttpStatus.UNAUTHORIZED.value(), "无权访问(Unauthorized):没有此请求所需权限(" + e.getMessage() + ")");
+        return BaseResponse.fail(HttpStatus.UNAUTHORIZED, "无权访问(Unauthorized):没有此请求所需权限(" + e.getMessage() + ")");
     }
 
     /**
@@ -52,6 +52,6 @@ public class ShiroExceptionHandler {
     @ExceptionHandler(UnauthenticatedException.class)
     public BaseResponse handle401(UnauthenticatedException e) {
         log.error("异常信息：",e);
-        return BaseResponse.fail(HttpStatus.UNAUTHORIZED.value(), "无权访问(Unauthorized):匿名Subject，请先登录");
+        return BaseResponse.fail(HttpStatus.UNAUTHORIZED, "无权访问(Unauthorized):匿名Subject，请先登录");
     }
 }

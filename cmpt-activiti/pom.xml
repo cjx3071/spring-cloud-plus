@@ -24,10 +24,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--base-->
+        <!--base-plus-starter-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>base</artifactId>
+            <artifactId>base-plus-starter</artifactId>
             <optional>true</optional>
         </dependency>
     </dependencies>

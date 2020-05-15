@@ -12,10 +12,10 @@
     <version>1.0-SNAPSHOT</version>
     <description>核心模块，包括公共功能和工具</description>
     <dependencies>
-        <!--基础依赖-->
+        <!--base-plus-starter-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>base</artifactId>
+            <artifactId>base-plus-starter</artifactId>
             <optional>true</optional>
         </dependency>
         <!--aop-->

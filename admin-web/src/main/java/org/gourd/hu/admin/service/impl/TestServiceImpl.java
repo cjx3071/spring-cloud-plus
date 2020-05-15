@@ -2,7 +2,7 @@ package org.gourd.hu.admin.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.gourd.hu.admin.service.TestService;
-import org.gourd.hu.base.common.response.BaseResponse;
+import org.gourd.hu.base.response.BaseResponse;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

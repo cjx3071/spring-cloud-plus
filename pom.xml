@@ -15,7 +15,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>cmpt-base</module>
+        <module>base-plus-starter</module>
         <module>cmpt-core</module>
         <module>cmpt-activemq</module>
         <module>cmpt-activiti</module>
@@ -119,7 +119,7 @@
             <!--gourd-->
             <dependency>
                 <groupId>org.gourd.hu</groupId>
-                <artifactId>base</artifactId>
+                <artifactId>base-plus-starter</artifactId>
                 <version>${cloud.version}</version>
             </dependency>
         </dependencies>

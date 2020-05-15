@@ -12,10 +12,17 @@
     <version>1.0-SNAPSHOT</version>
     <description>分布式模块，包括注册、配置中心、分布式事务等</description>
     <dependencies>
-        <!--base-->
+        <!--base-plus-starter-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>base</artifactId>
+            <artifactId>base-plus-starter</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!--core-->
+        <dependency>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0-SNAPSHOT</version>
             <optional>true</optional>
         </dependency>
         <!--spring cloud nacos config -->

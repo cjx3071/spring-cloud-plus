@@ -3,7 +3,7 @@ package org.gourd.hu.demo.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.gourd.hu.base.common.response.BaseResponse;
+import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.file.excel.entity.DepartPO;
 import org.gourd.hu.file.excel.entity.SheetExcelData;
 import org.gourd.hu.file.excel.entity.UserPO;

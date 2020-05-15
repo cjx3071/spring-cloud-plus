@@ -8,12 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.gourd.hu.log.entity.SysOperateLog;
 import org.gourd.hu.log.service.OperateLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
 
 /**
@@ -23,11 +24,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DelExpireLog {
 
-    @Autowired
+    @Resource
     private OperateLogService operateLogService;
 
     @Autowired
-    private Executor asyncExecutor;
+    private AsyncTaskExecutor asyncTaskExecutor;
 
     /**
      * 每天0点执行一次删除过期日志
@@ -45,7 +46,7 @@ public class DelExpireLog {
                 break;
             }
             List<Long> logIds = logPOS.stream().map(e -> e.getId()).collect(Collectors.toList());
-            asyncExecutor.execute(() -> operateLogService.deleteLogs(logIds));
+            asyncTaskExecutor.execute(() -> operateLogService.deleteLogs(logIds));
         }
         log.info(">o< 删除过期日志定时任务结束： "+DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()) + "  "+ Thread.currentThread().getName());
     }

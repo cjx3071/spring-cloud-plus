@@ -8,7 +8,7 @@ import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
-import org.gourd.hu.base.common.exception.BusinessException;
+import org.gourd.hu.base.exceptions.BusinessException;
 import org.gourd.hu.cache.utils.RedisUtil;
 import org.gourd.hu.core.utils.Base64ConvertUtil;
 import org.gourd.hu.rbac.constant.JwtConstant;

@@ -11,10 +11,10 @@
     <version>1.0-SNAPSHOT</version>
     <description>主项目</description>
     <dependencies>
-        <!--项目必须的基础组件-->
+        <!--base-plus-starter-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>base</artifactId>
+            <artifactId>base-plus-starter</artifactId>
         </dependency>
         <!--核心模块-->
         <dependency>
@@ -85,27 +85,21 @@
             <version>${cloud.version}</version>
         </dependency>
         <!--activemq消息组件-->
-        <dependency>
-            <groupId>org.gourd.hu</groupId>
-            <artifactId>activemq</artifactId>
-            <version>${cloud.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.gourd.hu</groupId>-->
+<!--            <artifactId>activemq</artifactId>-->
+<!--            <version>${cloud.version}</version>-->
+<!--        </dependency>-->
         <!--es组件-->
-        <!--<dependency>-->
-            <!--<groupId>org.gourd.hu</groupId>-->
-            <!--<artifactId>es</artifactId>-->
-            <!--<version>${cloud.version}</version>-->
-        <!--</dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.gourd.hu</groupId>-->
+<!--            <artifactId>es</artifactId>-->
+<!--            <version>${cloud.version}</version>-->
+<!--        </dependency>-->
         <!--缓存组件-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
             <artifactId>cache-plus-starter</artifactId>
-            <version>${cloud.version}</version>
-        </dependency>
-        <!--sub服务api-->
-        <dependency>
-            <groupId>org.gourd.hu</groupId>
-            <artifactId>sub-api</artifactId>
             <version>${cloud.version}</version>
         </dependency>
         <!--日志模块-->

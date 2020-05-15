@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.gourd.hu.base.common.exception.BusinessException;
+import org.gourd.hu.base.exceptions.BusinessException;
 import org.gourd.hu.core.constant.MessageConstant;
 import org.gourd.hu.core.utils.CollectionUtil;
 import org.gourd.hu.core.utils.Pinyin4jUtil;

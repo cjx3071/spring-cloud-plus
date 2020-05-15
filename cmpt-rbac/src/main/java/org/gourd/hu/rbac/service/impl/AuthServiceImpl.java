@@ -6,7 +6,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.gourd.hu.base.common.exception.BusinessException;
+import org.gourd.hu.base.exceptions.BusinessException;
 import org.gourd.hu.cache.utils.RedisUtil;
 import org.gourd.hu.core.constant.MessageConstant;
 import org.gourd.hu.rbac.auth.jwt.JwtClaim;

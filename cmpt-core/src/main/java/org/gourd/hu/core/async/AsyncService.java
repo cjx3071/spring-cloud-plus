@@ -1,7 +1,7 @@
 package org.gourd.hu.core.async;
 
 
-import org.gourd.hu.base.common.response.BaseResponse;
+import org.gourd.hu.base.response.BaseResponse;
 
 import java.util.concurrent.Future;
 

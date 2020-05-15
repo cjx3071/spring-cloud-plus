@@ -17,10 +17,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
-        <!--base-->
+        <!--base-plus-starter-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>base</artifactId>
+            <artifactId>base-plus-starter</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- core -->
+        <dependency>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>core</artifactId>
+            <version>${cloud.version}</version>
             <optional>true</optional>
         </dependency>
     </dependencies>

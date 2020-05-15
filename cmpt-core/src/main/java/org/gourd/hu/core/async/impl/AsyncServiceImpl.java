@@ -1,7 +1,7 @@
 package org.gourd.hu.core.async.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.gourd.hu.base.common.response.BaseResponse;
+import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.base.holder.RequestHolder;
 import org.gourd.hu.core.async.AsyncService;
 import org.springframework.scheduling.annotation.Async;

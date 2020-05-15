@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.gourd.hu.base.common.vo.BaseVO;
+import org.gourd.hu.core.base.vo.BaseVO;
 import org.gourd.hu.core.annotation.SensitiveInfo;
 import org.gourd.hu.core.enums.SensitiveTypeEnum;
 import org.gourd.hu.core.enums.SexEnum;

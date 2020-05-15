@@ -1,5 +1,6 @@
 package org.gourd.hu.rbac.auth.jwt;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -30,11 +31,13 @@ public class JwtToken implements AuthenticationToken{
     private String userName;
 
     @Override
+    @JsonIgnore
     public Object getPrincipal() {
         return accessToken;
     }
 
     @Override
+    @JsonIgnore
     public Object getCredentials() {
         return accessToken;
     }
