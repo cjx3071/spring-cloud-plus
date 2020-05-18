@@ -9,6 +9,7 @@ import org.gourd.hu.base.request.holder.RequestDetailThreadLocal;
 import org.gourd.hu.base.response.BaseResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -70,7 +71,28 @@ public class GlobalExceptionHandler{
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler({MethodArgumentNotValidException.class})
-	public BaseResponse validException(MethodArgumentNotValidException ex) {
+	public BaseResponse handleException(MethodArgumentNotValidException ex) {
+		printRequestDetail();
+		BindingResult bindingResult = ex.getBindingResult();
+		List<String> list = new ArrayList<>();
+		List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+		for (FieldError fieldError : fieldErrors) {
+			list.add(fieldError.getDefaultMessage());
+		}
+		Collections.sort(list);
+		log.error(getApiCodeString(HttpStatus.BAD_REQUEST) + ":" + JSON.toJSONString(list));
+		return BaseResponse.fail(HttpStatus.BAD_REQUEST, list);
+	}
+
+	/**
+	 * 非法参数验证异常
+	 *
+	 * @param ex
+	 * @return
+	 */
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler({BindException.class})
+	public BaseResponse handleException(BindException ex) {
 		printRequestDetail();
 		BindingResult bindingResult = ex.getBindingResult();
 		List<String> list = new ArrayList<>();
@@ -89,9 +111,9 @@ public class GlobalExceptionHandler{
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(NoHandlerFoundException.class)
-	public BaseResponse handle(NoHandlerFoundException e) {
+	public BaseResponse handleException(NoHandlerFoundException e) {
 		printRequestDetail();
-		return BaseResponse.fail(HttpStatus.NOT_FOUND);
+		return BaseResponse.fail(HttpStatus.NOT_FOUND,e.getMessage());
 	}
 
 	/**
@@ -101,8 +123,8 @@ public class GlobalExceptionHandler{
 	 * @return
 	 */
 	@ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
-	@ResponseStatus(HttpStatus.OK)
-	public BaseResponse httpRequestMethodNotSupportedExceptionHandler(Exception exception) {
+	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+	public BaseResponse handleException(HttpRequestMethodNotSupportedException exception) {
 		printRequestDetail();
 		printApiCodeException(HttpStatus.METHOD_NOT_ALLOWED, exception);
 		return BaseResponse.fail(HttpStatus.METHOD_NOT_ALLOWED, exception.getMessage());
@@ -116,7 +138,7 @@ public class GlobalExceptionHandler{
 	 */
 	@ExceptionHandler(value = Exception.class)
 	@ResponseStatus(INTERNAL_SERVER_ERROR)
-	public BaseResponse exceptionHandler(Exception exception) {
+	public BaseResponse handleException(Exception exception) {
 		printRequestDetail();
 		printApiCodeException(INTERNAL_SERVER_ERROR, exception);
 		return BaseResponse.fail(exception.getLocalizedMessage());
