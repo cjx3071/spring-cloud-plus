@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * swagger接口文档
  * 访问：http://localhost:10001/doc.html#/
  *
- * @author gourd
+ * @author gourd.hu
  */
 @EnableSwagger2
 @EnableKnife4j

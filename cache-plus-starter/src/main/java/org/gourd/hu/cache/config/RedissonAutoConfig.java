@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Import;
 /**
  * redisson 配置
  *
- * @author gourd
+ * @author gourd.hu
  */
 
 @Data

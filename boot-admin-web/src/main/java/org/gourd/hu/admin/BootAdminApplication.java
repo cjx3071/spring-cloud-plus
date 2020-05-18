@@ -8,7 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * spring boot admin
- * @author gourd
+ * @author gourd.hu
  */
 @SpringBootApplication
 @EnableAdminServer

@@ -2,7 +2,7 @@ package org.gourd.hu.openapi.constant;
 
 /**
  * @Description 密钥
- * @Author gourd
+ * @author gourd.hu
  * @Date 2020/4/2 13:39
  * @Version 1.0
  */

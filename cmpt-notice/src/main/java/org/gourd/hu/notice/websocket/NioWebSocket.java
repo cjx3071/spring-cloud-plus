@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author gourd
+ * @author gourd.hu
  */
 @ServerEndpoint(prefix = "netty-websocket")
 @Component

@@ -9,7 +9,7 @@ import lombok.Setter;
 /**
  * 附件类型
  *
- * @author gourd
+ * @author gourd.hu
  * @create 2018-07-04 15:41
  **/
 @JSONType(serializeEnumAsJavaBean = true)

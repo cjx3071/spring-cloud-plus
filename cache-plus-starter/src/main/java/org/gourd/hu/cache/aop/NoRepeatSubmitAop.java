@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 接口防重复切面
- * @author gourd
+ * @author gourd.hu
  * @date 2018-08-26
  */
 @Aspect

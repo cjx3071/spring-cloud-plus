@@ -10,7 +10,7 @@ import lombok.Setter;
 /**
  * 性别枚举类
  *
- * @author gourd
+ * @author gourd.hu
  * @create 2018-07-04 15:41
  **/
 @AllArgsConstructor

@@ -2,7 +2,7 @@ package org.gourd.hu.file.openoffice.utils;
 
 /**
  *
- * @author gourd
+ * @author gourd.hu
  * @date 2017/2/15
  */
 public class CommonUtil {

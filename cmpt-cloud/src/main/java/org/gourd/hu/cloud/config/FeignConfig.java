@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * feign拦截配置，设置约定header信息
- * @author gourd
+ * @author gourd.hu
  */
 @Configuration
 @Slf4j

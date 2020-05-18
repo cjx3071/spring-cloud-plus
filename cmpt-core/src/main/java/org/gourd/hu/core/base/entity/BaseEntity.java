@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 /**
  * 公共实体父类
- * @author gourd
+ * @author gourd.hu
  */
 @Data
 public class BaseEntity<T> extends Model{

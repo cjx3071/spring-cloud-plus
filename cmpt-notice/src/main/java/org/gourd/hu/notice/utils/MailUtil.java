@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 
 /**
  * @Description 邮件工具类
- * @Author gourd
+ * @author gourd.hu
  * @Date 2019/12/2 10:14
  * @Version 1.0
  */

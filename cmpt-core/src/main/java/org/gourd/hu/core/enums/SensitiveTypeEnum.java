@@ -4,7 +4,7 @@ import com.alibaba.fastjson.annotation.JSONType;
 
 /**
  * 脱敏类型枚举类
- * @author gourd
+ * @author gourd.hu
  */
 @JSONType(serializeEnumAsJavaBean = true)
 public enum SensitiveTypeEnum {

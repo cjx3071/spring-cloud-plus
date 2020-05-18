@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @Description 基础vo对象
- * @Author gourd
+ * @author gourd.hu
  * @Date 2020/1/9 15:41
  * @Version 1.0
  */

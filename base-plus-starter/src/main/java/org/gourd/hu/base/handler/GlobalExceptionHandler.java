@@ -52,15 +52,16 @@ public class GlobalExceptionHandler{
 
 	/**
 	 * 处理自定义业务异常
-	 * @param e
+	 * @param ex
 	 * @return
 	 */
-	@ResponseStatus(INTERNAL_SERVER_ERROR)
+	@ResponseStatus(HttpStatus.OK)
 	@ExceptionHandler(value = BusinessException.class)
-	public BaseResponse handleException(BusinessException e) {
+	public BaseResponse handleException(BusinessException ex) {
 		// 打印堆栈信息
-		log.error("异常信息：",e);
-		return BaseResponse.fail(e.getMessage());
+		printRequestDetail();
+		printApiCodeException(HttpStatus.INTERNAL_SERVER_ERROR, ex);
+		return BaseResponse.fail(ex.getMessage());
 	}
 
 	/**
@@ -69,7 +70,7 @@ public class GlobalExceptionHandler{
 	 * @param ex
 	 * @return
 	 */
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseStatus(HttpStatus.OK)
 	@ExceptionHandler({MethodArgumentNotValidException.class})
 	public BaseResponse handleException(MethodArgumentNotValidException ex) {
 		printRequestDetail();
@@ -81,7 +82,7 @@ public class GlobalExceptionHandler{
 		}
 		Collections.sort(list);
 		log.error(getApiCodeString(HttpStatus.BAD_REQUEST) + ":" + JSON.toJSONString(list));
-		return BaseResponse.fail(HttpStatus.BAD_REQUEST, list);
+		return BaseResponse.fail(HttpStatus.BAD_REQUEST,ex.getMessage(), list);
 	}
 
 	/**
@@ -90,7 +91,7 @@ public class GlobalExceptionHandler{
 	 * @param ex
 	 * @return
 	 */
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseStatus(HttpStatus.OK)
 	@ExceptionHandler({BindException.class})
 	public BaseResponse handleException(BindException ex) {
 		printRequestDetail();
@@ -102,46 +103,47 @@ public class GlobalExceptionHandler{
 		}
 		Collections.sort(list);
 		log.error(getApiCodeString(HttpStatus.BAD_REQUEST) + ":" + JSON.toJSONString(list));
-		return BaseResponse.fail(HttpStatus.BAD_REQUEST, list);
+		return BaseResponse.fail(HttpStatus.BAD_REQUEST,ex.getMessage(), list);
 	}
 
 	/**
 	 * 404异常处理
+	 * @param ex
 	 * @return
 	 */
-	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ResponseStatus(HttpStatus.OK)
 	@ExceptionHandler(NoHandlerFoundException.class)
-	public BaseResponse handleException(NoHandlerFoundException e) {
+	public BaseResponse handleException(NoHandlerFoundException ex) {
 		printRequestDetail();
-		return BaseResponse.fail(HttpStatus.NOT_FOUND,e.getMessage());
+		return BaseResponse.fail(HttpStatus.NOT_FOUND,ex.getMessage());
 	}
 
 	/**
 	 * 不支持方法异常处理
 	 *
-	 * @param exception
+	 * @param ex
 	 * @return
 	 */
 	@ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
-	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-	public BaseResponse handleException(HttpRequestMethodNotSupportedException exception) {
+	@ResponseStatus(HttpStatus.OK)
+	public BaseResponse handleException(HttpRequestMethodNotSupportedException ex) {
 		printRequestDetail();
-		printApiCodeException(HttpStatus.METHOD_NOT_ALLOWED, exception);
-		return BaseResponse.fail(HttpStatus.METHOD_NOT_ALLOWED, exception.getMessage());
+		printApiCodeException(HttpStatus.METHOD_NOT_ALLOWED, ex);
+		return BaseResponse.fail(HttpStatus.METHOD_NOT_ALLOWED, ex.getMessage());
 	}
 
 	/**
 	 * 默认的异常处理
 	 *
-	 * @param exception
+	 * @param ex
 	 * @return
 	 */
 	@ExceptionHandler(value = Exception.class)
-	@ResponseStatus(INTERNAL_SERVER_ERROR)
-	public BaseResponse handleException(Exception exception) {
+	@ResponseStatus(HttpStatus.OK)
+	public BaseResponse handleException(Exception ex) {
 		printRequestDetail();
-		printApiCodeException(INTERNAL_SERVER_ERROR, exception);
-		return BaseResponse.fail(exception.getLocalizedMessage());
+		printApiCodeException(INTERNAL_SERVER_ERROR, ex);
+		return BaseResponse.fail(ex.getMessage());
 	}
 
 	/**

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import org.springframework.context.annotation.Bean;
 
 /**
- * @author gourd
+ * @author gourd.hu
  */
 public class MyBatisPlusConfig {
 

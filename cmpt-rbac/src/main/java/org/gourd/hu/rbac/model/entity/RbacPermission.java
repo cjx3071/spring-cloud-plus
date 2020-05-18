@@ -1,4 +1,4 @@
-package org.gourd.hu.rbac.entity;
+package org.gourd.hu.rbac.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -9,7 +9,7 @@ import org.gourd.hu.core.base.entity.BaseEntity;
 
 /**
  * <p>
- * 角色表
+ * 权限表
  * </p>
  *
  * @author gourd.hu
@@ -17,9 +17,9 @@ import org.gourd.hu.core.base.entity.BaseEntity;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("rbac_role")
-@ApiModel(value = "RbacRole对象", description = "角色表")
-public class RbacRole extends BaseEntity<RbacRole> {
+@TableName("rbac_permission")
+@ApiModel(value = "RbacPermission对象", description = "权限表")
+public class RbacPermission extends BaseEntity<RbacPermission> {
 
     @ApiModelProperty(value = "代码")
     private String code;

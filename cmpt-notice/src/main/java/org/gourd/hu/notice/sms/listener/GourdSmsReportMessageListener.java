@@ -5,7 +5,7 @@ import com.aliyun.mns.model.Message;
 
 /**
  * 如果需要监听短信是否被对方成功接收，只需实现这个接口并初始化一个 Spring Bean 即可。
- * @author gourd
+ * @author gourd.hu
  */
 //@Component
 public class GourdSmsReportMessageListener implements SmsReportMessageListener {

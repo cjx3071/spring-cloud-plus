@@ -2,6 +2,7 @@ package org.gourd.hu.base.response;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +12,7 @@ import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
  * <p>
@@ -29,29 +29,23 @@ import java.util.Map;
 public class BaseResponse<T> implements Serializable {
 	private static final long serialVersionUID = 8004487252556526569L;
 
-	/**
-     * 响应码
-     */
+
+    @ApiModelProperty("响应码")
     private Integer code;
 
-    /**
-     * 是否成功
-     */
+    @ApiModelProperty("是否成功")
     private Boolean success;
 
-    /**
-     * 响应消息
-     */
+    @ApiModelProperty("响应消息")
     private String message;
 
-    /**
-     * 响应数据
-     */
+    @ApiModelProperty("响应数据")
     private T data;
 
-    /**
-     * 响应时间
-     */
+    @ApiModelProperty("错误信息集合")
+    private List<String> errors;
+
+    @ApiModelProperty("响应时间")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime time;
@@ -72,10 +66,10 @@ public class BaseResponse<T> implements Serializable {
     }
 
     public static <T> BaseResponse<T> result(HttpStatus httpStatus, T data){
-        return result(httpStatus,null,data);
+        return result(httpStatus,null,data,null);
     }
 
-    public static <T> BaseResponse<T> result(HttpStatus httpStatus, String message, T data){
+    public static <T> BaseResponse<T> result(HttpStatus httpStatus, String message, T data,List<String> errors){
         boolean success = false;
         if (httpStatus.value() == HttpStatus.OK.value()){
             success = true;
@@ -90,6 +84,7 @@ public class BaseResponse<T> implements Serializable {
                 .data(data)
                 .success(success)
                 .time(LocalDateTime.now())
+                .errors(errors)
                 .build();
     }
 
@@ -102,38 +97,36 @@ public class BaseResponse<T> implements Serializable {
     }
 
     public static <T> BaseResponse<T> ok(String message,T data ){
-        return result(HttpStatus.OK,message,data);
-    }
-
-    public static BaseResponse<Map<String,Object>> okMap(String key, Object value){
-        Map<String,Object> map = new HashMap<>(1);
-        map.put(key,value);
-        return ok(map);
-    }
-
-    public static BaseResponse<Boolean> fail(HttpStatus httpStatus){
-        return result(httpStatus,null);
-    }
-
-    public static BaseResponse<String> fail(String message){
-        return result(HttpStatus.INTERNAL_SERVER_ERROR,message,null);
-
-    }
-
-    public static <T> BaseResponse<T> fail(HttpStatus httpStatus, T data){
-        if (HttpStatus.OK == httpStatus){
-            throw new RuntimeException("失败结果状态码不能为" + HttpStatus.OK.value());
-        }
-        return result(httpStatus,data);
-
-    }
-
-    public static BaseResponse<String> fail(HttpStatus httpStatus, String message){
-        return result(httpStatus,message,null);
-
+        return result(HttpStatus.OK,message,data,null);
     }
 
     public static BaseResponse<Boolean> fail() {
         return fail(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    public static BaseResponse<Boolean> fail(HttpStatus httpStatus){
+        if (HttpStatus.OK == httpStatus){
+            throw new RuntimeException("失败结果状态码不能为" + HttpStatus.OK.value());
+        }
+        return result(httpStatus,null);
+    }
+
+    public static BaseResponse<String> fail(String message){
+        return result(HttpStatus.INTERNAL_SERVER_ERROR,message,null,null);
+
+    }
+
+    public static BaseResponse<String> fail(HttpStatus httpStatus, String message){
+        if (HttpStatus.OK == httpStatus){
+            throw new RuntimeException("失败结果状态码不能为" + HttpStatus.OK.value());
+        }
+        return result(httpStatus,message,null,null);
+
+    }
+
+    public static BaseResponse<String> fail(HttpStatus httpStatus, String message,List<String> errors){
+        return result(httpStatus,message,null,errors);
+
+    }
+
 }

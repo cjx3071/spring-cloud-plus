@@ -7,7 +7,7 @@ import org.redisson.api.RSemaphore;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author gourd
+ * @author gourd.hu
  */
 public interface DistributedLocker {
 

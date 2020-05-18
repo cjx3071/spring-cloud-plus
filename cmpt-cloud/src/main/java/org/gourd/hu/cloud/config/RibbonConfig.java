@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Ribbon负载均衡全局粒度配置(所有服务都按照这个配置)
  *
- * @author gourd
+ * @author gourd.hu
  */
 @Configuration
 @RibbonClients(defaultConfiguration = GlobalRibbonRuleConfig.class)

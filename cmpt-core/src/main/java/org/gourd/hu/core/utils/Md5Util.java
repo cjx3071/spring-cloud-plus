@@ -6,7 +6,7 @@ import java.security.MessageDigest;
 
 
 /**
- * @author gourd
+ * @author gourd.hu
  */
 public class Md5Util {
 

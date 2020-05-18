@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * 测试
- * @author gourd
+ * @author gourd.hu
  */
 @RestController
 @RequestMapping("/test")

@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * 异步线程池配置
  *
- * @author gourd
+ * @author gourd.hu
  */
 @EnableAsync
 public class AsyncPoolConfig implements AsyncConfigurer {

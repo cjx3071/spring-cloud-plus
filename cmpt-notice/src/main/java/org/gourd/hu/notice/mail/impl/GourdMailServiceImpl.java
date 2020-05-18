@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  * 邮件发送
- * @author gourd
+ * @author gourd.hu
  */
 @Service
 @Slf4j

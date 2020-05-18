@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * redis分布式锁帮助类
  *
- * @author gourd
+ * @author gourd.hu
  *
  */
 public class RedisLockUtil {

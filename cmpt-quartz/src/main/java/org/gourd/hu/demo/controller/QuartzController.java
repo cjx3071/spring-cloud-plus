@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * 供前期测试使用
- * @author gourd
+ * @author gourd.hu
  */
 @RestController
 @RequestMapping("/quartz")

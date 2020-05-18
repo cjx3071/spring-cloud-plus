@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 
 /**
- * @author gourd
+ * @author gourd.hu
  * @date 2018-11-20
  */
 @Configuration

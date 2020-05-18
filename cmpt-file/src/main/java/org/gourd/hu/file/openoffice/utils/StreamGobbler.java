@@ -7,7 +7,7 @@ import java.io.*;
 /**
  * 用于处理Runtime.getRuntime().exec产生的错误流及输出流
  *
- * @author gourd
+ * @author gourd.hu
  *
  */
 @Slf4j

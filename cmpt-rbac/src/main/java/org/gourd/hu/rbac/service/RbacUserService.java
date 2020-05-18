@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.gourd.hu.rbac.auth.jwt.JwtToken;
-import org.gourd.hu.rbac.dto.*;
-import org.gourd.hu.rbac.entity.RbacUser;
-import org.gourd.hu.rbac.vo.UserVO;
+import org.gourd.hu.rbac.model.dto.*;
+import org.gourd.hu.rbac.model.entity.RbacUser;
+import org.gourd.hu.rbac.model.vo.UserVO;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 用户
  *
- * @author gourd
+ * @author gourd.hu
  * @date 2019-04-02 17:26:16
  */
 public interface RbacUserService extends IService<RbacUser> {

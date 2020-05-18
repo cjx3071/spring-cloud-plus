@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.gourd.hu.base.exceptions.BusinessException;
 import org.gourd.hu.core.constant.MessageConstant;
 import org.gourd.hu.rbac.dao.SysTenantDao;
-import org.gourd.hu.rbac.entity.SysTenant;
+import org.gourd.hu.rbac.model.entity.SysTenant;
 import org.gourd.hu.rbac.service.SysTenantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -7,7 +7,7 @@ import lombok.Setter;
 /**
  * 逻辑状态枚举工具类
  *
- * @author gourd
+ * @author gourd.hu
  * @create 2018-07-04 15:41
  **/
 @JSONType(serializeEnumAsJavaBean = true)

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * 测试
- * @author gourd
+ * @author gourd.hu
  */
 @Api(tags = "分布式测试API", description = "分布式测试API" )
 @RestController

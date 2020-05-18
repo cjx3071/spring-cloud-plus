@@ -1,7 +1,7 @@
 package org.gourd.hu.rbac.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.gourd.hu.rbac.entity.SysTenant;
+import org.gourd.hu.rbac.model.entity.SysTenant;
 
 /**
  * <p>

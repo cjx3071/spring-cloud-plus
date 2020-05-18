@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * 部门导出导入实体
- * @author gourd
+ * @author gourd.hu
  * @date 2019-04-02 17:26:16
  */
 @Data

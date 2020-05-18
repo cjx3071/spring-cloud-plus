@@ -20,7 +20,7 @@ import java.util.List;
  *
  * 复写租户条件
  *
- * @author gourd
+ * @author gourd.hu
  * @date 2019/8/1
  */
 public class GlobalTenantParser extends TenantSqlParser {

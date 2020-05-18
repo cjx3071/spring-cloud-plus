@@ -3,7 +3,7 @@
 <mapper namespace="org.gourd.hu.rbac.dao.SysTenantDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="org.gourd.hu.rbac.entity.SysTenant">
+    <resultMap id="BaseResultMap" type="org.gourd.hu.rbac.model.entity.SysTenant">
         <result column="number" property="number" />
         <result column="code" property="code" />
         <result column="name" property="name" />

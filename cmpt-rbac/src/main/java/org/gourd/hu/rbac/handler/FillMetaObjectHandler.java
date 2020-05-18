@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * 元对象字段填充控制器
  * 自定义填充公共字段 ,即没有传的字段自动填充
  *
- * @author gourd
+ * @author gourd.hu
  **/
 @Component
 public class FillMetaObjectHandler implements MetaObjectHandler {

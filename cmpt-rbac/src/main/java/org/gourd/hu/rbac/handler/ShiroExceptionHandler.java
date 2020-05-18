@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * shiro权限异常处理器
- * @author gourd
+ * @author gourd.hu
  */
 @RestControllerAdvice
 @Slf4j

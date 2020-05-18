@@ -23,7 +23,7 @@ import java.util.*;
  * 使用方式有两种：
  * 1.一种是经过 SpringData 封装过的，直接在 dao 接口继承 ElasticsearchRepository 即可
  * 2.一种是经过 Spring 封装过的，直接在 Service/Controller 中引入该 bean 即可 ElasticsearchTemplate
- * @author gourd
+ * @author gourd.hu
  */
 @RestController
 @RequestMapping("/user-es")

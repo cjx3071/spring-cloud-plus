@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 
 /**
  * 删除空字符串注解
- * @author gourd
+ * @author gourd.hu
  * @date 2018-08-26
  */
 @Target(ElementType.FIELD)

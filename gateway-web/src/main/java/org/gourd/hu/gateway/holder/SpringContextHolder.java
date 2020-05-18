@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 这个类可以直接获取spring 配置文件中引用（注入）到所有的bean对象
- * @author gourd
+ * @author gourd.hu
  *
  **/
 @Component

@@ -4,15 +4,15 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
-import org.gourd.hu.rbac.dto.RbacUserOrgSearchDTO;
-import org.gourd.hu.rbac.entity.RbacUser;
-import org.gourd.hu.rbac.vo.UserVO;
+import org.gourd.hu.rbac.model.dto.RbacUserOrgSearchDTO;
+import org.gourd.hu.rbac.model.entity.RbacUser;
+import org.gourd.hu.rbac.model.vo.UserVO;
 import org.springframework.stereotype.Repository;
 
 /**
  * 用户操作dao
  *
- * @author gourd
+ * @author gourd.hu
  * @date 2019-04-02 17:26:16
  */
 @Repository

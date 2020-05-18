@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * 作用：用于发送短信/邮箱验证码
  *
- * @author gourd
+ * @author gourd.hu
  */
 public class ValidateCodeUtil {
 

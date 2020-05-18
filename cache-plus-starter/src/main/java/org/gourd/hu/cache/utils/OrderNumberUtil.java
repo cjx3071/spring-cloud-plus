@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * @author gourd
+ * @author gourd.hu
  */
 public class OrderNumberUtil {
 

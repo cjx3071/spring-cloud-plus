@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.retry.annotation.EnableRetry;
 
 /**
- * @author gourd
+ * @author gourd.hu
  * @date 2018-11-20
  */
 @Configuration

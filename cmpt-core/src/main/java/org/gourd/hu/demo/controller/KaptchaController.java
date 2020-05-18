@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * 图形验证码控制器
- * @author gourd
+ * @author gourd.hu
  */
 @RestController
 @RequestMapping("/kaptcha")

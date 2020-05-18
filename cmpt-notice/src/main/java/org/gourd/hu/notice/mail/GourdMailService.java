@@ -1,7 +1,7 @@
 package org.gourd.hu.notice.mail;
 
 /**
- * @author gourd
+ * @author gourd.hu
  */
 public interface GourdMailService {
 

@@ -6,7 +6,7 @@ import org.gourd.hu.base.response.BaseResponse;
 import java.util.concurrent.Future;
 
 /**
- * @author gourd
+ * @author gourd.hu
  */
 public interface AsyncService {
 

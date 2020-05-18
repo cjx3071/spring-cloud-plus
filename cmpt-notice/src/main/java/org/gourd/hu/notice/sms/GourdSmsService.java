@@ -8,7 +8,7 @@ import org.gourd.hu.notice.sms.domain.CodeTemp;
 import java.util.Set;
 
 /**
- * @author gourd
+ * @author gourd.hu
  *
  */
 public interface GourdSmsService {

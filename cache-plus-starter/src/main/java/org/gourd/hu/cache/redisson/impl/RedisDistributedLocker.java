@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author gourd
+ * @author gourd.hu
  */
 public class RedisDistributedLocker implements DistributedLocker {
 

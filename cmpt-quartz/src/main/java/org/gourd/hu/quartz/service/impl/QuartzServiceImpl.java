@@ -14,7 +14,7 @@ import java.util.*;
 
 /**
  * quartz逻辑
- * @author gourd
+ * @author gourd.hu
  */
 @Service
 @DS("quartz")

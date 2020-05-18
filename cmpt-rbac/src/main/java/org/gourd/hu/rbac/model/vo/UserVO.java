@@ -1,71 +1,57 @@
-package org.gourd.hu.rbac.vo;
+package org.gourd.hu.rbac.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.gourd.hu.core.base.vo.BaseVO;
 import org.gourd.hu.core.annotation.SensitiveInfo;
+import org.gourd.hu.core.base.vo.BaseVO;
 import org.gourd.hu.core.enums.SensitiveTypeEnum;
 import org.gourd.hu.core.enums.SexEnum;
 
 import java.time.LocalDateTime;
 
 /**
- * @author gourd
- *
  * 返回给前端的实体类
+ *
+ * @author gourd.hu
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(value = "用户对象", description = "用户对象")
 public class UserVO extends BaseVO {
-    /**
-     * 名称
-     */
+
+    @ApiModelProperty("名称")
     private String name;
 
-    /**
-     * 姓名拼音
-     */
+    @ApiModelProperty("姓名拼音")
     private String pinYin;
 
-    /**
-     * 年龄
-     */
+    @ApiModelProperty("年龄")
     private Integer age;
 
-    /**
-     * 性别
-     */
+    @ApiModelProperty("性别")
     private SexEnum sex;
 
-    /**
-     * 生日
-     */
+    @ApiModelProperty("生日")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private LocalDateTime birth;
 
-    /**
-     * 昵称
-     */
+    @ApiModelProperty("昵称")
     private String nickName;
 
-    /**
-     * 邮箱
-     */
+    @ApiModelProperty("邮箱")
     @SensitiveInfo(SensitiveTypeEnum.EMAIL)
     private String email;
 
-    /**
-     * 手机
-     */
+    @ApiModelProperty("手机")
     @SensitiveInfo(SensitiveTypeEnum.MOBILE_PHONE)
     private String mobilePhone;
 
-    /**
-     * 头像地址
-     */
+    @ApiModelProperty("头像地址")
     private String photoUrl;
 
 

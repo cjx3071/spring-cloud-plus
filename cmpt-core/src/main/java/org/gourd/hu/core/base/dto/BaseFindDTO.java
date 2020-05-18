@@ -6,7 +6,7 @@ import org.gourd.hu.core.enums.SortEnum;
 
 /**
  * 查询分页基础类
- * @author gourd
+ * @author gourd.hu
  */
 @Data
 public class BaseFindDTO {

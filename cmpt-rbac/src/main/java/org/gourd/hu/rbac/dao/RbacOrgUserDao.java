@@ -1,7 +1,7 @@
 package org.gourd.hu.rbac.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.gourd.hu.rbac.entity.RbacOrgUser;
+import org.gourd.hu.rbac.model.entity.RbacOrgUser;
 import org.springframework.stereotype.Repository;
 
 /**

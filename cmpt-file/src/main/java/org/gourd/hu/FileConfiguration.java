@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.jmx.support.RegistrationPolicy;
 
 /**
- * @author gourd
+ * @author gourd.hu
  * @date 2018-11-20
  */
 @Configuration

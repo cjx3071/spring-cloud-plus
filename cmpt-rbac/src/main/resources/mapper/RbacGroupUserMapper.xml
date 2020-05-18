@@ -3,7 +3,7 @@
 <mapper namespace="org.gourd.hu.rbac.dao.RbacGroupUserDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="org.gourd.hu.rbac.entity.RbacGroupUser">
+    <resultMap id="BaseResultMap" type="org.gourd.hu.rbac.model.entity.RbacGroupUser">
         <result column="tenant_id" property="tenantId" />
         <result column="group_id" property="groupId" />
         <result column="user_id" property="userId" />

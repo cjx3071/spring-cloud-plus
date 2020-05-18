@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * 忽略操作日志注解
  *
- * @author gourd
+ * @author gourd.hu
  * @date 2018-11-24
  */
 @Target(ElementType.METHOD)

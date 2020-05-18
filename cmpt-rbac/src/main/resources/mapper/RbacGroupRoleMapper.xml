@@ -3,7 +3,7 @@
 <mapper namespace="org.gourd.hu.rbac.dao.RbacGroupRoleDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="org.gourd.hu.rbac.entity.RbacGroupRole">
+    <resultMap id="BaseResultMap" type="org.gourd.hu.rbac.model.entity.RbacGroupRole">
         <result column="tenant_id" property="tenantId" />
         <result column="group_id" property="groupId" />
         <result column="role_id" property="roleId" />

@@ -21,7 +21,7 @@ import java.util.concurrent.Executor;
 /**
  * nacos路由数据源
  *
- * @author gourd-hu
+ * @author gourd.hu
  */
 @Slf4j
 public class NacosRouteDefinitionRepository implements RouteDefinitionRepository {
