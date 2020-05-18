@@ -26,13 +26,13 @@ public class RbacUserCreateDTO {
     @ApiModelProperty("承租人id")
     private Long tenantId;
 
-    @ApiModelProperty("账号")
+    @ApiModelProperty(value = "账号",required = true)
     @NotBlank(message = "账号不能为空")
     @Length(min = 1,max = 20,message = "账号长度不合法")
     @Pattern(regexp = "[A-Za-z0-9]+",message = "账号格式不正确,只能含有字母和数字")
     private  String account;
 
-    @ApiModelProperty("密码")
+    @ApiModelProperty(value = "密码",required = true)
     @NotBlank(message = "密码不能为空")
     @Length(min = 1,max = 20,message = "账号长度不合法")
     private  String password;

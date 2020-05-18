@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author gourd
@@ -14,7 +15,8 @@ import javax.validation.constraints.Email;
 @ApiModel(value = "用户更新对象", description = "用户更新对象")
 public class RbacUserUpdateDTO {
 
-    @ApiModelProperty("用户id")
+    @ApiModelProperty(value = "用户id",required = true)
+    @NotNull
     private Long id;
 
     @ApiModelProperty("年龄")

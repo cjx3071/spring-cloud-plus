@@ -1,5 +1,7 @@
 package org.gourd.hu.core.base.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -9,15 +11,13 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
+@ApiModel(value = "基础vo对象", description = "基础vo对象")
 public class BaseVO {
 
-    /**
-     * 主键id
-     */
+    @ApiModelProperty("主键id")
     private Long id;
-    /**
-     * 承租人id
-     */
+
+    @ApiModelProperty("承租人id")
     private Long tenantId;
 
 

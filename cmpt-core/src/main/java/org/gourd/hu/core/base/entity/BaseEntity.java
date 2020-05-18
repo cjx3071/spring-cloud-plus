@@ -3,6 +3,7 @@ package org.gourd.hu.core.base.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
  * @author gourd.hu
  */
 @Data
+@ApiModel(value = "基础实体对象", description = "基础实体对象")
 public class BaseEntity<T> extends Model{
 
     @ApiModelProperty(value = "主键id")
