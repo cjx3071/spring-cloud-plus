@@ -22,18 +22,25 @@ public class DateUtil {
     private static final Logger log = LoggerFactory.getLogger(DateUtil.class);
 
     public static final String DATE_FORMAT_DEFAULT = "yyyy-MM-dd HH:mm:ss";
-
-    public static final String DATE_FORMAT_YYYY_MM_DD = "yyyy-MM-dd";
+    public static final String DATE_FORMAT_DEFAULT_X = "yyyy/MM/dd  HH:mm:ss";
+    public static final String DATE_FORMAT_YYYY_MM_DD_X = "yyyy/MM/dd";
 
     public static final String DATE_FORMAT_YYYYMMDD = "yyyyMMdd";
-
-    public static final String DATE_FORMAT_YYYY_MM = "yyyy-MM";
 
     public static final String DATE_FORMAT_HH_MM_SS = "HH:mm:ss";
 
     public static final String DATE_FORMAT_DEFAULT_CHINESE_PATTERN = "yyyy年MM月dd日 HH:mm:ss";
 
-    public static final String DATE_FORMAT_HH_MM = "yyyy-MM-dd HH:mm";
+
+    public static final String DEFAULT_YYYY_FORMAT = "yyyy";
+    public static final String DATE_FORMAT_YYYY_MM = "yyyy-MM";
+    public static final String DATE_FORMAT_YYYY_MM_DD = "yyyy-MM-dd";
+    public static final String DATE_FORMAT_YYYY_MM_DD_HH = "yyyy-MM-dd HH";
+    public static final String DATE_FORMAT_YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
+
+
+
+
 
 
     private static String[] parsePatterns = {
