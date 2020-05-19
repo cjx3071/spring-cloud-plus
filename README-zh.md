@@ -3,7 +3,7 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 这个项目是我自己维护的实践型项目，平时工作中遇到的一些常用框架和技术，我都会整合到此项目，并持续更新。
 
 项目文档：
-[https://www.yuque.com/xiangnan-t93lv/lwk2st](https://www.yuque.com/xiangnan-t93lv/lwk2st)
+[https://www.yuque.com/xiangnan-t93lv/lwk2st/st5ypg](https://www.yuque.com/xiangnan-t93lv/lwk2st/st5ypg)
 
 ### 作者
 名字：葫芦胡  
