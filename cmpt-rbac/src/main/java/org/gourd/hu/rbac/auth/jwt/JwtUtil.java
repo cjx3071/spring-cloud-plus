@@ -8,7 +8,7 @@ import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
-import org.gourd.hu.base.exceptions.BusinessException;
+import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.gourd.hu.cache.utils.RedisUtil;
 import org.gourd.hu.core.utils.Base64ConvertUtil;
 import org.gourd.hu.rbac.constant.JwtConstant;
@@ -90,7 +90,7 @@ public class JwtUtil {
             return true;
         } catch (UnsupportedEncodingException e) {
             log.error("JWTToken认证解密出现UnsupportedEncodingException异常:{}", e.getMessage());
-            throw new BusinessException("JWTToken认证解密出现UnsupportedEncodingException异常:" + e.getMessage());
+            throw ResponseEnum.INTERNAL_SERVER_ERROR.newException("JWTToken认证解密异常");
         }
     }
 
@@ -107,7 +107,7 @@ public class JwtUtil {
             return jwt.getClaim(claim).asString();
         } catch (JWTDecodeException e) {
             log.error("解密Token中的公共信息出现JWTDecodeException异常:{}", e.getMessage());
-            throw new BusinessException("解密Token中的公共信息出现JWTDecodeException异常:" + e.getMessage());
+            throw ResponseEnum.INTERNAL_SERVER_ERROR.newException("解密Token中的公共信息异常");
         }
     }
     /**
@@ -123,7 +123,7 @@ public class JwtUtil {
             return jwt.getClaim(claim).asLong();
         } catch (JWTDecodeException e) {
             log.error("解密Token中的公共信息出现JWTDecodeException异常:{}", e.getMessage());
-            throw new BusinessException("解密Token中的公共信息出现JWTDecodeException异常:" + e.getMessage());
+            throw ResponseEnum.INTERNAL_SERVER_ERROR.newException("解密Token中的公共信息异常");
         }
     }
     /**
@@ -138,7 +138,7 @@ public class JwtUtil {
             return jwt.getClaims();
         } catch (JWTDecodeException e) {
             log.error("解密Token中的公共信息出现JWTDecodeException异常:{}", e.getMessage());
-            throw new BusinessException("解密Token中的公共信息出现JWTDecodeException异常:" + e.getMessage());
+            throw ResponseEnum.INTERNAL_SERVER_ERROR.newException("解密Token中的公共信息异常");
         }
     }
 
@@ -155,7 +155,7 @@ public class JwtUtil {
             return jwt.getSubject();
         } catch (JWTDecodeException e) {
             log.error("解密Token中的公共信息出现JWTDecodeException异常:{}", e.getMessage());
-            throw new BusinessException("解密Token中的公共信息出现JWTDecodeException异常:" + e.getMessage());
+            throw ResponseEnum.INTERNAL_SERVER_ERROR.newException("解密Token中的公共信息异常");
         }
     }
 
@@ -184,7 +184,7 @@ public class JwtUtil {
                     .sign(algorithm);
         } catch (UnsupportedEncodingException e) {
             log.error("JWTToken加密出现UnsupportedEncodingException异常:{}", e.getMessage());
-            throw new BusinessException("JWTToken加密出现UnsupportedEncodingException异常:" + e.getMessage());
+            throw ResponseEnum.INTERNAL_SERVER_ERROR.newException("JWTToken加密异常");
         }
     }
 
@@ -215,7 +215,7 @@ public class JwtUtil {
                     .sign(algorithm);
         } catch (UnsupportedEncodingException e) {
             log.error("JWTToken加密出现UnsupportedEncodingException异常:{}", e.getMessage());
-            throw new BusinessException("JWTToken加密出现UnsupportedEncodingException异常:" + e.getMessage());
+            throw ResponseEnum.INTERNAL_SERVER_ERROR.newException("JWTToken加密异常");
         }
     }
 

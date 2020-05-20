@@ -15,7 +15,6 @@ import java.net.UnknownHostException;
  */
 @Slf4j
 @SpringBootApplication
-//@ComponentScan({"org.gourd.hu.admin","org.gourd.hu.activiti"})
 public class AdminWebApplication {
 
     public static void main(String[] args) throws UnknownHostException {

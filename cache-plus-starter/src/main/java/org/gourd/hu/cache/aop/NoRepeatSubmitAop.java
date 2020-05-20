@@ -7,7 +7,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.gourd.hu.base.exceptions.BusinessException;
+import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.gourd.hu.base.holder.RequestHolder;
 import org.gourd.hu.cache.annotation.NoRepeatSubmit;
 import org.gourd.hu.cache.utils.RedisUtil;
@@ -44,7 +44,7 @@ public class NoRepeatSubmitAop {
             RedisUtil.setExpire(key, "0",noRepeatSubmit.time());
             return o;
         } else {
-            throw new BusinessException("重复提交");
+            return ResponseEnum.REPEAT_COMMIT.newException();
         }
     }
 

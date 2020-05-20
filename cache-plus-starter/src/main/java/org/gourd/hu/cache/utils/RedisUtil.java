@@ -1,33 +1,49 @@
 package org.gourd.hu.cache.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
  * redis工具类
  *
- * @author gourd.hu
+ * @author gourd
  * @Date 2018年1月15日
  */
 @Slf4j
+@Component
 public class RedisUtil {
 
-    @Autowired
+    @Resource
     private RedisTemplate<String, Object> stringObjectRedisTemplate ;
 
+    @Resource
+    private RedisTemplate<String, String> stringStringRedisTemplate ;
+
     private static RedisTemplate<String, Object> redisTemplate;
+    private static RedisTemplate<String, String> stringRedisTemplate;
 
     @PostConstruct
     public void init() {
         redisTemplate = stringObjectRedisTemplate;
+        stringRedisTemplate = stringStringRedisTemplate;
     }
 
 //    ----------------------------- String 操作 ------------------------
+    /**
+     * 获取普通对象
+     *
+     * @param key 键
+     * @return 对象
+     */
+    public static String getStr(final String key) {
+        return stringRedisTemplate.opsForValue().get(key);
+    }
     /**
      * 获取普通对象
      *
@@ -255,6 +271,17 @@ public class RedisUtil {
     }
 
     /**
+     * 获取Set中是否存在key,value的数据
+     *
+     * @param key Redis键
+     * @return 是否存在
+     */
+    public static Set<String> sGetStr(final String key) {
+        Set<String> objectSet = stringRedisTemplate.opsForSet().members(key);
+        return objectSet;
+    }
+
+    /**
      * 获取Set中key的数据
      *
      * @param key Redis键
@@ -262,6 +289,17 @@ public class RedisUtil {
      */
     public static Boolean sExist(final String key,Object value) {
         Boolean exists = redisTemplate.opsForSet().isMember(key,value);
+        return exists;
+    }
+
+    /**
+     * 获取Set中key的数据
+     *
+     * @param key Redis键
+     * @return Set中key的数据
+     */
+    public static Boolean sExistStr(final String key,String value) {
+        Boolean exists = stringRedisTemplate.opsForSet().isMember(key,value);
         return exists;
     }
 
@@ -274,6 +312,43 @@ public class RedisUtil {
      */
     public static long sSet(final String key, final Object... values) {
         Long count = redisTemplate.opsForSet().add(key, values);
+        return count == null ? 0 : count;
+    }
+
+    /**
+     * 往Set中存入数据
+     *
+     * @param key Redis键
+     * @param values 值
+     * @return 存入的个数
+     */
+    public static long sSet(final String key, final Collection<Object> values) {
+        Object[] objects = values.toArray();
+        Long count = redisTemplate.opsForSet().add(key, objects);
+        return count == null ? 0 : count;
+    }
+    /**
+     * 往Set中存入数据
+     *
+     * @param key Redis键
+     * @param values 值
+     * @return 存入的个数
+     */
+    public static long sSetStr(final String key, final String... values) {
+        Long count = stringRedisTemplate.opsForSet().add(key, values);
+        return count == null ? 0 : count;
+    }
+
+    /**
+     * 往Set中存入数据
+     *
+     * @param key Redis键
+     * @param values 值
+     * @return 存入的个数
+     */
+    public static long sSetStr(final String key, final Collection<String> values) {
+        String[] strValues = values.toArray(new String[]{});
+        Long count = stringRedisTemplate.opsForSet().add(key, strValues);
         return count == null ? 0 : count;
     }
 

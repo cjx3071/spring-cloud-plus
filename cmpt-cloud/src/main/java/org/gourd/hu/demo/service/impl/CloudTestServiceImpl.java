@@ -2,7 +2,8 @@ package org.gourd.hu.demo.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
-import org.gourd.hu.base.exceptions.BusinessException;
+import org.gourd.hu.base.exception.BusinessException;
+import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.gourd.hu.demo.service.CloudTestService;
 import org.gourd.hu.sub.api.SubApi;
 import org.gourd.hu.sub.response.BaseResponse;
@@ -36,6 +37,6 @@ public class CloudTestServiceImpl implements CloudTestService {
         BaseResponse subRes = subApi.seataTxTest();
         log.info("response:"+ JSON.toJSONString(subRes));
         // 模拟异常，看子事务是否回滚
-        throw new BusinessException("this is a mock Exception");
+        throw new BusinessException(ResponseEnum.INTERNAL_SERVER_ERROR);
     }
 }

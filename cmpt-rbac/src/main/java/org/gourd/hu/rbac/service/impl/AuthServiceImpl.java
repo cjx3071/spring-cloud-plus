@@ -6,9 +6,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.gourd.hu.base.exceptions.BusinessException;
+import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.gourd.hu.cache.utils.RedisUtil;
-import org.gourd.hu.core.constant.MessageConstant;
 import org.gourd.hu.rbac.auth.jwt.JwtClaim;
 import org.gourd.hu.rbac.auth.jwt.JwtToken;
 import org.gourd.hu.rbac.auth.jwt.JwtUtil;
@@ -18,9 +17,9 @@ import org.gourd.hu.rbac.model.entity.RbacPermission;
 import org.gourd.hu.rbac.model.entity.RbacRole;
 import org.gourd.hu.rbac.model.entity.RbacUser;
 import org.gourd.hu.rbac.model.entity.SysTenant;
+import org.gourd.hu.rbac.model.vo.UserVO;
 import org.gourd.hu.rbac.service.*;
 import org.gourd.hu.rbac.utils.ShiroKitUtil;
-import org.gourd.hu.rbac.model.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,13 +63,11 @@ public class AuthServiceImpl implements AuthService {
         SysTenant tenant = sysTenantService.checkGetTenant(tenantItem);
         // 从数据库中取出用户信息
         RbacUser user = rbacUserService.getByAccountAndTenantId(accountItem,tenant.getId());
-        // 判断用户是否存在
-        if(user == null) {
-            throw new BusinessException(MessageConstant.DATA_NOT_FOUND);
-        }
-        if(!user.getPassword().equals(ShiroKitUtil.md5(password,user.getAccount()))){
-            throw new BusinessException(MessageConstant.ACCOUNT_PWD_ERROR);
-        }
+        // 断言用户存在
+        ResponseEnum.ACCOUNT_NOT_FOUND.assertNotNull(user);
+        // 断言密码正确
+        ResponseEnum.ACCOUNT_PWD_ERROR.assertIsTrue(user.getPassword().equals(ShiroKitUtil.md5(password,user.getAccount())));
+
         // 添加权限
         List<RbacRole> rbacRoleList = rbacRoleService.findByUserId(user.getId());
         // 角色

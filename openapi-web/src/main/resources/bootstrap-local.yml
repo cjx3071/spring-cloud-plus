@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: '@profiles.active@'
+    active: local
   application:
     name: openapi
   cloud:

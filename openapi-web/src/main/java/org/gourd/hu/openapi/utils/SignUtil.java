@@ -3,12 +3,10 @@ package org.gourd.hu.openapi.utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.gourd.hu.base.exceptions.BusinessException;
 import org.gourd.hu.base.holder.RequestHolder;
-import org.gourd.hu.core.utils.IpAddressUtil;
 import org.gourd.hu.cache.utils.RedisUtil;
+import org.gourd.hu.core.utils.IpAddressUtil;
 import org.gourd.hu.openapi.constant.AuthConstant;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 
@@ -207,7 +205,7 @@ public class SignUtil {
         // 获得签名验证结果
         String mySign = sign(params).get(AuthConstant.SIGN_KEY);
         if (!mySign.equals(sign)){
-            throw new BusinessException(HttpStatus.BAD_REQUEST.value(),"签名验证错误");
+            return false;
         }
         return true;
     }

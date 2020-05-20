@@ -1,8 +1,8 @@
 package org.gourd.hu.core.advice;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.gourd.hu.base.exceptions.BusinessException;
 import org.gourd.hu.core.annotation.RemoveStrEmpty;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
@@ -61,6 +61,7 @@ public class GlobalRequestBodyAdvice implements RequestBodyAdvice {
      * @param converterType
      * @return
      */
+    @SneakyThrows
     @Override
     public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
 
@@ -98,22 +99,12 @@ public class GlobalRequestBodyAdvice implements RequestBodyAdvice {
      * @param body
      * @param field
      */
-    private void removeStrEmpty(Object body, Field field) {
+    private void removeStrEmpty(Object body, Field field) throws IllegalAccessException {
         //获取属性值
         Object value = null;
-        try {
-            value = field.get(body);
-        } catch (IllegalAccessException e) {
-            log.error("获取属性值失败：", e);
-            throw new BusinessException("获取属性值失败:" + e.getMessage());
-        }
+        value = field.get(body);
         if (value != null && value.toString().contains(StringUtils.SPACE)) {
-            try {
-                field.set(body, StringUtils.deleteWhitespace(value.toString()));
-            } catch (IllegalAccessException e) {
-                log.error("设置属性值失败：", e);
-                throw new BusinessException("设置属性值失败:" + e.getMessage());
-            }
+            field.set(body, StringUtils.deleteWhitespace(value.toString()));
         }
     }
 }

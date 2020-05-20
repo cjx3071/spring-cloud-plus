@@ -3,10 +3,9 @@ package org.gourd.hu.openapi.filters;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.gourd.hu.base.exceptions.BusinessException;
-import org.gourd.hu.core.utils.IpAddressUtil;
+import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.gourd.hu.cache.utils.RedisUtil;
+import org.gourd.hu.core.utils.IpAddressUtil;
 import org.gourd.hu.openapi.constant.AuthConstant;
 import org.gourd.hu.openapi.dao.SysSecretDao;
 import org.gourd.hu.openapi.entity.SysSecret;
@@ -15,7 +14,6 @@ import org.gourd.hu.openapi.utils.UrlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -49,30 +47,21 @@ public class AuthFilter implements Filter, Ordered {
         }
         log.info("请求方法为：{}，请求路径为：{}", requestMethod, requestUrL);
         // 校验基本参数
-        if (StringUtils.isBlank(request.getHeader(AuthConstant.SIGN_KEY))) {
-            log.info("签名不能为空");
-            throw new BusinessException(HttpStatus.BAD_REQUEST.value(),AuthConstant.PARAM_ERROR);
-        }
+
         String sign = request.getHeader(AuthConstant.SIGN_KEY);
-        if(StringUtils.isBlank(request.getHeader(AuthConstant.ACCESS_KEY))){
-            log.info("appKey不能为空");
-            throw new BusinessException(HttpStatus.BAD_REQUEST.value(),AuthConstant.PARAM_ERROR);
-        }
+        // 断言签名不为空
+        ResponseEnum.BAD_REQUEST.assertNotEmpty(sign);
         String appKey = request.getHeader(AuthConstant.ACCESS_KEY);
-        if (StringUtils.isBlank(request.getHeader(AuthConstant.TIMESTAMP_KEY)) ) {
-            log.info("时间戳不能为空");
-            throw new BusinessException(HttpStatus.BAD_REQUEST.value(),AuthConstant.PARAM_ERROR);
-        }
+        // 断言appKey不为空
+        ResponseEnum.BAD_REQUEST.assertNotEmpty(sign);
         Long timestamp = Long.valueOf(request.getHeader(AuthConstant.TIMESTAMP_KEY));
+        // 断言时间戳不为空
+        ResponseEnum.BAD_REQUEST.assertNotNull(timestamp);
         String nonce = request.getHeader(AuthConstant.NONCE_KEY);
-        if(StringUtils.isBlank(request.getHeader(AuthConstant.NONCE_KEY))){
-            log.info("随机数不能为空");
-            throw new BusinessException(HttpStatus.BAD_REQUEST.value(),AuthConstant.PARAM_ERROR);
-        }
-        if(!RedisUtil.existAny(IpAddressUtil.getIpAddr(request)+nonce)){
-            log.info("随机数已使用过");
-            throw new BusinessException(HttpStatus.BAD_REQUEST.value(),AuthConstant.SIGN_EXPIRED);
-        }
+        // 断言随机数不为空
+        ResponseEnum.BAD_REQUEST.assertNotNull(nonce);
+        // 断言随机数未使用过
+        ResponseEnum.BAD_REQUEST.assertIsTrue(RedisUtil.existAny(IpAddressUtil.getIpAddr(request)+nonce));
         // 将请求字符串转换成Map
         Map<String, String> queryStrMap = null;
         if(HttpMethod.GET.toString().equals(requestMethod)){
@@ -86,23 +75,18 @@ public class AuthFilter implements Filter, Ordered {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("app_key",appKey);
         SysSecret sysSecret = sysSecretDao.selectOne(queryWrapper);
-        if(sysSecret == null){
-            log.info("appKey不存在");
-            throw new BusinessException(HttpStatus.INTERNAL_SERVER_ERROR.value(),AuthConstant.APP_KEY_ERROR);
-        }
+        // 断言appKey存在
+        ResponseEnum.APP_KEY_ERROR.assertNotNull(sysSecret);
         // 校验过期时间
         long curr = System.currentTimeMillis();
-        if ((curr - timestamp) < 0 || (curr - timestamp) > sysSecret.getExpireTimes()){
-            throw new BusinessException(HttpStatus.INTERNAL_SERVER_ERROR.value(),AuthConstant.SIGN_EXPIRED);
-        }
+        // 断言过期时间未过期
+        ResponseEnum.SIGN_EXPIRED.assertIsFalse((curr - timestamp) < 0 || (curr - timestamp) > sysSecret.getExpireTimes());
         // 将签名，appKey、secret加入
         queryStrMap.put(AuthConstant.SIGN_KEY,sign);
         queryStrMap.put(AuthConstant.ACCESS_KEY,appKey);
         queryStrMap.put(AuthConstant.SECRET_KEY,sysSecret.getSecretKey());
-        // 校验签名
-        if(!SignUtil.verify(queryStrMap)){
-            throw new BusinessException(HttpStatus.INTERNAL_SERVER_ERROR.value(), AuthConstant.SIGN_ERROR);
-        }
+        // 断言签名正确
+        ResponseEnum.SIGN_ERROR.assertIsTrue(SignUtil.verify(queryStrMap));
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

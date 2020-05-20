@@ -1,10 +1,10 @@
 package org.gourd.hu.core.converter;
 
 import lombok.extern.slf4j.Slf4j;
-import org.gourd.hu.base.exceptions.BaseException;
+import org.gourd.hu.base.exception.ArgumentException;
+import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.gourd.hu.core.utils.DateUtil;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.http.HttpStatus;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -49,7 +49,7 @@ public class String2DateConverter extends BaseDateConverter<Date> implements Con
             date = dateFormat.parse(dateStr);
         } catch (ParseException e) {
             log.info("转换日期失败, date={}, format={}", dateStr, format, e);
-            throw new BaseException(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+            throw new ArgumentException(ResponseEnum.BAD_REQUEST);
         }
         return date;
     }

@@ -1,8 +1,7 @@
 package org.gourd.hu.rbac.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.gourd.hu.base.exceptions.BusinessException;
-import org.gourd.hu.core.constant.MessageConstant;
+import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.gourd.hu.rbac.dao.SysTenantDao;
 import org.gourd.hu.rbac.model.entity.SysTenant;
 import org.gourd.hu.rbac.service.SysTenantService;
@@ -26,9 +25,8 @@ public class SysTenantServiceImpl extends ServiceImpl<SysTenantDao, SysTenant> i
     @Override
     public SysTenant checkGetTenant(String tenantItem){
         SysTenant tenant = sysTenantDao.findByCodeOrNumber(tenantItem);
-        if(tenant == null){
-            throw new BusinessException(MessageConstant.TENANT_NOT_FOUND);
-        }
+        // 断言承租人存在
+        ResponseEnum.TENANT_NOT_FOUND.assertNotNull(tenant);
         return tenant;
     }
 

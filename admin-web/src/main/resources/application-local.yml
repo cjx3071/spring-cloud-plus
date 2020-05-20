@@ -117,6 +117,7 @@ spring:
     exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
   # mvc
   mvc:
+    # 404 直接抛异常
     throw-exception-if-no-handler-found: true
     resources.add-mappings: false
     static-path-pattern: /**

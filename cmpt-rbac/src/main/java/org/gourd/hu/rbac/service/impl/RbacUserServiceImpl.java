@@ -7,8 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.gourd.hu.base.exceptions.BusinessException;
-import org.gourd.hu.core.constant.MessageConstant;
+import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.gourd.hu.core.utils.CollectionUtil;
 import org.gourd.hu.core.utils.Pinyin4jUtil;
 import org.gourd.hu.rbac.auth.jwt.JwtToken;
@@ -61,9 +60,8 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> impl
     public UserVO getByAccount(String account){
         UserVO userVO = new UserVO();
         RbacUser rbacUser = rbacUserDao.getByAccount(account);
-        if(rbacUser == null){
-            throw  new BusinessException(MessageConstant.DATA_NOT_FOUND);
-        }
+        // 断言用户存在
+        ResponseEnum.DATA_NOT_FOUND.assertNotNull(rbacUser);
         BeanUtils.copyProperties(rbacUser,userVO);
         return userVO ;
     }
@@ -84,9 +82,8 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> impl
     public UserVO getById(Long id){
         UserVO userVO = new UserVO();
         RbacUser rbacUser = rbacUserDao.selectById(id);
-        if(rbacUser == null){
-            throw new BusinessException(MessageConstant.DATA_NOT_FOUND);
-        }
+        // 断言用户存在
+        ResponseEnum.DATA_NOT_FOUND.assertNotNull(rbacUser);
         BeanUtils.copyProperties(rbacUser,userVO);
         return userVO;
     }
@@ -182,9 +179,9 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> impl
         }else {
             tenantId = rbacUserCreateDTO.getTenantId();
         }
-        if(rbacUserDao.getByAccountAndTenantId(rbacUserCreateDTO.getAccount(),tenantId)!=null) {
-            throw new BusinessException(MessageConstant.ACCOUNT_BEEN_USED);
-        }
+        RbacUser dbUser = rbacUserDao.getByAccountAndTenantId(rbacUserCreateDTO.getAccount(), tenantId);
+        // 断言用户未注册
+        ResponseEnum.ACCOUNT_BEEN_USED.assertIsNull(dbUser);
         // 返回VO对象
         UserVO userVO = new UserVO();
         RbacUser rbacUser = new RbacUser();
@@ -217,9 +214,8 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> impl
     @Retryable(value = RetryException.class, maxAttempts = 3, backoff = @Backoff(delay = 2000L, multiplier = 1))
     public int update(RbacUserUpdateDTO user){
         RbacUser dbOldUser= rbacUserDao.selectById(user.getId());
-        if(dbOldUser == null){
-            throw new BusinessException(MessageConstant.DATA_NOT_FOUND);
-        }
+        // 断言用户存在
+        ResponseEnum.DATA_NOT_FOUND.assertNotNull(dbOldUser);
         RbacUser rbacUser = new RbacUser();
         BeanUtils.copyProperties(user,rbacUser);
         rbacUser.setVersion(dbOldUser.getVersion());
