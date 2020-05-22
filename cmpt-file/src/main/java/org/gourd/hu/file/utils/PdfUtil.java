@@ -119,6 +119,23 @@ public class PdfUtil {
     }
 
     /**
+     * pdf下载到特定位置
+     *
+     * @param templateEngine   配置
+     * @param templateName 模板名称(带后缀.ftl)
+     * @param listVars     模板参数集
+     * @param filePath     下载文件名称(带文件扩展名后缀)
+     */
+    public static void save(TemplateEngine templateEngine, String templateName, List<Map<String, Object>> listVars, String filePath) {
+        try (OutputStream out = new FileOutputStream(filePath);) {
+            generateAll(templateEngine, templateName, out, listVars);
+            out.flush();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+    }
+
+    /**
      * pdf预览
      *
      * @param templateEngine   配置

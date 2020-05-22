@@ -325,6 +325,11 @@ openOffice:
   windowsFileTempLoc: C:\Users\Administrator\Desktop\
   linuxFileTempLoc: /usr/gourd/tmp/
 
+# pdf下载文件位置
+pdf:
+  windowsFileTempLoc: C:\Users\Administrator\Desktop\
+  linuxFileTempLoc: /usr/gourd/tmp/
+
 # 分布式文件系统fastDfs配置
 fdfs:
   # socket连接超时时长
