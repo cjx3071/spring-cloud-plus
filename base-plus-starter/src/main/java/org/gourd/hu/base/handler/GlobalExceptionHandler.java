@@ -8,6 +8,7 @@ import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.gourd.hu.base.request.bean.RequestDetail;
 import org.gourd.hu.base.request.holder.RequestDetailThreadLocal;
 import org.gourd.hu.base.response.ErrorResponse;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.ArrayList;
@@ -156,6 +158,29 @@ public class GlobalExceptionHandler{
 		printRequestDetail();
 		printApiCodeException(ResponseEnum.ILLEGAL_ACCESS, ex);
 		return ErrorResponse.result(ResponseEnum.ILLEGAL_ACCESS);
+	}
+
+	/**
+	 * spring默认上传大小100MB 超出大小捕获异常MaxUploadSizeExceededException
+	 */
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	public ErrorResponse handleException(MaxUploadSizeExceededException ex) {
+		printRequestDetail();
+		printApiCodeException(ResponseEnum.FILE_TOO_LARGE, ex);
+		return ErrorResponse.result(ResponseEnum.FILE_TOO_LARGE);
+	}
+
+	/**
+	 * 处理字段太长
+	 *
+	 * @param ex
+	 * @return
+	 */
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ErrorResponse handleException(DataIntegrityViolationException ex) {
+		printRequestDetail();
+		printApiCodeException(ResponseEnum.FIELD_TOO_LARGE, ex);
+		return ErrorResponse.result(ResponseEnum.FIELD_TOO_LARGE);
 	}
 
 	/**

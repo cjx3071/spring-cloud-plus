@@ -1,6 +1,12 @@
 server:
   port: 10001
-
+  #  支持https
+  ssl:
+    enabled: true
+    key-store: classpath:gourd.p12
+    key-store-password: 123456
+    key-store-type: pkcs12
+    key-alias: gourd
 # 日志
 logging:
   file:

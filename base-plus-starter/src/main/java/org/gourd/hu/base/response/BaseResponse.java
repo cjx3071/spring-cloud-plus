@@ -51,15 +51,15 @@ public class BaseResponse<T> implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime time;
 
-    public static BaseResponse<Boolean> result(ResponseEnum responseEnum){
+    private static BaseResponse<Boolean> result(ResponseEnum responseEnum){
         return result(responseEnum,null);
     }
 
-    public static <T> BaseResponse<T> result(ResponseEnum responseEnum, T data){
+    private static <T> BaseResponse<T> result(ResponseEnum responseEnum, T data){
         return result(responseEnum,null,data,null);
     }
 
-    public static <T> BaseResponse<T> result(ResponseEnum responseEnum, String message, T data,List<String> errors){
+    private static <T> BaseResponse<T> result(ResponseEnum responseEnum, String message, T data,List<String> errors){
         boolean success = false;
         if (responseEnum.getCode() == HttpStatus.OK.value()){
             success = true;

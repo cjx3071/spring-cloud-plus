@@ -28,6 +28,11 @@ public enum ResponseEnum implements BusinessExceptionAssert {
     ACCOUNT_BEEN_USED(6002, "此账号已被注册."),
     ACCOUNT_PWD_ERROR(6003, "账号或密码错误."),
     TENANT_NOT_FOUND(6004, "承租人信息不存在或已被停用."),
+    FILE_TOO_LARGE(6014, "文件大小超出10MB限制, 请压缩或降低文件质量."),
+    FIELD_TOO_LARGE(6013, "字段太长,超出数据库字段的长度."),
+
+
+
 
     SIGN_ERROR(7001, "签名验证失败."),
     APP_KEY_ERROR(7002, "appKey错误."),

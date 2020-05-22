@@ -183,7 +183,7 @@ public class WorkFlowServiceImpl implements WorkFlowService {
                     .processInstanceId(pProcessInstanceId).singleResult();
 
             if (historicProcessInstance == null) {
-                ResponseEnum.INTERNAL_SERVER_ERROR.newException("获取流程实例ID:{0}对应的历史流程实例失败！",new String[]{pProcessInstanceId});
+                ResponseEnum.INTERNAL_SERVER_ERROR.newException("获取流程实例ID:{}对应的历史流程实例失败！",new String[]{pProcessInstanceId});
             } else {
                 // 获取流程历史中已执行节点，并按照节点在流程中执行先后顺序排序
                 List<HistoricActivityInstance> historicActivityInstanceList = historyService.createHistoricActivityInstanceQuery()
