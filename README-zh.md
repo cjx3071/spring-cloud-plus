@@ -1,9 +1,14 @@
 ###  **spring-cloud-plus** 
 spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架的分布式基础开发平台。
 这个项目是我自己维护的实践型项目，平时工作中遇到的一些常用框架和技术，我都会整合到此项目，并持续更新。
+### 目标
+- 成为一个简单易用、快速高效、功能丰富、安全稳定的分布式项目脚手架。
+- 让每个人都可以独立、快速、高效地开发一套分布式项目！
 
-项目文档：
-[https://www.yuque.com/xiangnan-t93lv/lwk2st/st5ypg](https://www.yuque.com/xiangnan-t93lv/lwk2st/st5ypg)
+### 项目文档
+
+ [https://www.yuque.com/xiangnan-t93lv/lwk2st/st5ypg](https://www.yuque.com/xiangnan-t93lv/lwk2st/st5ypg)
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0522/130015_1bf3f63e_4866886.png "屏幕截图.png")
 
 ### 作者
 名字：葫芦胡  
