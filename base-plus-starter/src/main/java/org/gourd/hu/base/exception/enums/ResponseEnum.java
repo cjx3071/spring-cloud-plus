@@ -31,6 +31,8 @@ public enum ResponseEnum implements BusinessExceptionAssert {
     FILE_TOO_LARGE(6014, "文件大小超出10MB限制, 请压缩或降低文件质量."),
     FIELD_TOO_LARGE(6013, "字段太长,超出数据库字段的长度."),
 
+    TEMPLATE_PARSE_ERROR(6015, "模板解析错误."),
+    TEMPLATE_DATA_NULL(6016, "模板参数为空."),
 
 
 

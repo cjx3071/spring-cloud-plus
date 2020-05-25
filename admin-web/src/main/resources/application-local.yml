@@ -2,7 +2,7 @@ server:
   port: 10001
   #  支持https
   ssl:
-    enabled: true
+    enabled: false
     key-store: classpath:gourd.p12
     key-store-password: 123456
     key-store-type: pkcs12
@@ -480,7 +480,7 @@ auth:
     - "/notice/**"
     - "/excel/**"
     - "/file/**"
-    - "/pdf/**"
+    - "/document/**"
     - "/user-es/**"
     - "/quartz/**"
     - "/test/**"

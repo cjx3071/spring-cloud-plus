@@ -26,7 +26,7 @@ public class MybatisPlusGenerator {
 //			"eir_trip","eir_trunk_apply","eir_trunk_apply_cntr","fr_carrier_config","fr_company_config","fr_ctrn_config","make_cargo_plan","make_cntr_use","ops_handle_type","ops_notice","ops_notice_detail","ops_operation","port_gate_in_out","port_in_out_voucher","port_pre_record","port_pre_record_ext","port_pre_record_ext_bill","port_reserve_empty","port_reserve_weight","port_reserve_weight","rec_container","rec_ip_config","rec_lorry_info","sys_auto_config","sys_basic_config","sys_change_config","sys_driver_check","sys_pro_company",
 //			"sys_trailer","sys_vehicle","sys_vehicle_trailer","yard_record","yard_record_relation","eir_resource_pool_cntr_use"};
 //
-	private static String[] tables = {"sys_dict"};
+	private static String[] tables = {"eir_trunk_apply"};
 	/**table前缀*/
 	private static String prefix = "";
 	/** 数据库配置四要素*/

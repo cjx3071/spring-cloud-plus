@@ -28,14 +28,6 @@
             height: 22px;
             border: 1px solid #000000;
         }
-        #signImg{
-            position: absolute;
-            top: 0;
-            right:0;
-            height: 151px;
-            width: 151px;
-            background: url('http://localhost:8088/hu/imgs/sg.jpg') no-repeat;
-        }
         table, th , td  {
             border: 1px solid grey;
             border-collapse: collapse;
@@ -66,31 +58,20 @@
 <div id="myheader">Alice's Adventures in Wonderland</div>
 
 <div>4.图片 绝对定位到左上角(注意:图片必须用全路径或者http://开头的路径,否则无法显示)</div>
-<div id="signImg"></div>
+<img th:src="${imageUrl}"/>
 
 <div>5.普通table表格</div>
 <div>
     <table style="width: 700px">
         <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2</td>
-            <td>2</td>
-            <td>2</td>
+            <th>姓名</th>
+            <th>昵称</th>
+            <th>年龄</th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2</td>
-            <td>2</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>2</td>
-            <td>2</td>
-            <td>2</td>
+        <tr th:each="info : ${demoList}">
+            <td th:text="${info.name}"></td>
+            <td th:text="${info.nick}"></td>
+            <td th:text="${info.age}"></td>
         </tr>
     </table>
 
