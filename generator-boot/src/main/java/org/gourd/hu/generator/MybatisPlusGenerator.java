@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * 代码生成器
  * 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中
- * @author gourd
+ * @author gourd.hu
  */
 public class MybatisPlusGenerator {
 	/** 生成文件所在项目路径*/
@@ -22,11 +22,12 @@ public class MybatisPlusGenerator {
 	/** 作者*/
 	private static String authorName = "gourd.hu";
 	/** 要生成的表名*/
-//	private static String[] tables = { "car_box","car_dirver_relation","car_info","car_njtollgate","car_trip","chk_abnormal_part","chk_abnormal_relation","chk_abnormal_type","chk_error","chk_info","chk_url","chk_user_relation","eir_address_apply","eir_address_apply_trip","eir_apply","eir_apply_cntr","eir_apply_cntr_use","eir_change_apply","eir_change_apply_cntr","eir_fly_apply","eir_info","eir_mix_apply","eir_mix_apply_cntr","eir_resource_pool","eir_resource_pool_related","eir_sign",
+//	private static String[] tables = { "car_box","car_dirver_relation","car_
+//1`	info","car_njtollgate","car_trip","chk_abnormal_part","chk_abnormal_relation","chk_abnormal_type","chk_error","chk_info","chk_url","chk_user_relation","eir_address_apply","eir_address_apply_trip","eir_apply","eir_apply_cntr","eir_apply_cntr_use","eir_change_apply","eir_change_apply_cntr","eir_fly_apply","eir_info","eir_mix_apply","eir_mix_apply_cntr","eir_resource_pool","eir_resource_pool_related","eir_sign",
 //			"eir_trip","eir_trunk_apply","eir_trunk_apply_cntr","fr_carrier_config","fr_company_config","fr_ctrn_config","make_cargo_plan","make_cntr_use","ops_handle_type","ops_notice","ops_notice_detail","ops_operation","port_gate_in_out","port_in_out_voucher","port_pre_record","port_pre_record_ext","port_pre_record_ext_bill","port_reserve_empty","port_reserve_weight","port_reserve_weight","rec_container","rec_ip_config","rec_lorry_info","sys_auto_config","sys_basic_config","sys_change_config","sys_driver_check","sys_pro_company",
 //			"sys_trailer","sys_vehicle","sys_vehicle_trailer","yard_record","yard_record_relation","eir_resource_pool_cntr_use"};
 //
-	private static String[] tables = {"eir_trunk_apply"};
+	private static String[] tables = {"eir_fly","eir_fly_trip"};
 	/**table前缀*/
 	private static String prefix = "";
 	/** 数据库配置四要素*/

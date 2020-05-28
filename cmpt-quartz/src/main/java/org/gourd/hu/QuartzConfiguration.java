@@ -7,10 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import javax.sql.DataSource;
-
 /**
- * @author gourd
+ * @author gourd.hu
  * @date 2018-11-20
  */
 @Configuration
@@ -24,7 +22,7 @@ public class QuartzConfiguration {
     @Bean
     @QuartzDataSource
     @ConfigurationProperties(prefix = "spring.datasource.dynamic.datasource.quartz")
-    public DataSource quartzDataSource(){
+    public DruidDataSource quartzDataSource(){
         return new DruidDataSource();
     }
 

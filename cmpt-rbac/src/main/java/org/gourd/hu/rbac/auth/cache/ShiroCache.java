@@ -15,7 +15,7 @@ import java.util.Set;
 
 /**
  * 重写Shiro的Cache保存读取
- * @author dolyw.com
+ * @author gourd.hu
  * @date 2018/9/4 17:31
  */
 @Component

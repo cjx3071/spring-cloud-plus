@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 /**
  * 正则工具类
- * @author gourd
+ * @author gourd.hu
  */
 public class MatcherUtil {
     /**

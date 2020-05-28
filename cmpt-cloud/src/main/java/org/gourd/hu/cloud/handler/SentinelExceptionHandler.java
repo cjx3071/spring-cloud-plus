@@ -11,7 +11,7 @@ import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.gourd.hu.base.response.BaseResponse;
 
 /**
- * @author gourd
+ * @author gourd.hu
  */
 @Slf4j
 public class SentinelExceptionHandler {

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * 性别枚举类
  *
- * @author gourd
+ * @author gourd.hu
  * @create 2018-07-04 15:41
  **/
 public enum SexEnum {

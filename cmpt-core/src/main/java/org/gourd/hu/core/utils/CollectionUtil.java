@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 集合复制工具类
  *
- * @author gourd
+ * @author gourd.hu
  */
 public class CollectionUtil {
 

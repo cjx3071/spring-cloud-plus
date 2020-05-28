@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 通信测试
- * @author gourd
+ * @author gourd.hu
  */
 @Api(tags = "通讯测试API", description = "通信测试控制器" )
 @RestController

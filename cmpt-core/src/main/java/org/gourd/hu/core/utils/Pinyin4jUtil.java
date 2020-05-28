@@ -13,7 +13,7 @@ import java.util.Set;
   
 /**
  *  
- * @author gourd
+ * @author gourd.hu
  * @Description: 拼音转换工具类
  */
 public class Pinyin4jUtil {

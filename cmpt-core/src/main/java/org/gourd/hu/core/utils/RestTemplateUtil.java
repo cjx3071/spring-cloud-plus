@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * restTemplate远程调用工具
- * @author gourd
+ * @author gourd.hu
  */
 @Component
 public class RestTemplateUtil<T> {

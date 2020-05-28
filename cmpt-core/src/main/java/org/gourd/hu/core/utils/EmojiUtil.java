@@ -15,7 +15,7 @@ import java.util.Set;
  * <p>
  * emoji-java文档以及别名列表见：https://github.com/vdurmont/emoji-java
  *
- * @author looly
+ * @author gourd.hu
  * @since 4.2.1
  */
 public class EmojiUtil {

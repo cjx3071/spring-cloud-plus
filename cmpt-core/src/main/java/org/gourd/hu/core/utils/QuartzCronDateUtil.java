@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * 日期转化成 cron 工具类
- * @author gourd
+ * @author gourd.hu
  */
 public class QuartzCronDateUtil {
 	/*** 

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 /**
  * 清除过期日志记录
- * @author gourd
+ * @author gourd.hu
  */
 @Slf4j
 public class DelExpireLog {

@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 测试
- * @author gourd
+ *
+ * @author gourd.hu
  */
 @Api(tags = "项目测试API", description = "项目测试API" )
 @RestController

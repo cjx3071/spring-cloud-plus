@@ -13,8 +13,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * @author gourd
- * @description
+ * 日期工具类
+ *
+ * @author gourd.hu
  * @date 2018/10/26 10:20
  **/
 public class DateUtil {
@@ -411,7 +412,7 @@ public class DateUtil {
      * @param endDateStr
      * @return
      * long
-     * @author Administrator
+     * @author gourd.hu
      */
     public static long getDaySub(String beginDateStr, String endDateStr) {
         long day = 0;

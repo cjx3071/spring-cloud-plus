@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author gourd
+ * RBAC常量
+ * @author gourd.hu
  */
 public class RbacConstant {
 

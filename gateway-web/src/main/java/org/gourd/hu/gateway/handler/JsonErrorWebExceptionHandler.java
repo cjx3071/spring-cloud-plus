@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author henry
+ * @author gourd.hu
  */
 public class JsonErrorWebExceptionHandler extends DefaultErrorWebExceptionHandler {
     public JsonErrorWebExceptionHandler(ErrorAttributes errorAttributes,

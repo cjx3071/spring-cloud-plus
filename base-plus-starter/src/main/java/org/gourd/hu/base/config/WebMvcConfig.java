@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @Author: gourd
+ * @Author: gourd.hu
  * @Date: 2018/9/19 15:40
  */
 @Import({SpringContextHolder.class, GlobalExceptionHandler.class, RequestDetailFilter.class})

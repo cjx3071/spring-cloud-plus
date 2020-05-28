@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 /**
  * 脱敏注解类
  *
- * @author gourd
+ * @author gourd.hu
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

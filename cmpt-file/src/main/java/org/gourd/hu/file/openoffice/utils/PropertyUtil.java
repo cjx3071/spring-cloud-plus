@@ -8,7 +8,7 @@ import java.util.Properties;
 
 /**
  * 读取src目录下的properties文件
- * @author gourd
+ * @author gourd.hu
  *
  */
 @Slf4j

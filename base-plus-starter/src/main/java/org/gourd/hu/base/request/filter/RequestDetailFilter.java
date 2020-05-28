@@ -69,7 +69,7 @@ public class RequestDetailFilter implements Filter {
 
     /**
      * 获取IP地址
-     * @Author  gourd
+     * @Author  gourd.hu
      * @param request
      * @return  String
      *

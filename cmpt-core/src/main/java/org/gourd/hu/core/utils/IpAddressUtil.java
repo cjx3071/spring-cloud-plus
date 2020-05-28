@@ -17,7 +17,7 @@ import java.net.UnknownHostException;
 /**
  * 根据IP地址获取详细的地域信息
  *
- * @author Administrator
+ * @author gourd.hu
  */
 @Slf4j
 public class IpAddressUtil {
@@ -27,7 +27,7 @@ public class IpAddressUtil {
 
 	/**
 	 * 获取IP地址
-	 * @Author  gourd
+	 * @Author  gourd.hu
 	 * @param request
 	 * @return  String
 	 *

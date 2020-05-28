@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 获取 HttpServletRequest
- * @author gourd
+ * @author gourd.hu
  * @date 2018-11-24
  */
 public class RequestHolder {

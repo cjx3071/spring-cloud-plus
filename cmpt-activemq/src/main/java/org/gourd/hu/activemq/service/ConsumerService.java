@@ -11,7 +11,7 @@ import javax.jms.TextMessage;
 /**
  * 消息消费
  *
- * @author admin
+ * @author gourd.hu
  */
 @Component
 @Slf4j

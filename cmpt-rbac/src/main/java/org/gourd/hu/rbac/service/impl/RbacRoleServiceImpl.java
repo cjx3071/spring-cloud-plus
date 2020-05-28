@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * 璇绘湇鍔″疄鐜扮被
+ * 角色服务
  *
- * @author gourd
+ * @author gourd.hu
  * @date 2019-04-02 17:26:16
  * Created by CodeGen .
  */

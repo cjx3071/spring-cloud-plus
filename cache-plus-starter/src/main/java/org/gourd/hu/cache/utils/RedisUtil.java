@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * redis工具类
  *
- * @author gourd
+ * @author gourd.hu
  * @Date 2018年1月15日
  */
 @Slf4j

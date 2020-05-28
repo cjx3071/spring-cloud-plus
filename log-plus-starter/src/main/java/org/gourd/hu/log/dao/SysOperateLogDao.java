@@ -7,7 +7,7 @@ import org.gourd.hu.log.entity.SysOperateLog;
 import java.util.List;
 
 /**
- * @author gourd
+ * @author gourd.hu
  * @date 2018-11-24
  */
 public interface SysOperateLogDao extends BaseMapper<SysOperateLog> {

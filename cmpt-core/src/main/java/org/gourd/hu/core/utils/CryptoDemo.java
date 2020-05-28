@@ -4,7 +4,7 @@ import org.jasypt.util.text.BasicTextEncryptor;
 
 /**
  * 密码加解密工具
- * @author gourd
+ * @author gourd.hu
  */
 public class CryptoDemo {
 

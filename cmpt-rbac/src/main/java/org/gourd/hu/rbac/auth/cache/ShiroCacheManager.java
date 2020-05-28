@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 重写Shiro缓存管理器
- * @author dolyw.com
+ * @author gourd.hu
  * @date 2018/9/4 17:41
  */
 @Component

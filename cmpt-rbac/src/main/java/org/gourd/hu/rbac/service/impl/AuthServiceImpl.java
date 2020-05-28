@@ -29,7 +29,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * @author: gourd
+ * 鉴权服务
+ *
+ * @author: gourd.hu
  * createAt: 2018/9/17
  */
 @Service

@@ -59,7 +59,7 @@
         <boot-admin.version>2.2.0</boot-admin.version>
         <jetcache.version>2.5.9</jetcache.version>
         <retry.version>1.2.5.RELEASE</retry.version>
-        <jjwt.version>0.9.1</jjwt.version>
+        <shiro.version>1.4.0</shiro.version>
         <jwt.version>3.3.0</jwt.version>
         <activiti.version>6.0.0</activiti.version>
         <p6spy.version>3.8.0</p6spy.version>

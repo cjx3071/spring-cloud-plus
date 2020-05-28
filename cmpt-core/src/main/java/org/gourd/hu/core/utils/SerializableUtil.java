@@ -7,7 +7,7 @@ import java.io.*;
 
 /**
  * Serializable工具(JDK)
- * @author gourd
+ * @author gourd.hu
  *
  */
 public class SerializableUtil {
@@ -18,7 +18,7 @@ public class SerializableUtil {
      * 序列化
      * @param object
      * @return byte[]
-     * @author Wang926454
+     * @author gourd.hu
      * @date 2018/9/4 15:14
      */
     public static byte[] serializable(Object object) {
@@ -37,7 +37,7 @@ public class SerializableUtil {
      * 反序列化
      * @param bytes
      * @return java.lang.Object
-     * @author Wang926454
+     * @author gourd.hu
      * @date 2018/9/4 15:14
      */
     public static Object unserializable(byte[] bytes) {

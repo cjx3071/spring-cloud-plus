@@ -18,7 +18,7 @@ import java.lang.reflect.Type;
  * @author gourd.hu
  * @title 全局请求参数处理类
  */
-@ControllerAdvice(basePackages = "com.yunlsp.tcg")
+@ControllerAdvice(basePackages = "org.gourd.hu")
 @Slf4j
 public class GlobalRequestBodyAdvice implements RequestBodyAdvice {
 

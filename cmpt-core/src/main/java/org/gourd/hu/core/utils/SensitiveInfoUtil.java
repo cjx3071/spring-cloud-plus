@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * 脱敏处理util类
  *
- * @author gourd
+ * @author gourd.hu
  */
 public class SensitiveInfoUtil {
  

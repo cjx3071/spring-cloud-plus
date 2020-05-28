@@ -14,7 +14,7 @@ import java.security.SecureRandom;
 /**
  * AesHope工具类
  *
- * @author: gourd
+ * @author: gourd.hu
  *
  **/
 public class AesHopeUtil {
