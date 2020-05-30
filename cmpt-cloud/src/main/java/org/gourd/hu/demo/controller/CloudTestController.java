@@ -4,9 +4,8 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.gourd.hu.base.response.BaseResponse;
-import org.gourd.hu.demo.service.CloudTestService;
 import org.gourd.hu.sub.api.SubApi;
+import org.gourd.hu.sub.response.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -29,9 +28,6 @@ public class CloudTestController {
     @Autowired
     private SubApi subApi;
 
-    @Autowired
-    private CloudTestService cloudTestService;
-
 // ======================= nacos配置自动刷新测试==========================
 
     @GetMapping("/nacos")
@@ -51,27 +47,27 @@ public class CloudTestController {
     @GetMapping("/hello/{id}")
     @ApiOperation(value = "测试get路径传参")
     public BaseResponse helloTest(@PathVariable("id") Long id) {
-        return BaseResponse.ok(subApi.helloTest(id));
+        return subApi.helloTest(id);
     }
 
     @GetMapping("/hello")
     @SentinelResource(value="resource")
     @ApiOperation(value = "测试get传参")
     public BaseResponse helloTestParam(@RequestParam("id") Long id) {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            Thread.interrupted();
-            log.error(e.getMessage(),e);
-        }
-        return BaseResponse.ok(subApi.helloTestParam(id));
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            Thread.interrupted();
+//            log.error(e.getMessage(),e);
+//        }
+        return subApi.helloTestParam(id);
     }
 
     @PostMapping("/hello")
     @SentinelResource(value = "resource")
     @ApiOperation(value = "测试post传参")
     public BaseResponse helloTest(Long id,String name) {
-        return BaseResponse.ok(subApi.helloTestP(name));
+        return subApi.helloTestP(name);
     }
 
 //    ========================测试分布式事务=======================
