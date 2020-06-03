@@ -7,6 +7,7 @@ import org.gourd.hu.sub.response.BaseResponse;
 import org.gourd.hu.sub.service.CloudTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,8 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
  * spring cloud  测试提供者
  * @author gourd
  */
-@RestController
 @Slf4j
+@RestController
+@RequestMapping("/test")
 public class CloudTestController implements SubApi {
 
     @Override

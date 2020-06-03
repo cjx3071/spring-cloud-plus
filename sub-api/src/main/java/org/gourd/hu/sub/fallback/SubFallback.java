@@ -1,5 +1,6 @@
 package org.gourd.hu.sub.fallback;
 
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.gourd.hu.sub.api.SubApi;
 import org.gourd.hu.sub.response.BaseResponse;
@@ -9,12 +10,10 @@ import org.gourd.hu.sub.response.BaseResponse;
  * @author gourd
  */
 @Slf4j
+@NoArgsConstructor
 public class SubFallback implements SubApi {
 
     private Throwable throwable;
-
-    SubFallback() {
-    }
 
     SubFallback(Throwable throwable){
         this.throwable = throwable;
