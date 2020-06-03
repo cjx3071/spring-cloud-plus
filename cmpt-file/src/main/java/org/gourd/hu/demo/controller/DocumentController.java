@@ -2,6 +2,7 @@ package org.gourd.hu.demo.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.file.openoffice.utils.CommonUtil;
 import org.gourd.hu.file.utils.PdfUtil;
 import org.gourd.hu.file.utils.WordUtil;
@@ -32,10 +33,10 @@ public class DocumentController {
     @Autowired
     private TemplateEngine templateEngine;
 
-    @Value("${pdf.windowsFileTempLoc}")
+    @Value("${document.windowsFileTempLoc}")
     private String pdfWindowsPath;
 
-    @Value("${pdf.linuxFileTempLoc}")
+    @Value("${document.linuxFileTempLoc}")
     private String pdfLinuxPath;
 
     @Value("${server.ssl.enabled}")
@@ -80,7 +81,7 @@ public class DocumentController {
      */
     @GetMapping(value = "/pdf/download")
     @ApiOperation(value="pdf下载")
-    public void download(HttpServletResponse response) {
+    public BaseResponse<String> download(HttpServletResponse response) {
         List<Map<String,Object>> listVars = new ArrayList<>(1);
         Map<String,Object> variables = new HashMap<>(4);
         variables.put("title","测试下载PDF!");
@@ -99,6 +100,7 @@ public class DocumentController {
         variables.put("demoList",demoList);
         listVars.add(variables);
         PdfUtil.download(templateEngine,"pdfPage",listVars,response,"测试打印.pdf");
+        return BaseResponse.ok("pdf下载成功");
     }
 
     /**
@@ -107,7 +109,7 @@ public class DocumentController {
      */
     @GetMapping(value = "/pdf/save")
     @ApiOperation(value="pdf下载到特定位置")
-    public void save() {
+    public BaseResponse<String> pdfSave() {
         List<Map<String,Object>> listVars = new ArrayList<>(1);
         Map<String,Object> variables = new HashMap<>(4);
         variables.put("title","测试下载PDF!");
@@ -126,8 +128,9 @@ public class DocumentController {
         variables.put("demoList",demoList);
         listVars.add(variables);
         // pdf文件下载位置
-        String pdfPath = CommonUtil.isLinux() ? pdfLinuxPath : pdfWindowsPath;
+        String pdfPath = CommonUtil.isLinux() ? pdfLinuxPath : pdfWindowsPath + "test.pdf";
         PdfUtil.save(templateEngine,"pdfPage",listVars,pdfPath);
+        return BaseResponse.ok("pdf保存成功");
     }
 
     /**
@@ -137,7 +140,7 @@ public class DocumentController {
      */
     @GetMapping(value = "/word/download")
     @ApiOperation(value="word下载")
-    public void downloadWord(HttpServletResponse response) {
+    public BaseResponse<String> downloadWord(HttpServletResponse response) {
         Map<String,Object> variables = new HashMap<>(4);
         variables.put("title","测试预览Word!");
         variables.put("imageUrl",sslEnabled?"https://localhost:10001/imgs/sg.jpg":"http://localhost:10001/imgs/sg.jpg");
@@ -154,6 +157,7 @@ public class DocumentController {
         demoList.add(demoMap2);
         variables.put("demoList",demoList);
         WordUtil.download(templateEngine,"pdfPage",variables,response,"测试打印.docx");
+        return BaseResponse.ok("word下载成功");
     }
 
     /**
@@ -181,5 +185,33 @@ public class DocumentController {
         demoList.add(demoMap2);
         variables.put("demoList",demoList);
         WordUtil.preview(templateEngine,"pdfPage",variables,response);
+    }
+
+    /**
+     * pdf下载到特定位置
+     *
+     */
+    @GetMapping(value = "/word/save")
+    @ApiOperation(value="word下载到特定位置")
+    public BaseResponse<String> wordSave() {
+        Map<String,Object> variables = new HashMap<>(4);
+        variables.put("title","测试预览Word!");
+        variables.put("imageUrl",sslEnabled?"https://localhost:10001/imgs/sg.jpg":"http://localhost:10001/imgs/sg.jpg");
+        List<Map<String,String>> demoList = new ArrayList<>();
+        Map<String,String> demoMap = new HashMap<>(8);
+        demoMap.put("name","哈哈");
+        demoMap.put("nick","娃娃");
+        demoMap.put("age","19");
+        Map<String,String> demoMap2 = new HashMap<>(8);
+        demoMap2.put("name","天天");
+        demoMap2.put("nick","饭饭");
+        demoMap2.put("age","14");
+        demoList.add(demoMap);
+        demoList.add(demoMap2);
+        variables.put("demoList",demoList);
+        // pdf文件下载位置
+        String pdfPath = CommonUtil.isLinux() ? pdfLinuxPath : pdfWindowsPath +  "test.docx";
+        WordUtil.save(templateEngine,"pdfPage",variables,pdfPath);
+        return BaseResponse.ok("word保存成功");
     }
 }

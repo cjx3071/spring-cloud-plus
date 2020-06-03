@@ -78,4 +78,22 @@ public class WordUtil {
             log.error(e.getMessage(), e);
         }
     }
+
+
+    /**
+     * pdf下载到特定位置
+     *
+     * @param templateEngine   配置
+     * @param templateName 模板名称
+     * @param variables     模板参数集
+     * @param filePath     下载文件路径
+     */
+    public static void save(TemplateEngine templateEngine, String templateName,Map<String, Object> variables, String filePath) {
+        try (PrintWriter printWriter = new PrintWriter(filePath)) {
+            generateDoc(templateEngine, templateName, printWriter, variables);
+            printWriter.flush();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+    }
 }

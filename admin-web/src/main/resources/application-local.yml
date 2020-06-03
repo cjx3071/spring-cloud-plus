@@ -322,12 +322,12 @@ spring:
 openOffice:
   ip: 47.103.5.190
   port: 6080
-  windowsFileTempLoc: C:\Users\Administrator\Desktop\
+  windowsFileTempLoc: D:\Documents\
   linuxFileTempLoc: /usr/gourd/tmp/
 
 # pdf下载文件位置
-pdf:
-  windowsFileTempLoc: C:\Users\Administrator\Desktop\
+document:
+  windowsFileTempLoc: D:\Documents\
   linuxFileTempLoc: /usr/gourd/tmp/
 
 # 分布式文件系统fastDfs配置
