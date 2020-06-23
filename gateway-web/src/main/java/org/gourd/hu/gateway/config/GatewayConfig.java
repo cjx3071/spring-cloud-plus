@@ -13,6 +13,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerCodecConfigurer;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.reactive.result.view.ViewResolver;
 import org.springframework.web.server.ServerWebExchange;
@@ -50,6 +51,11 @@ public class GatewayConfig {
     @Order(-1)
     public GlobalFilter sentinelGatewayFilter() {
         return new SentinelGatewayFilter();
+    }
+
+    @Bean
+    public AntPathMatcher getAntPathMatcher() {
+        return new AntPathMatcher();
     }
 
 

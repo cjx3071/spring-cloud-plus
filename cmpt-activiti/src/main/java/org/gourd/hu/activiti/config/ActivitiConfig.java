@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.sql.DataSource;
 import java.io.IOException;
 
 /**
@@ -25,7 +24,7 @@ public class ActivitiConfig extends AbstractProcessEngineAutoConfiguration {
 
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource.dynamic.datasource.activiti")
-    public DataSource activitiDataSource() {
+    public DruidDataSource activitiDataSource() {
         return new DruidDataSource();
     }
 
