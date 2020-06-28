@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.file.openoffice.utils.CommonUtil;
+import org.gourd.hu.file.utils.ImageUtil;
 import org.gourd.hu.file.utils.PdfUtil;
 import org.gourd.hu.file.utils.WordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -188,7 +189,7 @@ public class DocumentController {
     }
 
     /**
-     * pdf下载到特定位置
+     * word下载到特定位置
      *
      */
     @GetMapping(value = "/word/save")
@@ -213,5 +214,59 @@ public class DocumentController {
         String pdfPath = CommonUtil.isLinux() ? pdfLinuxPath : pdfWindowsPath +  "test.docx";
         WordUtil.save(templateEngine,"pdfPage",variables,pdfPath);
         return BaseResponse.ok("word保存成功");
+    }
+
+    /**
+     * image下载到特定位置
+     *
+     */
+    @GetMapping(value = "/image/save")
+    @ApiOperation(value="image下载到特定位置")
+    public BaseResponse<String> imageSave() {
+        Map<String,Object> variables = new HashMap<>(4);
+        variables.put("title","测试预览Word!");
+        variables.put("imageUrl",sslEnabled?"https://localhost:10001/imgs/sg.jpg":"http://localhost:10001/imgs/sg.jpg");
+        List<Map<String,String>> demoList = new ArrayList<>();
+        Map<String,String> demoMap = new HashMap<>(8);
+        demoMap.put("name","哈哈");
+        demoMap.put("nick","娃娃");
+        demoMap.put("age","19");
+        Map<String,String> demoMap2 = new HashMap<>(8);
+        demoMap2.put("name","天天");
+        demoMap2.put("nick","饭饭");
+        demoMap2.put("age","14");
+        demoList.add(demoMap);
+        demoList.add(demoMap2);
+        variables.put("demoList",demoList);
+        // pdf文件下载位置
+        String pdfPath = CommonUtil.isLinux() ? pdfLinuxPath : pdfWindowsPath +  "test0.jpg";
+        ImageUtil.saveAsImage(templateEngine,"pdfPage",variables,pdfPath);
+        return BaseResponse.ok("image保存成功");
+    }
+
+    /**
+     * image下载到特定位置
+     *
+     */
+    @GetMapping(value = "/image/download")
+    @ApiOperation(value="image下载到特定位置")
+    public BaseResponse<String> imageDownload(HttpServletResponse response) {
+        Map<String,Object> variables = new HashMap<>(4);
+        variables.put("title","测试预览Word!");
+        variables.put("imageUrl",sslEnabled?"https://localhost:10001/imgs/sg.jpg":"http://localhost:10001/imgs/sg.jpg");
+        List<Map<String,String>> demoList = new ArrayList<>();
+        Map<String,String> demoMap = new HashMap<>(8);
+        demoMap.put("name","哈哈");
+        demoMap.put("nick","娃娃");
+        demoMap.put("age","19");
+        Map<String,String> demoMap2 = new HashMap<>(8);
+        demoMap2.put("name","天天");
+        demoMap2.put("nick","饭饭");
+        demoMap2.put("age","14");
+        demoList.add(demoMap);
+        demoList.add(demoMap2);
+        variables.put("demoList",demoList);
+        ImageUtil.download(templateEngine,"pdfPage",variables,response,"test.jpg");
+        return BaseResponse.ok("image保存成功");
     }
 }
