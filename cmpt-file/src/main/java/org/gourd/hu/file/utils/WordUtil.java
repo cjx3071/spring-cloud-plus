@@ -1,14 +1,14 @@
 package org.gourd.hu.file.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedWriter;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.Map;
 
 /**
@@ -21,16 +21,19 @@ import java.util.Map;
 public class WordUtil {
 
 
-    public static void generateDoc(TemplateEngine templateEngine, String templateName,PrintWriter responseWriter, Map<String,Object> variables) throws UnsupportedEncodingException {
+    public static void generateDoc(TemplateEngine templateEngine, String templateName,OutputStream outputStream, Map<String,Object> variables) throws UnsupportedEncodingException {
         // 声明一个上下文对象，里面放入要存到模板里面的数据
         final Context context = new Context();
         context.setVariables(variables);
-        try(BufferedWriter writer = new BufferedWriter(responseWriter)) {
-            templateEngine.process(templateName,context, writer);
-        }catch (Exception e){
-            ResponseEnum.TEMPLATE_PARSE_ERROR.assertFail(e);
+        String htmlContext = templateEngine.process(templateName, context);
+        try(InputStream is = new ByteArrayInputStream(htmlContext.getBytes("UTF-8"));){
+            POIFSFileSystem fs = new POIFSFileSystem();
+            // 对应于org.apache.poi.hdf.extractor.WordDocument
+            fs.createDocument(is, "WordDocument");
+            fs.writeFilesystem(outputStream);
+        }catch (Exception e) {
+            log.error(e.getMessage(), e);
         }
-
     }
     /**
      * word下载
@@ -53,8 +56,8 @@ public class WordUtil {
         } catch (UnsupportedEncodingException e) {
             log.error(e.getMessage(), e);
         }
-        try (PrintWriter responseWriter = response.getWriter()) {
-            generateDoc(templateEngine, templateName, responseWriter, variables);
+        try (ServletOutputStream outputStream = response.getOutputStream()) {
+            generateDoc(templateEngine, templateName, outputStream, variables);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -72,8 +75,8 @@ public class WordUtil {
         ResponseEnum.TEMPLATE_DATA_NULL.assertNotEmpty(variables);
         // 设置编码、文件ContentType类型、文件头、下载文件名
         response.setCharacterEncoding("gb2312");
-        try (PrintWriter responseWriter = response.getWriter()) {
-            generateDoc(templateEngine, templateName, responseWriter, variables);
+        try (ServletOutputStream outputStream = response.getOutputStream()) {
+            generateDoc(templateEngine, templateName, outputStream, variables);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -89,9 +92,9 @@ public class WordUtil {
      * @param filePath     下载文件路径
      */
     public static void save(TemplateEngine templateEngine, String templateName,Map<String, Object> variables, String filePath) {
-        try (PrintWriter printWriter = new PrintWriter(filePath)) {
-            generateDoc(templateEngine, templateName, printWriter, variables);
-            printWriter.flush();
+        File file = new File(filePath);
+        try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
+            generateDoc(templateEngine, templateName, outputStream, variables);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
