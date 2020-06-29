@@ -224,7 +224,7 @@ public class DocumentController {
     @ApiOperation(value="image下载到特定位置")
     public BaseResponse<String> imageSave() {
         Map<String,Object> variables = new HashMap<>(4);
-        variables.put("title","测试预览Word!");
+        variables.put("title","image下载到特定位置!");
         variables.put("imageUrl",sslEnabled?"https://localhost:10001/imgs/sg.jpg":"http://localhost:10001/imgs/sg.jpg");
         List<Map<String,String>> demoList = new ArrayList<>();
         Map<String,String> demoMap = new HashMap<>(8);
@@ -245,14 +245,14 @@ public class DocumentController {
     }
 
     /**
-     * image下载到特定位置
+     * image浏览器下载
      *
      */
     @GetMapping(value = "/image/download")
-    @ApiOperation(value="image下载到特定位置")
+    @ApiOperation(value="image浏览器下载")
     public BaseResponse<String> imageDownload(HttpServletResponse response) {
         Map<String,Object> variables = new HashMap<>(4);
-        variables.put("title","测试预览Word!");
+        variables.put("title","image浏览器下载!");
         variables.put("imageUrl",sslEnabled?"https://localhost:10001/imgs/sg.jpg":"http://localhost:10001/imgs/sg.jpg");
         List<Map<String,String>> demoList = new ArrayList<>();
         Map<String,String> demoMap = new HashMap<>(8);

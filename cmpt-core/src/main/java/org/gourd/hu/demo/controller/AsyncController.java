@@ -43,9 +43,10 @@ public class AsyncController {
             asyncService.doTaskThree();
             // 异步线程池执行
             asyncTaskExecutor.execute(() -> log.info("^o^============异步线程池执行...."));
+            Future<BaseResponse> futureSub = asyncTaskExecutor.submit(() -> { return BaseResponse.ok("异步线程池执行返回结果成功...");});
             while (true) {
-                if (r1.isDone() && r2.isDone()) {
-                    log.info("异步任务一、二已完成");
+                if (r1.isDone() && r2.isDone() && futureSub.isDone()) {
+                    log.info("异步任务一、二、线程池提交已完成");
                     break;
                 }
             }

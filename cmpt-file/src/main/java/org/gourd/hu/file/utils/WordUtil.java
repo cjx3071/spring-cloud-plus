@@ -84,7 +84,7 @@ public class WordUtil {
 
 
     /**
-     * pdf下载到特定位置
+     * word下载到特定位置
      *
      * @param templateEngine   配置
      * @param templateName 模板名称
