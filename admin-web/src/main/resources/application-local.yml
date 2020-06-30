@@ -462,6 +462,14 @@ kaptcha:
     color: black
     thickness: 1
 
+# ftp配置
+ftp:
+  host:
+  port:
+  username:
+  password:
+  basePath:
+
 # 鉴权
 auth:
   # JWT
