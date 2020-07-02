@@ -28,7 +28,7 @@ public class FtpUtil {
      * ftp服务器端口
      */
     @Value("${ftp.port}")
-    private int port;
+    private Integer port;
     /**
      * 用户名
      */

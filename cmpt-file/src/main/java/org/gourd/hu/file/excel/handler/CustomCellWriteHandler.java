@@ -15,7 +15,7 @@ import org.apache.poi.ss.usermodel.Row;
 import java.util.List;
 
 /**
- * 自定义拦截器。对第一行第一列的头超链接到:https://blog.csdn.net/HXNLYW
+ * 自定义拦截器。对第一行第一列的头超链接
  *
  * @author gourd.hu
  */

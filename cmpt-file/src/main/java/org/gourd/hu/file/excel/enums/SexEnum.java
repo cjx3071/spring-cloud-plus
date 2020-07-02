@@ -1,6 +1,7 @@
 package org.gourd.hu.file.excel.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.baomidou.mybatisplus.core.enums.IEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -11,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author gourd.hu
  * @create 2018-07-04 15:41
  **/
-public enum SexEnum {
+public enum SexEnum implements IEnum<String> {
     M("M","男"),
     F("F","女"),
     X("X","未知");

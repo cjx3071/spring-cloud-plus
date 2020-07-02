@@ -3,11 +3,13 @@ package org.gourd.hu.demo.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.file.excel.entity.DepartPO;
 import org.gourd.hu.file.excel.entity.SheetExcelData;
 import org.gourd.hu.file.excel.entity.UserPO;
 import org.gourd.hu.file.excel.enums.SexEnum;
+import org.gourd.hu.file.excel.handler.CustomCellStyleStrategy;
 import org.gourd.hu.file.excel.utils.EasyExcelUtil;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -64,7 +67,7 @@ public class EasyExcelController {
     @ResponseBody
     @ApiOperation(value = "单sheet文件导出")
     public void singleExport() throws IOException{
-        List<UserPO> userPOList =new ArrayList<>();
+        List<UserPO> userPOList =new ArrayList<>(2);
         UserPO userPO = new UserPO();
         userPO.setAge(100);
         userPO.setName("gourd-hu");
@@ -73,7 +76,11 @@ public class EasyExcelController {
         userPO.setEmail("xxx.com");
         userPO.setMobilePhone("xxxx");
         userPOList.add(userPO);
-        EasyExcelUtil.writeSingleExcel("单sheet导出","用户",userPOList,UserPO.class);
+        // 必填头部标红
+        List<Integer> columnIndexes = Arrays.asList(0,1,2);
+        List<Integer> rowIndexes = Arrays.asList(0,1);
+        CustomCellStyleStrategy customCellStyleStrategy = new CustomCellStyleStrategy(rowIndexes,columnIndexes, IndexedColors.RED.getIndex());
+        EasyExcelUtil.writeSingleExcel("单sheet导出","用户",userPOList,UserPO.class,customCellStyleStrategy);
     }
 
 
@@ -86,7 +93,7 @@ public class EasyExcelController {
     @ResponseBody
     @ApiOperation(value = "多sheet文件导出")
     public void multiSheetExport() throws IOException{
-        List<UserPO> userPOList =new ArrayList<>();
+        List<UserPO> userPOList =new ArrayList<>(2);
         UserPO userPO = new UserPO();
         userPO.setAge(100);
         userPO.setName("gourd-hu");

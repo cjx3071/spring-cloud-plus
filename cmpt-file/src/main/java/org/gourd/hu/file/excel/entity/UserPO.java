@@ -1,9 +1,8 @@
 package org.gourd.hu.file.excel.entity;
 
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.alibaba.excel.annotation.format.DateTimeFormat;
-import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Data;
+import org.gourd.hu.file.excel.converter.Date2StrConverter;
 import org.gourd.hu.file.excel.converter.SexConverter;
 import org.gourd.hu.file.excel.enums.SexEnum;
 
@@ -33,14 +32,12 @@ public class UserPO {
      * 性别（M-男，F-女，X-未知）
      */
     @ExcelProperty(index = 2,value = {"基础信息","性别"},converter = SexConverter.class)
-    @EnumValue
     private SexEnum sex;
 
     /**
      * 生日
      */
-    @ExcelProperty(index = 3,value = "生日")
-    @DateTimeFormat("yyyy年MM月dd日")
+    @ExcelProperty(index = 3,value = "生日",converter = Date2StrConverter.class)
     private LocalDateTime birth;
 
     /**

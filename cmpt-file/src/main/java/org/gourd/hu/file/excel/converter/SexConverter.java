@@ -40,7 +40,7 @@ public class SexConverter implements Converter<SexEnum> {
 
     @Override
     public CellData convertToExcelData(SexEnum sexEnum, ExcelContentProperty excelContentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return null;
+        return new CellData(sexEnum.getValue());
     }
 
 }
