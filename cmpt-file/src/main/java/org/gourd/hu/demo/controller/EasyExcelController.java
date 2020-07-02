@@ -1,9 +1,13 @@
 package org.gourd.hu.demo.controller;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.exception.ExcelCommonException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.file.excel.entity.DepartPO;
 import org.gourd.hu.file.excel.entity.SheetExcelData;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,8 +45,41 @@ public class EasyExcelController {
     @PostMapping("/single-read")
     @ResponseBody
     @ApiOperation(value = "单sheet文件导入")
-    public BaseResponse singleImport(MultipartFile file) throws IOException {
-        List<UserPO> userPOList = EasyExcelUtil.readSingleExcel(file,new UserPO(),2);
+    public BaseResponse singleImport(MultipartFile file) {
+        // 校验文件类型
+        String fileName = file.getOriginalFilename();
+        if (!EasyExcelUtil.isExcel2003(fileName) && !EasyExcelUtil.isExcel2007(fileName)){
+            ResponseEnum.EXCEL_TYPE_ERROR.assertFail();
+        }
+        List<UserPO> userPOList = null;
+        try {
+            userPOList = EasyExcelUtil.readSingleExcel(file,new UserPO(),2);
+        }catch (IOException e) {
+            log.error("解析excel失败：",e);
+            ResponseEnum.EXCEL_ANALYZE_FAIL.assertFail();
+        } catch (ExcelCommonException e){
+            log.error("文件类型错误：",e);
+            ResponseEnum.EXCEL_TYPE_ERROR.assertFail();
+        }
+        if(CollectionUtils.isEmpty(userPOList)){
+            ResponseEnum.EXCEL_NO_DATA.assertFail();
+        }
+        // 校验模板是否正确
+        List<String> columnNames = EasyExcelUtil.getColumnNames(file,0,0);
+        Field[] declaredFields = UserPO.class.getDeclaredFields();
+        if(columnNames.size() != declaredFields.length){
+            ResponseEnum.UPLOAD_EXCEL_TEMPLATE_ERROR.assertFail();
+        }
+        for (int i = 0,fLength = declaredFields.length ; i <fLength; i++) {
+            Field declaredField = declaredFields[i];
+            declaredField.setAccessible(true);
+            ExcelProperty annotation = declaredField.getAnnotation(ExcelProperty.class);
+            String[] values = annotation.value();
+            String columnValue = values[values.length-1];
+            if(!columnValue.equals(columnNames.get(i))){
+                ResponseEnum.UPLOAD_EXCEL_TEMPLATE_ERROR.assertFail();
+            }
+        }
         // 导入逻辑 .......
         return BaseResponse.ok("success");
     }

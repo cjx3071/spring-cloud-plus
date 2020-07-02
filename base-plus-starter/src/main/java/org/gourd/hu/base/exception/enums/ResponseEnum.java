@@ -33,6 +33,12 @@ public enum ResponseEnum implements BusinessExceptionAssert {
 
     TEMPLATE_PARSE_ERROR(6015, "模板解析错误."),
     TEMPLATE_DATA_NULL(6016, "模板参数为空."),
+    EXPORT_EXCEL_ERROR(6017, "导出excel失败"),
+    EXPORT_PDF_ERROR(6015, "导出pdf失败"),
+    EXCEL_NO_DATA(6018, "表格无数据"),
+    EXCEL_ANALYZE_FAIL(6019, "解析excel失败"),
+    EXCEL_TYPE_ERROR(6020, "文件类型错误"),
+    UPLOAD_EXCEL_TEMPLATE_ERROR(6021, "上传模板错误"),
 
 
 

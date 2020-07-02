@@ -7,6 +7,10 @@ import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.gourd.hu.base.holder.RequestHolder;
 import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.file.excel.entity.SheetExcelData;
@@ -19,11 +23,13 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -34,6 +40,64 @@ import java.util.List;
  **/
 @Slf4j
 public class EasyExcelUtil {
+
+
+
+    public static boolean isExcel2003(String filePath)
+    {
+        return filePath.matches("^.+\\.(?i)(xls)$");
+    }
+
+    public static boolean isExcel2007(String filePath)
+    {
+        return filePath.matches("^.+\\.(?i)(xlsx)$");
+    }
+
+    /**
+     * 得到Workbook对象
+     *
+     * @param file
+     * @return
+     */
+    public static Workbook getWorkBook(MultipartFile file) {
+        Workbook workbook = null;
+        try (InputStream inputStream = file.getInputStream()) {
+            String filename = file.getOriginalFilename();
+            if(isExcel2003(filename)){
+                workbook = new HSSFWorkbook(inputStream);
+            }else {
+                workbook = new XSSFWorkbook(inputStream);
+            }
+        } catch (IOException e) {
+            log.error(e.getMessage(),e);
+        }
+        return workbook;
+    }
+
+    /**
+     * 获取文件头列名称
+     *
+     * @param file 文件
+     * @param sheetNo sheet编号
+     * @param rowNo 头行号，如果复杂头，取最下层头行号
+     * @return
+     */
+    public static List<String> getColumnNames(MultipartFile file,Integer sheetNo,Integer rowNo) {
+        List<String> columnNames = new ArrayList<>(28);
+        Workbook workBook = getWorkBook(file);
+        Iterator<Cell> iterator = workBook.getSheetAt(sheetNo).getRow(rowNo).iterator();
+        while (true){
+            if(iterator.hasNext()){
+                String columnName = iterator.next().getStringCellValue();
+                columnNames.add(columnName);
+            } else {
+                break;
+            }
+        }
+        return columnNames;
+    }
+
+
     /**
      * 读取单个sheet的excel文件
      * @param excel 文件
