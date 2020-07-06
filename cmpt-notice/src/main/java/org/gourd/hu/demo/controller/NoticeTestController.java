@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.gourd.hu.notice.utils.MailUtil;
 import org.gourd.hu.notice.utils.SmsUtil;
 import org.gourd.hu.notice.utils.ValidateCodeUtil;
+import org.gourd.hu.notice.websocket.NioWebSocket;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,6 +78,13 @@ public class NoticeTestController {
     @ApiOperation(value = "发送消息")
     public void sendSmsCode() {
         SmsUtil.sendMessage("13584278267", ValidateCodeUtil.getCode(4));
+    }
+
+
+    @PostMapping("/broadcast")
+    @ApiOperation(value = "广播消息")
+    public void broadcastMsg(String msg) {
+        NioWebSocket.broadcast(msg);
     }
 
 

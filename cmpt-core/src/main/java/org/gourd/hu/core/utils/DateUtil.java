@@ -423,12 +423,10 @@ public class DateUtil {
         try {
             beginDate = format.parse(beginDateStr);
             endDate = format.parse(endDateStr);
+            day = (endDate.getTime() - beginDate.getTime()) / (24 * 60 * 60 * 1000);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        day = (endDate.getTime() - beginDate.getTime()) / (24 * 60 * 60 * 1000);
-        // System.out.println("相隔的天数="+day);
-
         return day;
     }
 

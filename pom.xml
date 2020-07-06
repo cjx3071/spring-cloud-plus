@@ -51,7 +51,7 @@
         <knife4j.version>2.0.0</knife4j.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
         <alibaba-cloud.version>2.2.0.RELEASE</alibaba-cloud.version>
-        <netty-websocket.version>0.8.0</netty-websocket.version>
+        <netty-websocket.version>0.9.5</netty-websocket.version>
         <redisson.version>3.10.6</redisson.version>
         <fast-dfs.version>1.26.2</fast-dfs.version>
         <artofsolving.jodconverter>2.2.1</artofsolving.jodconverter>
