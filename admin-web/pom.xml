@@ -85,11 +85,11 @@
             <version>${cloud.version}</version>
         </dependency>
         <!--activemq消息组件-->
-<!--        <dependency>-->
-<!--            <groupId>org.gourd.hu</groupId>-->
-<!--            <artifactId>activemq</artifactId>-->
-<!--            <version>${cloud.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>activemq</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
         <!--es组件-->
 <!--        <dependency>-->
 <!--            <groupId>org.gourd.hu</groupId>-->

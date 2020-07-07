@@ -13,13 +13,12 @@ import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
-import org.springframework.jms.support.converter.MessageConverter;
-import org.springframework.jms.support.converter.MessageType;
 import org.springframework.util.backoff.FixedBackOff;
 
 import javax.jms.Queue;
 import javax.jms.Topic;
+
+import static org.apache.activemq.ActiveMQSession.INDIVIDUAL_ACKNOWLEDGE;
 
 /**
  * active消息队列配置
@@ -68,9 +67,11 @@ public class ActiveMqConfig {
 
 
     @Bean
-    public ActiveMQConnectionFactory activeMQConnectionFactory (@Value("${spring.activemq.broker-url}")String url,
-          @Value("${spring.activemq.user}")String user, @Value("${spring.activemq.password}")String password,
-                                                                RedeliveryPolicy redeliveryPolicy){
+    public ActiveMQConnectionFactory activeMQConnectionFactory (
+            @Value("${spring.activemq.broker-url}")String url,
+            @Value("${spring.activemq.user}")String user,
+            @Value("${spring.activemq.password}")String password,
+            RedeliveryPolicy redeliveryPolicy){
         ActiveMQConnectionFactory activeMQConnectionFactory =
                 new ActiveMQConnectionFactory(user,password,url);
         activeMQConnectionFactory.setRedeliveryPolicy(redeliveryPolicy);
@@ -79,7 +80,7 @@ public class ActiveMqConfig {
 
     @Bean
     public JmsTemplate getJmsTemplate(ActiveMQConnectionFactory activeMQConnectionFactory,
-        MessageConverter jacksonJmsMessageConverter,@Value("${spring.jms.pub-sub-domain}")Boolean subAdmin){
+        @Value("${spring.jms.pub-sub-domain}")Boolean subAdmin){
         //使用CachingConnectionFactory可以提高部分性能。
         CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory();
         cachingConnectionFactory.setSessionCacheSize(100);
@@ -89,8 +90,6 @@ public class ActiveMqConfig {
         jmsTemplate.setExplicitQosEnabled(true);
         // 设置消息是否持久化
         jmsTemplate.setDeliveryPersistent(true);
-        // 设置消息转换器
-        jmsTemplate.setMessageConverter(jacksonJmsMessageConverter);
         // 设置消息是否以事务
         jmsTemplate.setSessionTransacted(true);
         jmsTemplate.setPubSubDomain(subAdmin);
@@ -104,12 +103,12 @@ public class ActiveMqConfig {
      * @return
      */
     @Bean("jmsListenerContainerTopic")
-    public JmsListenerContainerFactory<?> jmsListenerContainerTopic(ActiveMQConnectionFactory activeMQConnectionFactory,
-           DefaultJmsListenerContainerFactoryConfigurer configurer,@Value("${spring.application.name}")String applicationName) {
+    public JmsListenerContainerFactory<?> jmsListenerContainerTopic(
+            ActiveMQConnectionFactory activeMQConnectionFactory,
+            DefaultJmsListenerContainerFactoryConfigurer configurer,
+            @Value("${spring.application.name}")String applicationName) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         configurer.configure(factory, activeMQConnectionFactory);
-        // 设置消息转换器
-        factory.setMessageConverter(jacksonJmsMessageConverter());
         factory.setPubSubDomain(true);
         factory.setSessionTransacted(true);
         factory.setAutoStartup(true);
@@ -120,6 +119,7 @@ public class ActiveMqConfig {
         backOff.setInterval(200);
         backOff.setMaxAttempts(6);
         factory.setBackOff(backOff);
+        factory.setSessionAcknowledgeMode(INDIVIDUAL_ACKNOWLEDGE);
         return factory;
     }
 
@@ -129,26 +129,14 @@ public class ActiveMqConfig {
      * @return
      */
     @Bean("jmsListenerContainerQueue")
-    public JmsListenerContainerFactory<?> jmsListenerContainerQueue(ActiveMQConnectionFactory activeMQConnectionFactory,
-                                                                    DefaultJmsListenerContainerFactoryConfigurer configurer) {
+    public JmsListenerContainerFactory<?> jmsListenerContainerQueue(
+            ActiveMQConnectionFactory activeMQConnectionFactory,
+            DefaultJmsListenerContainerFactoryConfigurer configurer) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         configurer.configure(factory, activeMQConnectionFactory);
-        // 设置消息转换器
-        factory.setMessageConverter(jacksonJmsMessageConverter());
         factory.setPubSubDomain(false);
         return factory;
     }
 
-    /**
-     * 消息转换器
-     * @return
-     */
-    @Bean
-    public MessageConverter jacksonJmsMessageConverter() {
-        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-        converter.setTargetType(MessageType.TEXT);
-        converter.setTypeIdPropertyName("_type");
-        return converter;
-    }
 
 }

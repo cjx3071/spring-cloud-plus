@@ -384,7 +384,10 @@ test:
 
 # websocket
 netty-websocket:
+  host: 0.0.0.0  # WebSocket的host,"0.0.0.0"即是所有本地地址
   port: 8090
+  bossLoopGroupThreads: 0 # bossEventLoopGroup的线程数,设置为0采用默认值(核心数*2)
+  workerLoopGroupThreads: 0 # workerEventLoopGroup的线程数,设置为0采用默认值(核心数*2)
 
 ribbon:
   eager-load:
