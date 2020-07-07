@@ -1,4 +1,4 @@
-package org.gourd.hu.activemq.service;
+package org.gourd.hu.activemq.listeners;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import javax.jms.Session;
  */
 @Component
 @Slf4j
-public class ConsumerService {
+public class GourdConsumerListener {
 
 
     /**
@@ -26,27 +26,31 @@ public class ConsumerService {
      * @return
      */
     @JmsListener(destination = "${spring.activemq.queue-name:gourd-queue}",containerFactory = "jmsListenerContainerQueue")
-    @SendTo("SQueue")
+    @SendTo("gourd-queue")
     public void handleMessage(final Object message, Session session) throws JMSException {
         ActiveMQObjectMessage activeMQObjectMessage = (ActiveMQObjectMessage) message;
         activeMQObjectMessage.setTrustAllPackages(true);
         log.info("queue-consumer收到的报文为:" + JSON.toJSONString(activeMQObjectMessage.getObject()));
         if(true){
+            session.commit();
             session.close();
         }else {
+            session.rollback();
             session.recover();
         }
     }
 
-    @JmsListener(destination = "${spring.activemq.topic-name:gourd-topic}",containerFactory = "jmsListenerContainerTopic")
-    @SendTo("STopic")
+    @JmsListener(destination = "${spring.activemq.topic-name:gourd-topic}",selector="${spring.activemq.group-name:gourd-group}",containerFactory = "jmsListenerContainerTopic")
+    @SendTo("gourd-topic")
     public void receiveTopic(final Object message, Session session) throws JMSException {
         ActiveMQObjectMessage activeMQObjectMessage = (ActiveMQObjectMessage) message;
         activeMQObjectMessage.setTrustAllPackages(true);
         log.info("topic-consumer收到的报文为:" + JSON.toJSONString(activeMQObjectMessage.getObject()));
         if(true){
+            session.commit();
             session.close();
         }else {
+            session.rollback();
             session.recover();
         }
 //        if(true){

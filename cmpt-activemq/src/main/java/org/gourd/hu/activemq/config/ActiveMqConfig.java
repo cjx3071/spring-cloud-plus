@@ -5,7 +5,6 @@ import org.apache.activemq.RedeliveryPolicy;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
@@ -48,7 +47,7 @@ public class ActiveMqConfig {
 
     @Bean
     public RedeliveryPolicy redeliveryPolicy(){
-        RedeliveryPolicy  redeliveryPolicy=   new RedeliveryPolicy();
+        RedeliveryPolicy  redeliveryPolicy= new RedeliveryPolicy();
         // 启用指数倍数递增的方式增加延迟时间。
         redeliveryPolicy.setUseExponentialBackOff(true);
         // 重连时间间隔递增倍数，只有值大于1和启用useExponentialBackOff参数时才生效。默认5
@@ -105,10 +104,9 @@ public class ActiveMqConfig {
     @Bean("jmsListenerContainerTopic")
     public JmsListenerContainerFactory<?> jmsListenerContainerTopic(
             ActiveMQConnectionFactory activeMQConnectionFactory,
-            DefaultJmsListenerContainerFactoryConfigurer configurer,
             @Value("${spring.application.name}")String applicationName) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-        configurer.configure(factory, activeMQConnectionFactory);
+        factory.setConnectionFactory(activeMQConnectionFactory);
         factory.setPubSubDomain(true);
         factory.setSessionTransacted(true);
         factory.setAutoStartup(true);
@@ -130,10 +128,10 @@ public class ActiveMqConfig {
      */
     @Bean("jmsListenerContainerQueue")
     public JmsListenerContainerFactory<?> jmsListenerContainerQueue(
-            ActiveMQConnectionFactory activeMQConnectionFactory,
-            DefaultJmsListenerContainerFactoryConfigurer configurer) {
+            ActiveMQConnectionFactory activeMQConnectionFactory) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-        configurer.configure(factory, activeMQConnectionFactory);
+        factory.setConnectionFactory(activeMQConnectionFactory);
+        factory.setSessionAcknowledgeMode(INDIVIDUAL_ACKNOWLEDGE);
         factory.setPubSubDomain(false);
         return factory;
     }

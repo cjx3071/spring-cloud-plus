@@ -305,6 +305,7 @@ spring:
     in-memory: true
     queue-name: gourd-queue
     topic-name: gourd-topic
+    group-name: gourd-group
   jms:
     pub-sub-domain: true
 
