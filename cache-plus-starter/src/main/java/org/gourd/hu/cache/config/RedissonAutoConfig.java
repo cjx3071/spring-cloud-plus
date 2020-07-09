@@ -33,17 +33,17 @@ public class RedissonAutoConfig {
         if(redisProperties.getCluster() != null){
             // 集群模式配置
             config.useClusterServers()
-                    .addNodeAddress(redisProperties.getCluster().getNodes().stream().toArray(String[]::new));
+                    .addNodeAddress(redisProperties.getCluster().getNodes().stream().toArray(String[]::new))
+                    .setPassword(StringUtils.isBlank(redisProperties.getPassword()) ? null : redisProperties.getPassword());
         }else if(redisProperties.getSentinel() != null){
             //添加哨兵配置
             config.useMasterSlaveServers().setMasterAddress(redisProperties.getSentinel().getMaster())
-                    .addSlaveAddress(redisProperties.getSentinel().getNodes().stream().toArray(String[]::new));
+                    .addSlaveAddress(redisProperties.getSentinel().getNodes().stream().toArray(String[]::new))
+                    .setPassword(StringUtils.isBlank(redisProperties.getPassword()) ? null : redisProperties.getPassword());
         }else {
             //单节点
-            config.useSingleServer().setAddress("redis://" + redisProperties.getHost() + ":" + redisProperties.getPort());
-        }
-        if (StringUtils.isNotBlank(redisProperties.getPassword())) {
-            config.useClusterServers().setPassword(redisProperties.getPassword());
+            config.useSingleServer().setAddress("redis://" + redisProperties.getHost() + ":" + redisProperties.getPort())
+                    .setPassword(StringUtils.isBlank(redisProperties.getPassword()) ? null : redisProperties.getPassword());
         }
         return Redisson.create(config);
     }

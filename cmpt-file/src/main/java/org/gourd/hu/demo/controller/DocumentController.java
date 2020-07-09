@@ -239,7 +239,7 @@ public class DocumentController {
         demoList.add(demoMap2);
         variables.put("demoList",demoList);
         // pdf文件下载位置
-        String pdfPath = CommonUtil.isLinux() ? pdfLinuxPath : pdfWindowsPath +  "test0.jpg";
+        String pdfPath = CommonUtil.isLinux() ? pdfLinuxPath : pdfWindowsPath +  "test0.png";
         ImageUtil.saveAsImage(templateEngine,"pdfPage",variables,pdfPath);
         return BaseResponse.ok("image保存成功");
     }
