@@ -10,7 +10,7 @@ import java.util.Map;
 
 
 /**
- * 解决入参为 Date类型
+ * 解决入参为 LocalDate类型,传入为string类型
  * @author gourd.hu
  */
 public class String2LocalDateConverter extends BaseDateConverter<LocalDate> implements Converter<String, LocalDate> {

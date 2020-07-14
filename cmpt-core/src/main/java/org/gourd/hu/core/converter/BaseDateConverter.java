@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 /**
- * 解决入参为 Date类型
+ * 解决入参为 Date类型,传入为string类型
  *
  * @author gourd.hu
  */

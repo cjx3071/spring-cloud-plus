@@ -15,6 +15,7 @@ import java.util.Date;
 
 /**
  * 转换器配置
+ * 自动转换请求体中string的日期类型
  *
  * @author gourd.hu
  *

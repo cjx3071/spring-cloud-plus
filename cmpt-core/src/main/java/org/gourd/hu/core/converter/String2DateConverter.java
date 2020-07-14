@@ -16,7 +16,7 @@ import java.util.Map;
 
 
 /**
- * 解决入参为 Date类型
+ * 解决入参为 Date类型,传入为string类型
  * @author gourd.hu
  */
 @Slf4j
@@ -25,10 +25,10 @@ public class String2DateConverter extends BaseDateConverter<Date> implements Con
     protected static final Map<String, String> FORMAT = new LinkedHashMap(11);
 
     static {
-        FORMAT.put(DateUtil.DEFAULT_YYYY_FORMAT, "^\\d{4}");
+        FORMAT.put(DateUtil.DEFAULT_YYYY_FORMAT, "^\\d{4}$");
         FORMAT.put(DateUtil.DATE_FORMAT_YYYY_MM, "^\\d{4}-\\d{1,2}$");
         FORMAT.put(DateUtil.DATE_FORMAT_YYYY_MM_DD, "^\\d{4}-\\d{1,2}-\\d{1,2}$");
-        FORMAT.put(DateUtil.DATE_FORMAT_YYYY_MM_DD_HH, "^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}");
+        FORMAT.put(DateUtil.DATE_FORMAT_YYYY_MM_DD_HH, "^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}$");
         FORMAT.put(DateUtil.DATE_FORMAT_YYYY_MM_DD_HH_MM, "^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}$");
         FORMAT.put(DateUtil.DATE_FORMAT_DEFAULT, "^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}:\\d{1,2}$");
     }
