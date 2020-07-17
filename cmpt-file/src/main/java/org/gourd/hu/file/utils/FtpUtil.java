@@ -46,6 +46,16 @@ public class FtpUtil {
     private String basePath;
 
     /**
+     * 60s超时时间
+     */
+    private static final Integer TIME_OUT = 60 * 1000;
+
+    /**
+     * 缓冲大小
+     */
+    private static final Integer BUFFER_SIZE = 1024 * 1024;
+
+    /**
      * @param path     上传文件存放在服务器的路径
      * @param filename 上传文件名
      * @param input    输入流
@@ -54,22 +64,7 @@ public class FtpUtil {
     public boolean fileUpload(String path, String filename, InputStream input) {
         FTPClient ftp = new FTPClient();
         try {
-            ftp.connect(host, port);
-            boolean loginFlag = ftp.login(username, password);
-            if(!loginFlag){
-                throw new RuntimeException("登录失败");
-            }
-            // 设置文件编码格式
-            ftp.setControlEncoding("UTF-8");
-            // ftp通信有两种模式
-            // PORT(主动模式)客户端开通一个新端口(>1024)并通过这个端口发送命令或传输数据,期间服务端只使用他开通的一个端口，例如21
-            // PASV(被动模式)客户端向服务端发送一个PASV命令，服务端开启一个新端口(>1024),并使用这个端口与客户端的21端口传输数据
-            //由于客户端不可控，防火墙等原因，所以需要由服务端开启端口，需要设置被动模式
-            ftp.enterLocalPassiveMode();
-            // 设置传输方式为流方式
-            ftp.setFileTransferMode(FTP.STREAM_TRANSFER_MODE);
-            // 取消服务器获取自身Ip地址和提交的host进行匹配
-            ftp.setRemoteVerificationEnabled(false);
+            this.login(ftp);
             // 获取状态码，判断是否连接成功
             if (!FTPReply.isPositiveCompletion(ftp.getReplyCode())) {
                 throw new RuntimeException("FTP服务器拒绝连接");
@@ -130,22 +125,7 @@ public class FtpUtil {
     public boolean downloadFile(String filename, String localPath) {
         FTPClient ftp = new FTPClient();
         try {
-            ftp.connect(host, port);
-            boolean loginFlag = ftp.login(username, password);
-            if(!loginFlag){
-                throw new RuntimeException("登录失败");
-            }
-            // 设置文件编码格式
-            ftp.setControlEncoding("UTF-8");
-            // ftp通信有两种模式
-            // PORT(主动模式)客户端开通一个新端口(>1024)并通过这个端口发送命令或传输数据,期间服务端只使用他开通的一个端口，例如21
-            // PASV(被动模式)客户端向服务端发送一个PASV命令，服务端开启一个新端口(>1024),并使用这个端口与客户端的21端口传输数据
-            // 由于客户端不可控，防火墙等原因，所以需要由服务端开启端口，需要设置被动模式
-            ftp.enterLocalPassiveMode();
-            // 设置传输方式为流方式
-            ftp.setFileTransferMode(FTP.STREAM_TRANSFER_MODE);
-            // 取消服务器获取自身Ip地址和提交的host进行匹配
-            ftp.setRemoteVerificationEnabled(false);
+            this.login(ftp);
             // 获取状态码，判断是否连接成功
             if (!FTPReply.isPositiveCompletion(ftp.getReplyCode())) {
                 throw new RuntimeException("FTP服务器拒绝连接");
@@ -192,11 +172,7 @@ public class FtpUtil {
     public boolean deleteFile(String filename) {
         FTPClient ftp = new FTPClient();
         try {
-            ftp.connect(host, port);
-            ftp.login(username, password);
-            // 设置编码格式
-            ftp.setControlEncoding("UTF-8");
-            ftp.enterLocalPassiveMode();
+            this.login(ftp);
             // 获取状态码，判断是否连接成功
             if (!FTPReply.isPositiveCompletion(ftp.getReplyCode())) {
                 throw new RuntimeException("FTP服务器拒绝连接");
@@ -254,6 +230,38 @@ public class FtpUtil {
             // 继续判断
             clearDirectory(ftp, basePath, path);
         }
+    }
+
+    /**
+     * 登录ftp
+     *
+     * @param ftp
+     * @throws IOException
+     */
+    private void login(FTPClient ftp) throws IOException {
+        // 设置超时时间
+        ftp.setDefaultTimeout(TIME_OUT);
+        ftp.setConnectTimeout(TIME_OUT);
+        ftp.setDataTimeout(TIME_OUT);
+        ftp.setSoTimeout(TIME_OUT);
+        ftp.connect(host, port);
+        boolean loginFlag = ftp.login(username, password);
+        if (!loginFlag) {
+            throw new RuntimeException("登录失败");
+        }
+        // 设置文件编码格式
+        ftp.setControlEncoding("UTF-8");
+        // ftp通信有两种模式
+        // PORT(主动模式)客户端开通一个新端口(>1024)并通过这个端口发送命令或传输数据,期间服务端只使用他开通的一个端口，例如21
+        // PASV(被动模式)客户端向服务端发送一个PASV命令，服务端开启一个新端口(>1024),并使用这个端口与客户端的21端口传输数据
+        // 由于客户端不可控，防火墙等原因，所以需要由服务端开启端口，需要设置被动模式
+        ftp.enterLocalPassiveMode();
+        // 设置传输方式为流方式
+        ftp.setFileTransferMode(FTP.STREAM_TRANSFER_MODE);
+        // 取消服务器获取自身Ip地址和提交的host进行匹配
+        ftp.setRemoteVerificationEnabled(Boolean.FALSE);
+        // 设置缓冲大小
+        ftp.setBufferSize(BUFFER_SIZE);
     }
 
     public static void main(String[] args) {
