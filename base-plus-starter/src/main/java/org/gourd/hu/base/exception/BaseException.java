@@ -41,6 +41,12 @@ public class BaseException extends RuntimeException {
         };
     }
 
+    public BaseException(IResponseEnum responseEnum, Object[] args) {
+        super(responseEnum.getMessage());
+        this.responseEnum = responseEnum;
+        this.args = args;
+    }
+
     public BaseException(IResponseEnum responseEnum, Object[] args, String message) {
         super(message);
         this.responseEnum = responseEnum;

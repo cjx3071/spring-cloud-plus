@@ -6,6 +6,8 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
+import org.gourd.hu.base.exception.BusinessException;
+import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -67,11 +69,12 @@ public class FtpUtil {
             this.login(ftp);
             // 获取状态码，判断是否连接成功
             if (!FTPReply.isPositiveCompletion(ftp.getReplyCode())) {
-                throw new RuntimeException("FTP服务器拒绝连接");
+                throw new BusinessException(ResponseEnum.FTP_REFUSE_CONNECT);
             }
             // 转到上传文件的根目录
             if (StringUtils.isNotBlank(basePath) && !ftp.changeWorkingDirectory(basePath)) {
-                throw new RuntimeException("根目录不存在，需要创建");
+                String[] paths = new String[]{basePath};
+                throw new BusinessException(ResponseEnum.FILE_PATH_NOT_EXIST,paths);
             }
             // 判断是否存在目录
             if (!ftp.changeWorkingDirectory(path)) {
@@ -85,50 +88,50 @@ public class FtpUtil {
                     if (!ftp.changeWorkingDirectory(dir)) {
                         // 不存在则创建
                         if (!ftp.makeDirectory(dir)) {
-                            throw new RuntimeException("子目录创建失败");
+                            throw new BusinessException(ResponseEnum.FILE_CREATE_FAIL,new String[]{dir});
                         }
                         // 进入新创建的目录
                         ftp.changeWorkingDirectory(dir);
                     }
                 }
-                // 设置上传文件的类型为二进制类型
-                ftp.setFileType(FTP.BINARY_FILE_TYPE);
-                // 上传文件
-                if (!ftp.storeFile(filename, input)) {
-                    return false;
-                }
-                input.close();
-                ftp.logout();
-                return true;
             }
-
-
+            // 上传文件
+            if (!ftp.storeFile(filename, input)) {
+                throw new BusinessException(ResponseEnum.FILE_UPLOAD_FAIL,new String[]{filename});
+            }
+            return true;
         } catch (Exception e) {
             log.error(e.getMessage(),e);
         } finally {
-            if (ftp.isConnected()) {
+            // 关闭流
+            if(input != null){
                 try {
-                    ftp.disconnect();
+                    input.close();
                 } catch (IOException e) {
                     log.error(e.getMessage(),e);
                 }
             }
+            // 退出ftp
+            this.clearFtp(ftp);
         }
         return false;
     }
 
     /**
+     * 下载文件
+     *
      * @param filename  文件名，注意！此处文件名为加路径文件名，如：/2015/06/04/aa.jpg
      * @param localPath 存放到本地第地址
      * @return
      */
     public boolean downloadFile(String filename, String localPath) {
         FTPClient ftp = new FTPClient();
+        OutputStream out = null;
         try {
             this.login(ftp);
             // 获取状态码，判断是否连接成功
             if (!FTPReply.isPositiveCompletion(ftp.getReplyCode())) {
-                throw new RuntimeException("FTP服务器拒绝连接");
+                throw new BusinessException(ResponseEnum.FTP_REFUSE_CONNECT);
             }
 
             int index = filename.lastIndexOf("/");
@@ -138,7 +141,7 @@ public class FtpUtil {
             String name = filename.substring(index + 1);
             // 判断是否存在目录
             if (!ftp.changeWorkingDirectory(basePath + path)) {
-                throw new RuntimeException("文件路径不存在：" + basePath + path);
+                throw new BusinessException(ResponseEnum.FILE_PATH_NOT_EXIST ,new String[]{basePath + path});
             }
             // 获取该目录所有文件
             FTPFile[] files = ftp.listFiles();
@@ -147,35 +150,43 @@ public class FtpUtil {
                 if (file.getName().equals(name)) {
                     // 如果找到，将目标文件复制到本地
                     File localFile = new File(localPath + "/" + file.getName());
-                    OutputStream out = new FileOutputStream(localFile);
-                    ftp.retrieveFile(file.getName(), out);
-                    out.close();
+                    out = new FileOutputStream(localFile);
+                    if(!ftp.retrieveFile(file.getName(), out)){
+                        throw new BusinessException(ResponseEnum.FILE_DOWNLOAD_FAIL,new String[]{name});
+                    }
                 }
             }
-            ftp.logout();
             return true;
         } catch (Exception e) {
             log.error(e.getMessage(),e);
-            return false;
         } finally {
-            if (ftp.isConnected()) {
+            // 关闭流
+            if(out != null){
                 try {
-                    ftp.disconnect();
+                    out.close();
                 } catch (IOException e) {
                     log.error(e.getMessage(),e);
-                    return false;
                 }
             }
+            // 退出ftp
+            this.clearFtp(ftp);
         }
+        return false;
     }
 
+    /**
+     * 删除文件
+     *
+     * @param filename  文件名，注意！此处文件名为加路径文件名，如：/2015/06/04/aa.jpg
+     * @return
+     */
     public boolean deleteFile(String filename) {
         FTPClient ftp = new FTPClient();
         try {
             this.login(ftp);
             // 获取状态码，判断是否连接成功
             if (!FTPReply.isPositiveCompletion(ftp.getReplyCode())) {
-                throw new RuntimeException("FTP服务器拒绝连接");
+                throw new BusinessException(ResponseEnum.FTP_REFUSE_CONNECT);
             }
             int index = filename.lastIndexOf("/");
             // 获取文件的路径
@@ -184,28 +195,19 @@ public class FtpUtil {
             String name = filename.substring(index + 1);
             // 判断是否存在目录,不存在则说明文件存在
             if (!ftp.changeWorkingDirectory(basePath + path)) {
-                return true;
+                throw new BusinessException(ResponseEnum.FILE_PATH_NOT_EXIST ,new String[]{basePath + path});
             }
-            if (ftp.deleteFile(name)) {
-                clearDirectory(ftp, basePath, path);
-                ftp.logout();
-                return true;
+            if (!ftp.deleteFile(name)) {
+                throw new BusinessException(ResponseEnum.FILE_DELETE_FAIL,new String[]{name});
             }
-            ftp.logout();
-            return false;
+//            clearDirectory(ftp, basePath, path);
+            return true;
         } catch (Exception e) {
             log.error(e.getMessage(),e);
-            return false;
         } finally {
-            if (ftp.isConnected()) {
-                try {
-                    ftp.disconnect();
-                } catch (IOException e) {
-                    log.error(e.getMessage(),e);
-                    return false;
-                }
-            }
+            this.clearFtp(ftp);
         }
+        return false;
     }
 
     /**
@@ -247,7 +249,7 @@ public class FtpUtil {
         ftp.connect(host, port);
         boolean loginFlag = ftp.login(username, password);
         if (!loginFlag) {
-            throw new RuntimeException("登录失败");
+            throw new BusinessException(ResponseEnum.FTP_LOGIN_FAIL);
         }
         // 设置文件编码格式
         ftp.setControlEncoding("UTF-8");
@@ -262,6 +264,29 @@ public class FtpUtil {
         ftp.setRemoteVerificationEnabled(Boolean.FALSE);
         // 设置缓冲大小
         ftp.setBufferSize(BUFFER_SIZE);
+        // 设置上传文件的类型为二进制类型
+        ftp.setFileType(FTP.BINARY_FILE_TYPE);
+    }
+
+    /**
+     * 退出ftp
+     * @param ftp
+     */
+    private void clearFtp(FTPClient ftp) {
+        // 退出登录
+        try {
+            ftp.logout();
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+        }
+        // 关闭连接
+        if (ftp.isConnected()) {
+            try {
+                ftp.disconnect();
+            } catch (IOException e) {
+                log.error(e.getMessage(), e);
+            }
+        }
     }
 
     public static void main(String[] args) {
