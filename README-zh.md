@@ -15,7 +15,8 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 邮箱：13584278267@163.com  
 博客：https://blog.csdn.net/HXNLYW  
 微信号：13584278267 (欢迎咨询或加入交流群)  
-公众号：  ![输入图片说明](https://images.gitee.com/uploads/images/2020/0720/133531_13198a19_4866886.jpeg "qrcode_for_gh_95adafee4404_258 (2).jpg")
+公众号（欢迎大家关注）： 
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0720/133531_13198a19_4866886.jpeg "qrcode_for_gh_95adafee4404_258 (2).jpg")
 
 ### 写在最后
 本项目正在开发阶段，可能有些代码不是最优，或者有一些错误，小伙伴们，如果发现，你可以评论或者提issue或者私信告知我。
