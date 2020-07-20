@@ -1,6 +1,6 @@
 package org.gourd.hu.gateway.reponsitory;
 
-import com.alibaba.cloud.nacos.NacosConfigProperties;
+import com.alibaba.cloud.nacos.NacosConfigManager;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.nacos.api.config.listener.Listener;
 import com.alibaba.nacos.api.exception.NacosException;
@@ -30,19 +30,19 @@ public class NacosRouteDefinitionRepository implements RouteDefinitionRepository
 
     private ApplicationEventPublisher publisher;
 
-    private NacosConfigProperties nacosConfigProperties;
+    private NacosConfigManager nacosConfigManager;
 
-    public NacosRouteDefinitionRepository(String routerDataId, ApplicationEventPublisher publisher, NacosConfigProperties nacosConfigProperties) {
+    public NacosRouteDefinitionRepository(String routerDataId,ApplicationEventPublisher publisher,NacosConfigManager nacosConfigManager) {
         this.routerDataId = routerDataId;
         this.publisher = publisher;
-        this.nacosConfigProperties = nacosConfigProperties;
+        this.nacosConfigManager = nacosConfigManager;
         addListener();
     }
 
     @Override
     public Flux<RouteDefinition> getRouteDefinitions() {
         try {
-            String content = nacosConfigProperties.configServiceInstance().getConfig(routerDataId, nacosConfigProperties.getGroup(), 5000);
+            String content = nacosConfigManager.getConfigService().getConfig(routerDataId, nacosConfigManager.getNacosConfigProperties().getGroup(), 5000);
             List<RouteDefinition> routeDefinitions = getListByStr(content);
             return Flux.fromIterable(routeDefinitions);
         } catch (NacosException e) {
@@ -52,11 +52,11 @@ public class NacosRouteDefinitionRepository implements RouteDefinitionRepository
     }
 
     /**
-     * 添加Nacos监听
+     * 增加Nacos配置监听
      */
     private void addListener() {
         try {
-            nacosConfigProperties.configServiceInstance().addListener(routerDataId, nacosConfigProperties.getGroup(), new Listener() {
+            nacosConfigManager.getConfigService().addListener(routerDataId, nacosConfigManager.getNacosConfigProperties().getGroup(), new Listener() {
                 @Override
                 public Executor getExecutor() {
                     return null;
@@ -64,6 +64,7 @@ public class NacosRouteDefinitionRepository implements RouteDefinitionRepository
 
                 @Override
                 public void receiveConfigInfo(String configInfo) {
+                    log.info("Nacos配置变化:{}",configInfo);
                     publisher.publishEvent(new RefreshRoutesEvent(this));
                 }
             });
@@ -82,11 +83,6 @@ public class NacosRouteDefinitionRepository implements RouteDefinitionRepository
         return null;
     }
 
-    /**
-     * 解析路由
-     * @param content
-     * @return
-     */
     private List<RouteDefinition> getListByStr(String content) {
         if (StringUtils.isNotEmpty(content)) {
             return JSONObject.parseArray(content, RouteDefinition.class);
