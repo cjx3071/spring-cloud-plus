@@ -3,6 +3,7 @@ package org.gourd.hu.base.config;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.math.BigInteger;
 
@@ -11,6 +12,7 @@ import java.math.BigInteger;
  *
  * @author gourd.hu
  */
+@Configuration
 public class JacksonConfig {
  
 	/**
@@ -21,6 +23,7 @@ public class JacksonConfig {
 	public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
 		Jackson2ObjectMapperBuilderCustomizer customizer = jacksonObjectMapperBuilder -> {
 			jacksonObjectMapperBuilder.serializerByType(BigInteger.class, ToStringSerializer.instance);
+			jacksonObjectMapperBuilder.serializerByType(long.class, ToStringSerializer.instance);
 			jacksonObjectMapperBuilder.serializerByType(Long.class, ToStringSerializer.instance);
 			jacksonObjectMapperBuilder.serializerByType(Long.TYPE, ToStringSerializer.instance);
 		};
