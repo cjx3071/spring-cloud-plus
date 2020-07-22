@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>spring-cloud-plus</artifactId>
+        <groupId>org.gourd.hu</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>document-plus-starter</artifactId>
+    <name>document-plus-starter</name>
+    <version>1.0-SNAPSHOT</version>
+    <description>文件模块</description>
+    <dependencies>
+        <!--base-plus-starter-->
+        <dependency>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>base-plus-starter</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.github.tobato</groupId>
+            <artifactId>fastdfs-client</artifactId>
+            <version>${fast-dfs.version}</version>
+        </dependency>
+        <!-- openoffice-->
+        <dependency>
+            <groupId>com.github.luues</groupId>
+            <artifactId>commons-openoffice</artifactId>
+            <version>${openoffice.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>redisson</artifactId>
+                    <groupId>org.redisson</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.github.livesense</groupId>
+            <artifactId>jodconverter-core</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <!--easyexcel-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>${easyexcel.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>xmlbeans</artifactId>
+                    <groupId>org.apache.xmlbeans</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--FlyingSaucer-->
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-pdf</artifactId>
+            <version>${flying-saucer.version}</version>
+        </dependency>
+        <!--html2image-->
+        <dependency>
+            <groupId>gui.ava</groupId>
+            <artifactId>html2image</artifactId>
+            <version>${image.version}</version>
+        </dependency>
+
+    </dependencies>
+
+</project>

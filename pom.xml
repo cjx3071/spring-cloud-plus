@@ -16,18 +16,18 @@
     <packaging>pom</packaging>
     <modules>
         <module>base-plus-starter</module>
-        <module>cmpt-core</module>
-        <module>cmpt-activemq</module>
-        <module>cmpt-activiti</module>
-        <module>cmpt-cloud</module>
+        <module>core-plus-starter</module>
+        <module>mq-plus-starter</module>
+        <module>activiti-plus-starter</module>
+        <module>cloud-plus-starter</module>
         <module>cache-plus-starter</module>
-        <module>cmpt-es</module>
-        <module>cmpt-file</module>
+        <module>es-plus-starter</module>
+        <module>document-plus-starter</module>
         <module>log-plus-starter</module>
-        <module>cmpt-quartz</module>
-        <module>cmpt-notice</module>
-        <module>cmpt-rbac</module>
-        <module>cmpt-flyway</module>
+        <module>quartz-plus-starter</module>
+        <module>notice-plus-starter</module>
+        <module>rbac-plus-starter</module>
+        <module>flyway-plus-starter</module>
         <module>generator-boot</module>
         <module>boot-admin-web</module>
         <module>gateway-web</module>
@@ -148,11 +148,44 @@
         </snapshotRepository>
     </distributionManagement>-->
     <repositories>
+        <!--阿里云主仓库，代理了maven central和jcenter仓库-->
         <repository>
-            <id>alibaba</id>
-            <name>alibaba</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <id>aliyun</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <!--阿里云代理Spring 官方仓库-->
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://maven.aliyun.com/repository/spring</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
+    <pluginRepositories>
+        <!--阿里云代理Spring 插件仓库-->
+        <pluginRepository>
+            <id>spring-plugin</id>
+            <name>spring-plugin</name>
+            <url>https://maven.aliyun.com/repository/spring-plugin</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>

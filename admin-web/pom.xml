@@ -19,25 +19,25 @@
         <!--核心模块-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>core-plus-starter</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <!--脚本执行组件-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>flyway</artifactId>
+            <artifactId>flyway-plus-starter</artifactId>
             <version>${cloud.version}</version>
         </dependency>
         <!--shiro鉴权组件-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>rbac</artifactId>
+            <artifactId>rbac-plus-starter</artifactId>
             <version>${cloud.version}</version>
         </dependency>
         <!--分布式组件-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>cloud</artifactId>
+            <artifactId>cloud-plus-starter</artifactId>
             <version>${cloud.version}</version>
             <exclusions>
                 <exclusion>
@@ -54,22 +54,22 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--消息组件-->
+        <!--通知组件-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>notice</artifactId>
+            <artifactId>notice-plus-starter</artifactId>
             <version>${cloud.version}</version>
         </dependency>
         <!--文件组件-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>file</artifactId>
+            <artifactId>document-plus-starter</artifactId>
             <version>${cloud.version}</version>
         </dependency>
         <!--工作流组件-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>activiti</artifactId>
+            <artifactId>activiti-plus-starter</artifactId>
             <version>${cloud.version}</version>
             <exclusions>
                 <exclusion>
@@ -81,19 +81,19 @@
         <!--定时任务组件-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>quartz</artifactId>
+            <artifactId>quartz-plus-starter</artifactId>
             <version>${cloud.version}</version>
         </dependency>
-        <!--activemq消息组件-->
+        <!--消息组件-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>activemq</artifactId>
+            <artifactId>mq-plus-starter</artifactId>
             <version>${cloud.version}</version>
         </dependency>
         <!--es组件-->
 <!--        <dependency>-->
 <!--            <groupId>org.gourd.hu</groupId>-->
-<!--            <artifactId>es</artifactId>-->
+<!--            <artifactId>es-plus-starter</artifactId>-->
 <!--            <version>${cloud.version}</version>-->
 <!--        </dependency>-->
         <!--缓存组件-->

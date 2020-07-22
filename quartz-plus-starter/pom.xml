@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -8,25 +7,24 @@
         <groupId>org.gourd.hu</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>log-plus-starter</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <name>log-plus-starter</name>
-    <description>日志模块</description>
+
+    <artifactId>quartz-plus-starter</artifactId>
+    <name>quartz-plus-starter</name>
+    <description>定时任务、调度</description>
 
     <dependencies>
-        <!--core-->
-        <dependency>
-            <groupId>org.gourd.hu</groupId>
-            <artifactId>core-plus-starter</artifactId>
-            <version>${cloud.version}</version>
-            <optional>true</optional>
-        </dependency>
         <!--base-plus-starter-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
             <artifactId>base-plus-starter</artifactId>
             <optional>true</optional>
         </dependency>
+        <!--quartz-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
     </dependencies>
+
 
 </project>

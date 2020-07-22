@@ -34,7 +34,7 @@
         <!--分布式模块-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
-            <artifactId>cloud</artifactId>
+            <artifactId>cloud-plus-starter</artifactId>
             <version>1.0-SNAPSHOT</version>
             <exclusions>
                 <exclusion>

@@ -8,9 +8,8 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>cache-plus-starter</artifactId>
-    <name>cache-plus-starter</name>
-    <description>缓存</description>
+    <artifactId>notice-plus-starter</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <dependencies>
         <!--base-plus-starter-->
         <dependency>
@@ -18,29 +17,28 @@
             <artifactId>base-plus-starter</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--core-->
-        <dependency>
-            <groupId>org.gourd.hu</groupId>
-            <artifactId>core-plus-starter</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <!--cache-->
+        <!-- mail -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
-        <!--redis-->
+        <!--netty-websocket-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <groupId>org.yeauty</groupId>
+            <artifactId>netty-websocket-spring-boot-starter</artifactId>
+            <version>${netty-websocket.version}</version>
         </dependency>
-        <!--redisson-->
+        <!-- sms -->
         <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>${redisson.version}</version>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alicloud-sms</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
-
 
 </project>

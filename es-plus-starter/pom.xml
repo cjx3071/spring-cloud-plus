@@ -8,39 +8,28 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>cache-plus-starter</artifactId>
-    <name>cache-plus-starter</name>
-    <description>缓存</description>
+    <artifactId>es-plus-starter</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
     <dependencies>
+        <!--elasticsearch-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
         <!--base-plus-starter-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
             <artifactId>base-plus-starter</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--core-->
+        <!-- core -->
         <dependency>
             <groupId>org.gourd.hu</groupId>
             <artifactId>core-plus-starter</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <!--cache-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
-        <!--redis-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <!--redisson-->
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>${redisson.version}</version>
+            <version>${cloud.version}</version>
+            <optional>true</optional>
         </dependency>
     </dependencies>
-
 
 </project>
