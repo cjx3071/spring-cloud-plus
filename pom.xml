@@ -131,11 +131,11 @@
         </dependencies>
     </dependencyManagement>
     <!-- 使用分发管理将本项目打成jar包，直接上传到指定服务器 -->
-    <distributionManagement>
+    <!--<distributionManagement>
         <repository>
-            <!-- nexus服务器中用户名：在settings.xml中<server>的id-->
+            &lt;!&ndash; nexus服务器中用户名：在settings.xml中<server>的id&ndash;&gt;
             <id>nexus.gourd.release</id>
-            <!-- 这个名称自己定义 -->
+            &lt;!&ndash; 这个名称自己定义 &ndash;&gt;
             <name>gourd.release</name>
             <url>http://47.103.5.190:8081/repository/gourd_release_hosted/</url>
             <uniqueVersion>false</uniqueVersion>
@@ -146,7 +146,7 @@
             <url>http://47.103.5.190:8081/repository/gourd_snapshot_hosted/</url>
             <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
-    </distributionManagement>
+    </distributionManagement>-->
     <repositories>
         <repository>
             <id>alibaba</id>

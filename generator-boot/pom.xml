@@ -31,4 +31,74 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>cn.smallbun.screw</groupId>
+                <artifactId>screw-maven-plugin</artifactId>
+                <version>1.0.3</version>
+                <dependencies>
+                    <!-- HikariCP -->
+                    <dependency>
+                        <groupId>com.zaxxer</groupId>
+                        <artifactId>HikariCP</artifactId>
+                        <version>3.4.5</version>
+                    </dependency>
+                    <!--mysql driver-->
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.20</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <!-- ==连接配置== -->
+                    <!--username-->
+                    <username>root</username>
+                    <!--password-->
+                    <password>gourd123</password>
+                    <!--driver-->
+                    <driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>
+                    <!--jdbc url-->
+                    <jdbcUrl>jdbc:mysql://111.231.111.150:3306/cloud-plus?</jdbcUrl>
+
+                    <!-- ===数据处理配== -->
+                    <!--忽略表名-->
+                    <tableName>flyway_schema_history,undo_log</tableName>
+                    <!--忽略表前缀-->
+                    <tablePrefix></tablePrefix>
+                    <!-- ==生成引擎配置== -->
+                    <!--生成文件类型-->
+                    <fileType>HTML</fileType>
+                    <!--打开文件输出目录-->
+                    <openOutputDir>true</openOutputDir>
+                    <!--文件输出目录-->
+                    <fileOutputDir>E:</fileOutputDir>
+                    <!--生成模板-->
+                    <produceType>freemarker</produceType>
+
+                    <!-- ==基本配置== -->
+                    <!--文档名称 为空时:将采用[数据库名称-描述-版本号]作为文档名称-->
+<!--                    <fileName>数据库文档</docName>-->
+                    <organization>葫芦胡</organization>
+                    <organizationUrl>https://blog.csdn.net/hxnlyw</organizationUrl>
+                    <!--标题-->
+                    <title>数据库文档</title>
+                    <!--描述-->
+                    <description>数据库文档</description>
+                    <!--版本-->
+                    <version>${project.version}</version>
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
