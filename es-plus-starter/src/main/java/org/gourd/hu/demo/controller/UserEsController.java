@@ -5,9 +5,9 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.*;
 import org.gourd.hu.base.response.BaseResponse;
-import org.gourd.hu.demo.dto.UserEsFindDTO;
-import org.gourd.hu.demo.entity.UserEs;
-import org.gourd.hu.demo.repositoty.UserRepository;
+import org.gourd.hu.es.model.dto.UserEsFindDTO;
+import org.gourd.hu.es.model.entity.UserEs;
+import org.gourd.hu.es.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
@@ -39,10 +39,10 @@ public class UserEsController {
      */
     @ApiOperation(value = "保存/修改")
     @PostMapping(value = "/save")
-    public BaseResponse<UserEs> save(@RequestBody UserEs UserEs){
-        UserEs = UserEs == null ? new UserEs() : UserEs;
+    public BaseResponse<UserEs> save(@RequestBody UserEs userEs){
+        userEs = userEs == null ? new UserEs() : userEs;
         BaseResponse<UserEs> res = new BaseResponse<>();
-        UserEs UserEs2 = userRepository.save(UserEs);
+        UserEs UserEs2 = userRepository.save(userEs);
         res.setData(UserEs2);
         return res;
     }

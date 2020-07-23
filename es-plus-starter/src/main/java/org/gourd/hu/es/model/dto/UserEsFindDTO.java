@@ -1,4 +1,4 @@
-package org.gourd.hu.demo.dto;
+package org.gourd.hu.es.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

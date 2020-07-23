@@ -62,13 +62,13 @@ public interface RbacUserService extends IService<RbacUser> {
      * 创建用户
      * @return
      */
-    UserVO create(RbacUserCreateDTO user);
+    UserVO create(RbacUserOperateDTO user);
 
     /**
      * 更新用户
      * @return
      */
-    int update(RbacUserUpdateDTO user);
+    int update(RbacUserOperateDTO user);
 
     /**
      * 删除用户

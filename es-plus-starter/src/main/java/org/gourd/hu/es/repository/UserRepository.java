@@ -1,6 +1,6 @@
-package org.gourd.hu.demo.repositoty;
+package org.gourd.hu.es.repository;
 
-import org.gourd.hu.demo.entity.UserEs;
+import org.gourd.hu.es.model.entity.UserEs;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /**

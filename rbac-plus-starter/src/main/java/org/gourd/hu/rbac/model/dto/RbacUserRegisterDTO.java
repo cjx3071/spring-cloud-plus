@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.gourd.hu.core.constant.RegexConstant;
+import org.gourd.hu.rbac.validation.annotations.Mobile;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -46,10 +48,11 @@ public class RbacUserRegisterDTO {
     private  String nickName;
 
     @ApiModelProperty("邮箱")
-    @Email
+    @Email(regexp = RegexConstant.REGEX_EMAIL,message = "邮箱格式不正确")
     private  String email;
 
     @ApiModelProperty("手机")
+    @Mobile
     private  String mobilePhone;
 
     @ApiModelProperty("头像地址")

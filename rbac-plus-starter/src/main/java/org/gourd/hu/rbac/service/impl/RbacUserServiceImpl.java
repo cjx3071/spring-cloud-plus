@@ -157,7 +157,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> impl
         // 承租人元素（number或code）
         String tenantItem = accountItems[1];
         SysTenant tenant = sysTenantService.checkGetTenant(tenantItem);
-        RbacUserCreateDTO rbacUserCreateDTO = new RbacUserCreateDTO();
+        RbacUserOperateDTO rbacUserCreateDTO = new RbacUserOperateDTO();
         BeanUtils.copyProperties(rbacUserRegisterDTO, rbacUserCreateDTO);
         rbacUserCreateDTO.setTenantId(tenant.getId());
         rbacUserCreateDTO.setAccount(accountItem);
@@ -171,7 +171,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = "user",allEntries = true)
-    public UserVO create(RbacUserCreateDTO rbacUserCreateDTO){
+    public UserVO create(RbacUserOperateDTO rbacUserCreateDTO){
         // 当前用户承租人
         Long tenantId = null;
         if(rbacUserCreateDTO.getTenantId() == null){
@@ -212,7 +212,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> impl
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = "user",allEntries = true)
     @Retryable(value = RetryException.class, maxAttempts = 3, backoff = @Backoff(delay = 2000L, multiplier = 1))
-    public int update(RbacUserUpdateDTO user){
+    public int update(RbacUserOperateDTO user){
         RbacUser dbOldUser= rbacUserDao.selectById(user.getId());
         // 断言用户存在
         ResponseEnum.DATA_NOT_FOUND.assertNotNull(dbOldUser);

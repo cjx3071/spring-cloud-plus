@@ -11,12 +11,13 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.core.utils.PageUtil;
-import org.gourd.hu.rbac.model.dto.RbacUserCreateDTO;
+import org.gourd.hu.rbac.model.dto.RbacUserOperateDTO;
 import org.gourd.hu.rbac.model.dto.RbacUserOrgSearchDTO;
 import org.gourd.hu.rbac.model.dto.RbacUserSearchDTO;
-import org.gourd.hu.rbac.model.dto.RbacUserUpdateDTO;
-import org.gourd.hu.rbac.service.RbacUserService;
 import org.gourd.hu.rbac.model.vo.UserVO;
+import org.gourd.hu.rbac.service.RbacUserService;
+import org.gourd.hu.rbac.validation.groups.CreateGroup;
+import org.gourd.hu.rbac.validation.groups.UpdateGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -73,7 +74,7 @@ public class UserController{
     @ApiOperation(value = "创建用户")
     @RequiresPermissions(value={"WRITE"})
     @ApiImplicitParams({@ApiImplicitParam(name = "jwt-token", value = "jwt-token", required = true, dataType = "string", paramType = "header")})
-    public BaseResponse<UserVO> create(@RequestBody @Validated RbacUserCreateDTO rbacUserCreateDTO) {
+    public BaseResponse<UserVO> create(@RequestBody @Validated({CreateGroup.class}) RbacUserOperateDTO rbacUserCreateDTO) {
         return BaseResponse.ok(userService.create(rbacUserCreateDTO));
     }
 
@@ -81,7 +82,7 @@ public class UserController{
     @ApiOperation(value = "更新用户")
     @RequiresPermissions(value={"WRITE"})
     @ApiImplicitParams({@ApiImplicitParam(name = "jwt-token", value = "jwt-token", required = true, dataType = "string", paramType = "header")})
-    public BaseResponse update(@RequestBody @Validated RbacUserUpdateDTO rbacUserUpdateDTO) {
+    public BaseResponse update(@RequestBody @Validated({UpdateGroup.class}) RbacUserOperateDTO rbacUserUpdateDTO) {
         return BaseResponse.ok(userService.update(rbacUserUpdateDTO));
     }
 

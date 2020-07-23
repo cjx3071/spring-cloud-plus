@@ -13,6 +13,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import java.io.IOException;
 
 /**
+ * activiti配置
+ *
  * @author gourd.hu
  * @date 2018-11-20
  */

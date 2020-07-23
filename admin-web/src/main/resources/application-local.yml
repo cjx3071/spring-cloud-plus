@@ -320,9 +320,26 @@ spring:
         enabled: true
     # mongoDB
     mongodb:
-      uri: mongodb://111.231.111.150:27017/gourd?maxPoolSize=512
-      username: root
-      password: root
+      uri: mongodb://gourd:gourd@111.231.111.150:27017/gourd
+      option:
+        min-connection-per-host: 20
+        max-connection-per-host: 200
+        threads-allowed-to-block-for-connection-multiplier: 5
+        server-selection-timeout: 30000
+        max-wait-time: 120000
+        max-connection-idle-time: 0
+        max-connection-life-time: 0
+        connect-timeout: 20000
+        socket-timeout: 0
+        socket-keep-alive: false
+        ssl-enabled: false
+        ssl-invalid-host-name-allowed: false
+        always-use-m-beans: false
+        heartbeat-socket-timeout: 20000
+        heartbeat-connect-timeout: 20000
+        min-heartbeat-frequency: 500
+        heartbeat-frequency: 10000
+        local-threshold: 15
 
 # OpenOffice-配置
 openOffice:

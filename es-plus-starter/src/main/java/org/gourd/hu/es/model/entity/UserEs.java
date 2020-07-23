@@ -1,4 +1,4 @@
-package org.gourd.hu.demo.entity;
+package org.gourd.hu.es.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

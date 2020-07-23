@@ -96,6 +96,13 @@
 <!--            <artifactId>es-plus-starter</artifactId>-->
 <!--            <version>${cloud.version}</version>-->
 <!--        </dependency>-->
+        <!--mongo组件-->
+        <dependency>
+            <groupId>org.gourd.hu</groupId>
+            <artifactId>mongo-plus-starter</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
+
         <!--缓存组件-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
