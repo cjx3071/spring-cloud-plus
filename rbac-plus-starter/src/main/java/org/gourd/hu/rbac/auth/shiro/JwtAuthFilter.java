@@ -1,4 +1,4 @@
-package org.gourd.hu.rbac.auth.jwt;
+package org.gourd.hu.rbac.auth.shiro;
 
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
@@ -12,6 +12,8 @@ import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.cache.utils.RedisUtil;
 import org.gourd.hu.core.constant.HeaderConstant;
 import org.gourd.hu.core.utils.JsonConvertUtil;
+import org.gourd.hu.rbac.auth.jwt.JwtToken;
+import org.gourd.hu.rbac.auth.jwt.JwtUtil;
 import org.gourd.hu.rbac.constant.JwtConstant;
 import org.gourd.hu.rbac.properties.AuthProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,7 @@ import java.io.PrintWriter;
  */
 @Component
 @Slf4j
-public class JwtFilter extends BasicHttpAuthenticationFilter {
+public class JwtAuthFilter extends BasicHttpAuthenticationFilter {
 
     @Autowired
     private AuthProperties authProperties;

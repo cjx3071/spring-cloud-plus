@@ -4,6 +4,7 @@
 
 package org.gourd.hu.rbac.auth.shiro;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.mgt.DefaultSecurityManager;
@@ -14,7 +15,6 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.gourd.hu.rbac.auth.cache.ShiroCacheManager;
-import org.gourd.hu.rbac.auth.jwt.JwtFilter;
 import org.gourd.hu.rbac.properties.AuthProperties;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,64 +35,59 @@ import java.util.*;
  */
 @Configuration
 @Slf4j
+@AllArgsConstructor
 public class ShiroConfig {
 
+    public static final String JWT = "jwt";
+    public static final String ANON = "anon";
+    public static final String ALL_PATH_KEY = "/**";
+
+    private AuthProperties authProperties;
+    private ShiroCacheManager shiroCacheManager;
+    private ShiroRealm shiroRealm;
+
     @Bean
-    public ShiroFilterFactoryBean getShiroFilterFactoryBean(AuthProperties authProperties,
-                                                            @Qualifier("securityManager") DefaultSecurityManager securityManager) {
-
+    public ShiroFilterFactoryBean shiroFilter( @Qualifier("securityManager") DefaultSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-
         // 添加自己的过滤器并且取名为jwt
         Map<String, Filter> filterMap = new HashMap<>(4);
-        filterMap.put("jwt", new JwtFilter());
+        filterMap.put(JWT, new JwtAuthFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-//        shiroFilterFactoryBean.setUnauthorizedUrl("/401");
-        // 自定义url规则,http://shiro.apache.org/web.html#urls-
-        Map<String, String> filterRuleMap = new LinkedHashMap<String, String>();
+        Map<String, String> filterRuleMap = new LinkedHashMap<>();
         // 获取到不需要鉴权的路径
         if(authProperties.getIgnores() != null ){
             List<String> ignores = Arrays.asList(authProperties.getIgnores());
             if(CollectionUtils.isNotEmpty(ignores)){
-                ignores.forEach(e->filterRuleMap.put(e, "anon"));
+                ignores.forEach(e->filterRuleMap.put(e, ANON));
             }
         }
         // 过滤链定义，从上向下顺序执行，jwt过滤器放在最下边
-        filterRuleMap.put("/**", "jwt");
+        filterRuleMap.put(ALL_PATH_KEY, JWT);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterRuleMap);
         return shiroFilterFactoryBean;
     }
 
     @Bean(name = "securityManager")
-    public DefaultWebSecurityManager getDefaultSecurityManager(ShiroRealm shiroRealm, ShiroCacheManager shiroCacheManager) {
+    public DefaultWebSecurityManager getDefaultSecurityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(shiroRealm);
-        //关闭shiro自带的session
+        // 关闭shiro自带的session
         DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
         DefaultSessionStorageEvaluator defaultSessionStorageEvaluator = new DefaultSessionStorageEvaluator();
         defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
         subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
         securityManager.setSubjectDAO(subjectDAO);
-        //自定义缓存管理
+        // 自定义缓存管理
         securityManager.setCacheManager(shiroCacheManager);
         return securityManager;
     }
 
     @Bean
-    public ShiroRealm getShiroRealm() {
-        return new ShiroRealm();
-    }
-
-    /**
-     * 下面的代码是添加注解支持
-     */
-    @Bean
     @DependsOn("lifecycleBeanPostProcessor")
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
         // 强制使用cglib，防止重复代理和可能引起代理出错的问题
-        // https://zhuanlan.zhihu.com/p/29161098
         defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
         return defaultAdvisorAutoProxyCreator;
     }
@@ -103,6 +98,11 @@ public class ShiroConfig {
     }
 
 
+    /**
+     * 开启Shiro注解模式，可以在Controller中的方法上添加注解
+     * @param securityManager
+     * @return
+     */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();

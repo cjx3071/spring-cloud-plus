@@ -20,6 +20,7 @@ import org.gourd.hu.cache.utils.RedisUtil;
 import org.gourd.hu.rbac.auth.jwt.JwtToken;
 import org.gourd.hu.rbac.auth.jwt.JwtUtil;
 import org.gourd.hu.rbac.constant.JwtConstant;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import java.util.Map;
  * @author gourd.hu
  */
 @Slf4j
+@Component
 public class ShiroRealm extends AuthorizingRealm {
 
     @Override
