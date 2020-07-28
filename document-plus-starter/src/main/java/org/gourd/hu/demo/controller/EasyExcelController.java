@@ -1,6 +1,5 @@
 package org.gourd.hu.demo.controller;
 
-import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.exception.ExcelCommonException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,6 +49,8 @@ public class EasyExcelController {
         if (!EasyExcelUtil.isExcel2003(fileName) && !EasyExcelUtil.isExcel2007(fileName)){
             ResponseEnum.EXCEL_TYPE_ERROR.assertFail();
         }
+        // 校验模板
+        EasyExcelUtil.checkModel(file);
         List<UserPO> userPOList = null;
         try {
             userPOList = EasyExcelUtil.readSingleExcel(file,new UserPO(),2);
@@ -63,22 +63,6 @@ public class EasyExcelController {
         }
         if(CollectionUtils.isEmpty(userPOList)){
             ResponseEnum.EXCEL_NO_DATA.assertFail();
-        }
-        // 校验模板是否正确
-        List<String> columnNames = EasyExcelUtil.getColumnNames(file,0,0);
-        Field[] declaredFields = UserPO.class.getDeclaredFields();
-        if(columnNames.size() != declaredFields.length){
-            ResponseEnum.UPLOAD_EXCEL_TEMPLATE_ERROR.assertFail();
-        }
-        for (int i = 0,fLength = declaredFields.length ; i <fLength; i++) {
-            Field declaredField = declaredFields[i];
-            declaredField.setAccessible(true);
-            ExcelProperty annotation = declaredField.getAnnotation(ExcelProperty.class);
-            String[] values = annotation.value();
-            String columnValue = values[values.length-1];
-            if(!columnValue.equals(columnNames.get(i))){
-                ResponseEnum.UPLOAD_EXCEL_TEMPLATE_ERROR.assertFail();
-            }
         }
         // 导入逻辑 .......
         return BaseResponse.ok("success");

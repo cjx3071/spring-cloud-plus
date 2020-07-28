@@ -2,8 +2,10 @@ package org.gourd.hu.doc.excel.utils;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.excel.write.metadata.WriteSheet;
+import com.alibaba.excel.write.style.AbstractCellStyleStrategy;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -11,9 +13,11 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.gourd.hu.base.holder.RequestHolder;
 import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.doc.excel.entity.SheetExcelData;
+import org.gourd.hu.doc.excel.entity.UserPO;
 import org.gourd.hu.doc.excel.handler.CustomCellStyleStrategy;
 import org.gourd.hu.doc.excel.handler.CustomCellWriteHandler;
 import org.gourd.hu.doc.excel.listener.ExcelListener;
@@ -25,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -141,13 +146,14 @@ public class EasyExcelUtil {
      * @param <T>
      * @throws IOException
      */
-    public static <T> void writeSingleExcel(String fileName,String sheetName, List<T> tList, Class tClass) throws IOException{
+    public static <T> void writeSingleExcel(String fileName, String sheetName, AbstractCellStyleStrategy customCellStyleStrategy, List<T> tList, Class tClass) throws IOException{
         HttpServletResponse response = RequestHolder.getResponse();
         try (ServletOutputStream outputStream = response.getOutputStream()){
             setResponse(fileName, response);
             EasyExcel.write(outputStream, tClass).autoCloseStream(Boolean.TRUE)
                     .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
                     .registerWriteHandler(new CustomCellWriteHandler())
+                    .registerWriteHandler(customCellStyleStrategy)
                     .sheet(sheetName)
                     .doWrite(tList);
         } catch (Exception e) {
@@ -163,7 +169,7 @@ public class EasyExcelUtil {
      * @param <T>
      * @throws IOException
      */
-    public static <T> void writeSingleExcel(String fileName, String sheetName, List<T> tList, Class tClass, CustomCellStyleStrategy customCellStyleStrategy) throws IOException{
+    public static <T> void writeSingleExcel(String fileName, String sheetName, List<T> tList, Class tClass, AbstractCellStyleStrategy customCellStyleStrategy) throws IOException{
         HttpServletResponse response = RequestHolder.getResponse();
         try (ServletOutputStream outputStream = response.getOutputStream()){
             setResponse(fileName, response);
@@ -290,6 +296,30 @@ public class EasyExcelUtil {
         fileName = URLEncoder.encode(fileName + DateTimeFormatter.ofPattern("yyyy-MM-dd_HH_mm_ss").format(LocalDateTime.now()) + ExcelTypeEnum.XLSX.getValue(), "UTF-8");
         response.setHeader("Content-disposition", "attachment;filename=" + fileName);
 
+    }
+
+    /**
+     * 校验模板是否正确
+     *
+     * @param file
+     */
+    public static void checkModel(MultipartFile file) {
+        // 校验模板是否正确
+        List<String> columnNames = EasyExcelUtil.getColumnNames(file,0,0);
+        Field[] declaredFields = UserPO.class.getDeclaredFields();
+        if(columnNames.size() != declaredFields.length){
+            ResponseEnum.UPLOAD_EXCEL_TEMPLATE_ERROR.assertFail();
+        }
+        for (int i = 0,fLength = declaredFields.length ; i <fLength; i++) {
+            Field declaredField = declaredFields[i];
+            declaredField.setAccessible(true);
+            ExcelProperty annotation = declaredField.getAnnotation(ExcelProperty.class);
+            String[] values = annotation.value();
+            String columnValue = values[values.length-1];
+            if(!columnValue.equals(columnNames.get(i))){
+                ResponseEnum.UPLOAD_EXCEL_TEMPLATE_ERROR.assertFail();
+            }
+        }
     }
 
 
