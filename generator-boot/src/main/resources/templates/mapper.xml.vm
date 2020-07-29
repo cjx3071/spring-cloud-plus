@@ -12,7 +12,7 @@
     <resultMap id="BaseResultMap" type="${package.Entity}.${entity}">
 #foreach($field in ${table.fields})
 #if(${field.keyFlag})##生成主键排在第一位
-        <id id="${field.name}" property="${field.propertyName}" />
+    <id id="${field.name}" property="${field.propertyName}" />
 #end
 #end
 #foreach($field in ${table.fields})
@@ -26,12 +26,27 @@
     </resultMap>
 
 #end
+
 #if(${baseColumnList})
+    #set($csize = ${table.commonFields.size()} - 1)
+    #set($lastCommon = ${table.commonFields[$csize]})
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-  #foreach($field in ${table.commonFields})
-${field.name},
-#end ${table.fieldNames}
+    #foreach($field in ${table.commonFields})
+        #if(${field.keyFlag})
+        ${field.name},
+        #end
+    #end
+    #foreach($field in ${table.fields})
+        ${field.name},
+    #end
+    #foreach($field in ${table.commonFields})
+        #if(!${field.keyFlag} && $lastCommon.name != ${field.name})
+        ${field.name},
+        #elseif(!${field.keyFlag} && $lastCommon.name == ${field.name})
+        ${field.name}
+        #end
+    #end
     </sql>
 
 #end

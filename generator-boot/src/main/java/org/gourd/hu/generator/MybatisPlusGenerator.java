@@ -29,7 +29,7 @@ public class MybatisPlusGenerator {
 //			"eir_trip","eir_trunk_apply","eir_trunk_apply_cntr","fr_carrier_config","fr_company_config","fr_ctrn_config","make_cargo_plan","make_cntr_use","ops_handle_type","ops_notice","ops_notice_detail","ops_operation","port_gate_in_out","port_in_out_voucher","port_pre_record","port_pre_record_ext","port_pre_record_ext_bill","port_reserve_empty","port_reserve_weight","port_reserve_weight","rec_container","rec_ip_config","rec_lorry_info","sys_auto_config","sys_basic_config","sys_change_config","sys_driver_check","sys_pro_company",
 //			"sys_trailer","sys_vehicle","sys_vehicle_trailer","yard_record","yard_record_relation","eir_resource_pool_cntr_use"};
 //
-	private static String[] tables = {"yard_box_location","yard_box_location_record"};
+	private static String[] tables = {"eir_bill_match"};
 	/**table前缀*/
 	private static String prefix = "";
 	/** 数据库配置四要素*/
@@ -90,11 +90,12 @@ public class MybatisPlusGenerator {
 				// 自定义实体父类
 				 .setSuperEntityClass("com.yunlsp.tcg.fleet.common.entity.BaseEntity")
 				// 自定义实体，公共字段
-				.setSuperEntityColumns(new String[]{"id","createTime","createBy","updateTime","updateBy","version"})
+				.setSuperEntityColumns(new String[]{"id","is_deleted","create_time","create_by","update_time","update_by","version"})
 				// 【实体】是否为lombok模型（默认 false）<a href="https://projectlombok.org/">document</a>
 				.setEntityLombokModel(true)
 				// Boolean类型字段是否移除is前缀处理
 				.setEntityBooleanColumnRemoveIsPrefix(true)
+				.setEntitySerialVersionUID(false)
 		 		.setControllerMappingHyphenStyle(true);
 		gen.setStrategy(strategy);
 
@@ -132,9 +133,9 @@ public class MybatisPlusGenerator {
 		// 关闭默认 xml 生成，调整生成 至 根目录
 		templateConfig.setXml("/templates/mapper.xml.vm");
 		templateConfig.setEntity("/templates/entity.java.vm");
-		templateConfig.setMapper("/templates/mapper.java.vm");
-		templateConfig.setService("/templates/service.java.vm");
-		templateConfig.setServiceImpl("/templates/serviceImpl.java.vm");
+//		templateConfig.setMapper("/templates/mapper.java.vm");
+//		templateConfig.setService("/templates/service.java.vm");
+//		templateConfig.setServiceImpl("/templates/serviceImpl.java.vm");
 		// 模板配置
 		gen.setTemplate(templateConfig);
 		// 执行生成
