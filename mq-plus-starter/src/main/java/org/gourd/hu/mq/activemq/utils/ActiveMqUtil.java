@@ -15,7 +15,7 @@ import javax.jms.Topic;
  * @Version 1.0
  */
 @Slf4j
-public class MqUtil {
+public class ActiveMqUtil {
 
     /**
      * 发送队列消息

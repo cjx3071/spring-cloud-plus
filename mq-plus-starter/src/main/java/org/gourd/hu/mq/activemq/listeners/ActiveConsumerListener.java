@@ -6,19 +6,17 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
 /**
- * 消息消费
+ * activeMq消费类
  *
  * @author gourd.hu
  */
-@Component
 @Slf4j
-public class GourdConsumerListener {
+public class ActiveConsumerListener {
 
     private static final String ARRAY_SEGMENT ="[";
 

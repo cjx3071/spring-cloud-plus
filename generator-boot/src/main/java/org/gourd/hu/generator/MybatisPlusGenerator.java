@@ -133,7 +133,7 @@ public class MybatisPlusGenerator {
 		// 关闭默认 xml 生成，调整生成 至 根目录
 		templateConfig.setXml("/templates/mapper.xml.vm");
 		templateConfig.setEntity("/templates/entity.java.vm");
-//		templateConfig.setMapper("/templates/mapper.java.vm");
+		templateConfig.setMapper("/templates/mapper.java.vm");
 //		templateConfig.setService("/templates/service.java.vm");
 //		templateConfig.setServiceImpl("/templates/serviceImpl.java.vm");
 		// 模板配置

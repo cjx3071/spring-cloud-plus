@@ -4,7 +4,6 @@
 
 package org.gourd.hu.rbac.auth.shiro;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.mgt.DefaultSecurityManager;
@@ -35,19 +34,14 @@ import java.util.*;
  */
 @Configuration
 @Slf4j
-@AllArgsConstructor
 public class ShiroConfig {
 
     public static final String JWT = "jwt";
     public static final String ANON = "anon";
     public static final String ALL_PATH_KEY = "/**";
 
-    private AuthProperties authProperties;
-    private ShiroCacheManager shiroCacheManager;
-    private ShiroRealm shiroRealm;
-
     @Bean
-    public ShiroFilterFactoryBean shiroFilter( @Qualifier("securityManager") DefaultSecurityManager securityManager) {
+    public ShiroFilterFactoryBean shiroFilter(AuthProperties authProperties, @Qualifier("securityManager") DefaultSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // 添加自己的过滤器并且取名为jwt
         Map<String, Filter> filterMap = new HashMap<>(4);
@@ -69,7 +63,7 @@ public class ShiroConfig {
     }
 
     @Bean(name = "securityManager")
-    public DefaultWebSecurityManager getDefaultSecurityManager() {
+    public DefaultWebSecurityManager getDefaultSecurityManager(ShiroRealm shiroRealm, ShiroCacheManager shiroCacheManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(shiroRealm);
         // 关闭shiro自带的session
