@@ -1,7 +1,5 @@
 package org.gourd.hu.cache.annotation;
 
-import org.springframework.core.annotation.AliasFor;
-
 import java.lang.annotation.*;
 
 
@@ -18,8 +16,5 @@ public @interface NoRepeatSubmit {
      * 重复统计时长
      * @return
      */
-    int time() default 1;
-
-    @AliasFor("time")
     int value() default 1;
 }

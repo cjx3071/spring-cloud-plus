@@ -13,9 +13,9 @@ public class KafkaConsumerListener {
 
 
     @KafkaListener(topics = {"${spring.kafka.consumer.gourd-topic}"}, groupId = "${spring.kafka.consumer.group-id}" ,containerFactory = "kafkaListenerContainerFactory")
-    public void kafkaConsumerTest(ConsumerRecord<String, Object> record) {
+    public void kafkaConsumerTest(ConsumerRecord<String, String> record) {
         log.info("消消费消息 topic = {} , content = {}",record.topic(),record.value());
-        Object messageText = record.value();
+        String messageText = record.value();
 
     }
 

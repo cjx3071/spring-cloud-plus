@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.gourd.hu.base.request.bean.RequestDetail;
 import org.gourd.hu.base.request.holder.RequestDetailThreadLocal;
+import org.gourd.hu.base.request.wrapper.GourdRequestWrapper;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -45,16 +46,17 @@ public class RequestDetailFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         // 设置请求详情信息
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        GourdRequestWrapper gourdRequestWrapper = new GourdRequestWrapper(httpServletRequest);
         // 请求IP
-        String ip = this.getIpAddr(httpServletRequest);
+        String ip = this.getIpAddr(gourdRequestWrapper);
         // 请求路径
-        String path = httpServletRequest.getRequestURI();
+        String path = gourdRequestWrapper.getRequestURI();
         RequestDetail requestDetail = new RequestDetail()
                 .setIp(ip)
                 .setPath(path);
         // 设置请求详情信息
         RequestDetailThreadLocal.setRequestDetail(requestDetail);
-        chain.doFilter(request, response);
+        chain.doFilter(gourdRequestWrapper, response);
         // 释放
         RequestDetailThreadLocal.remove();
     }

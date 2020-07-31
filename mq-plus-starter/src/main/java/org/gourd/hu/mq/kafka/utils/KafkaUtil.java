@@ -17,12 +17,12 @@ public class KafkaUtil {
     /**
      * 发送topic消息
      * @param topic
-     * @param object
+     * @param message
      */
-    public static void sendTopicMessage(String topic, Object object){
-        log.info("发送topic消息体：{}",object);
-        KafkaTemplate<String,Object> kafkaTemplate = SpringContextHolder.getBean(KafkaTemplate.class);
-        ListenableFuture listenableFuture = kafkaTemplate.send(topic,object);
+    public static void sendTopicMessage(String topic, String message){
+        log.info("发送topic消息体：{}",message);
+        KafkaTemplate<String,String> kafkaTemplate = SpringContextHolder.getBean(KafkaTemplate.class);
+        ListenableFuture listenableFuture = kafkaTemplate.send(topic,message);
         listenableFuture.addCallback(
                 o -> log.info("消息发送成功,{}", o.toString()),
                 throwable -> log.info("消息发送失败,{}" + throwable.getMessage())

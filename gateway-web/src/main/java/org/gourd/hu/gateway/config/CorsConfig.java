@@ -22,10 +22,13 @@ import reactor.core.publisher.Mono;
  */
 @Configuration
 public class CorsConfig {
-    private static final String ALLOWED_HEADERS = "Origin, No-Cache, x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN,If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires,token,userId,username,client";
+    /**
+     * 配置成* ，否则每自定义一个头都需要在此处增加配置
+     */
+    private static final String ALLOWED_HEADERS = "*";
     private static final String ALLOWED_METHODS = "*";
     private static final String ALLOWED_ORIGIN = "*";
-    private static final String ALLOWED_Expose = "Origin, No-Cache, x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN,If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires,token,userId,username,client";
+    private static final String ALLOWED_Expose = "*";
     private static final String MAX_AGE = "18000L";
 
     @Bean
