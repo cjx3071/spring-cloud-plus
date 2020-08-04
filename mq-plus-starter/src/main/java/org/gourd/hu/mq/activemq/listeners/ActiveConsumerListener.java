@@ -29,7 +29,7 @@ public class ActiveConsumerListener {
     @SendTo("gourd-queue")
     public void handleMessage(final TextMessage message) throws JMSException {
         String messageText = message.getText();
-        log.info("topic-consumer收到的报文为:{}",messageText);
+        log.info("queue-consumer收到的报文为:{}",messageText);
         if(messageText.contains(ARRAY_SEGMENT)){
             JSONArray jsonArray = JSON.parseArray(messageText);
         }else {

@@ -6,7 +6,7 @@ import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.gourd.hu.mq.activemq.listeners.ActiveConsumerListener;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -20,15 +20,13 @@ import org.springframework.util.backoff.FixedBackOff;
 import javax.jms.Queue;
 import javax.jms.Topic;
 
-import static org.apache.activemq.ActiveMQSession.INDIVIDUAL_ACKNOWLEDGE;
-
 /**
  * active消息队列配置
  * @author gour.hu
  */
 @Configuration
 @EnableJms
-@ConfigurationProperties(prefix = "spring.activemq")
+@ConditionalOnProperty(prefix = "spring.activemq",value = "broker-url")
 @Import({ActiveConsumerListener.class})
 public class ActiveMqConfig {
 
@@ -122,7 +120,6 @@ public class ActiveMqConfig {
         backOff.setInterval(200);
         backOff.setMaxAttempts(6);
         factory.setBackOff(backOff);
-        factory.setSessionAcknowledgeMode(INDIVIDUAL_ACKNOWLEDGE);
         return factory;
     }
 
@@ -136,7 +133,6 @@ public class ActiveMqConfig {
             ActiveMQConnectionFactory activeMQConnectionFactory) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(activeMQConnectionFactory);
-        factory.setSessionAcknowledgeMode(INDIVIDUAL_ACKNOWLEDGE);
         factory.setPubSubDomain(false);
         return factory;
     }
