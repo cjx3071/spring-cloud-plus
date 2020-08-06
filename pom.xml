@@ -28,14 +28,14 @@
         <module>notice-plus-starter</module>
         <module>rbac-plus-starter</module>
 <!--        <module>flyway-plus-starter</module>-->
-        <module>generator-boot</module>
-        <module>boot-admin-web</module>
+<!--        <module>generator-boot</module>-->
+<!--        <module>boot-admin-web</module>-->
         <module>mongo-plus-starter</module>
-        <module>gateway-web</module>
-        <module>admin-web</module>
+<!--        <module>gateway-web</module>-->
+<!--        <module>admin-web</module>-->
         <module>sub-web</module>
         <module>sub-api</module>
-        <module>openapi-web</module>
+<!--        <module>openapi-web</module>-->
     </modules>
     <!--版本号统一管理-->
     <properties>
