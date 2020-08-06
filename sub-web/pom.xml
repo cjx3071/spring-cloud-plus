@@ -16,6 +16,10 @@
         <docker.repository>registry.cn-shanghai.aliyuncs.com</docker.repository>
     </properties>
 
+    <modules>
+        <module>../sub-api</module>
+    </modules>
+
     <dependencies>
         <!--web-->
         <dependency>
