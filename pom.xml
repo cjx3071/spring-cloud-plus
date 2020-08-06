@@ -27,7 +27,7 @@
         <module>quartz-plus-starter</module>
         <module>notice-plus-starter</module>
         <module>rbac-plus-starter</module>
-        <module>flyway-plus-starter</module>
+<!--        <module>flyway-plus-starter</module>-->
         <module>generator-boot</module>
         <module>boot-admin-web</module>
         <module>mongo-plus-starter</module>
