@@ -99,6 +99,7 @@
                 <configuration>
                     <repository>${docker.repository}/${docker.image.prefix}/${project.artifactId}</repository>
                     <username>13584278267</username>
+                    <password>hxnlyw123</password>
                     <tag>${project.version}</tag>
                     <buildArgs>
                         <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
