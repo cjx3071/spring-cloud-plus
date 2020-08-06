@@ -11,6 +11,11 @@
     <version>1.0-SNAPSHOT</version>
     <description>辅助项目，用于测试分布式功能</description>
 
+    <properties>
+        <docker.image.prefix>sub</docker.image.prefix>
+        <docker.repository>registry.cn-shanghai.aliyuncs.com</docker.repository>
+    </properties>
+
     <dependencies>
         <!--web-->
         <dependency>
@@ -77,6 +82,28 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.10</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <repository>${docker.repository}/${docker.image.prefix}/${project.artifactId}</repository>
+                    <username>13584278267</username>
+                    <tag>${project.version}</tag>
+                    <buildArgs>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
             </plugin>
         </plugins>
     </build>
