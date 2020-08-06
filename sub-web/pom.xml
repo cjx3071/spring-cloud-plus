@@ -12,8 +12,8 @@
     <description>辅助项目，用于测试分布式功能</description>
 
     <properties>
-        <docker.image.prefix>sub</docker.image.prefix>
-        <docker.repository>registry.cn-shanghai.aliyuncs.com</docker.repository>
+        <docker.image.prefix>sub-web</docker.image.prefix>
+        <docker.repository>47.103.5.190</docker.repository>
     </properties>
 
     <dependencies>
@@ -98,8 +98,8 @@
                 </executions>
                 <configuration>
                     <repository>${docker.repository}/${docker.image.prefix}/${project.artifactId}</repository>
-                    <username>13584278267</username>
-                    <password>hxnlyw123</password>
+                    <username>admin</username>
+                    <password>Harbor12345</password>
                     <tag>${project.version}</tag>
                     <buildArgs>
                         <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
