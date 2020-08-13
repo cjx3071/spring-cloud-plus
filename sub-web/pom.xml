@@ -11,11 +11,6 @@
     <version>1.0-SNAPSHOT</version>
     <description>辅助项目，用于测试分布式功能</description>
 
-    <properties>
-        <docker.image.prefix>sub-web</docker.image.prefix>
-        <docker.repository>47.103.5.190</docker.repository>
-    </properties>
-
     <dependencies>
         <!--web-->
         <dependency>
@@ -82,29 +77,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.10</version>
-                <executions>
-                    <execution>
-                        <id>default</id>
-                        <goals>
-                            <goal>build</goal>
-                            <goal>push</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <repository>${docker.repository}/${docker.image.prefix}/${project.artifactId}</repository>
-                    <username>admin</username>
-                    <password>Harbor12345</password>
-                    <tag>${project.version}</tag>
-                    <buildArgs>
-                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-                    </buildArgs>
-                </configuration>
             </plugin>
         </plugins>
     </build>

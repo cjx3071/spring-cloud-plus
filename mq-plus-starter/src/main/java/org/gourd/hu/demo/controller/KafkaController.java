@@ -8,6 +8,7 @@ import org.gourd.hu.mq.kafka.config.KafkaConfig;
 import org.gourd.hu.mq.kafka.utils.KafkaUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +30,7 @@ public class KafkaController {
 
     @GetMapping("/sendMsg")
     @ApiOperation(value = "发送消息到主题")
+    @Transactional(rollbackFor = Exception.class)
     public BaseResponse sendMsg(@RequestParam("msg")String  msg) {
         KafkaUtil.sendTopicMessage(topic,msg);
         return BaseResponse.ok("success!");

@@ -28,19 +28,10 @@ public class CloudTestController {
     @Autowired
     private SubApi subApi;
 
-// ======================= nacos配置自动刷新测试==========================
-
     @GetMapping("/nacos")
     @ApiOperation(value = "测试nacos配置热更新")
     public BaseResponse nacosTest() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            Thread.interrupted();
-            log.error(e.getMessage(),e);
-        }
-
-        System.out.println("nacosValue:"+ nacosValue);
+        log.info("nacosValue:"+ nacosValue);
         return BaseResponse.ok(nacosValue);
     }
 

@@ -319,6 +319,8 @@ spring:
       buffer-memory: 33554432
       # 发生错误后，消息重发的次数。
       retries: 0
+      # 事务id前缀，不为空时，为生产者启用事务支持
+      transaction-id-prefix: tran-
       # 指定消息键和值的序列化方式
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
