@@ -60,8 +60,9 @@ public class FillMetaObjectHandler implements MetaObjectHandler {
      */
     private void fillUpdateMeta(MetaObject metaObject, Long userId) {
         if (metaObject.hasGetter(RbacConstant.META_UPDATED_BY) && metaObject.hasGetter(RbacConstant.META_UPDATED_TIME)) {
-            this.fillStrategy(metaObject,RbacConstant.META_UPDATED_BY, userId);
-            this.fillStrategy(metaObject,RbacConstant.META_UPDATED_TIME, LocalDateTime.now());
+            // fillStrategy方法会判断属性是否有值，如果有值就不会覆盖，所以调整为setFieldValByName方法
+            this.setFieldValByName(RbacConstant.META_UPDATED_BY, userId,metaObject);
+            this.setFieldValByName(RbacConstant.META_UPDATED_TIME, LocalDateTime.now(),metaObject);
         }
     }
 }
