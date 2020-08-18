@@ -1,0 +1,68 @@
+# 加密密钥
+jasypt:
+  encryptor:
+    password: GOURD-HXN-1314
+spring:
+  security:
+    user:
+      name: admin
+      password: admin
+  cloud:
+    # nacos-配置
+    nacos:
+      # 配置中心
+      config:
+        # 是否开启配置中心，默认true
+        enabled: true
+        server-addr: 111.231.111.150:8848
+        file-extension: yaml
+        encode: UTF-8
+        # 命名空间的id
+        namespace: d10ded89-2ce5-4cf9-ad2c-4e36f9b2be7e
+        group: CLOUD_PLUS
+      # 注册发现中心
+      discovery:
+        # 是否开启注册中心，默认true
+        enabled: true
+        group: ${spring.cloud.nacos.config.group}
+        # 默认应用名
+        service: ${spring.application.name}
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+        namespace: ${spring.cloud.nacos.config.namespace}
+
+  # 邮件
+  mail:
+    host: smtp.163.com
+    username: 13584278267@163.com
+    # 客户端授权码不是邮箱密码
+    password: ENC(EkWECKBjj3DWUCPveIj9wPhimh341Ptz)
+    senderName: gourd.hu
+    port: 25
+    protocol: smtp
+    default-encoding: UTF-8
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+      mail.smtp.socketFactory.port: 465
+      mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+      mail.smtp.socketFactory.fallback: false
+  # boot
+  boot:
+    admin:
+      notify:
+        mail:
+          from: ${spring.mail.username}
+          to: xxx
+
+management:
+  health:
+    #邮箱
+    mail:
+      enabled: false
+  endpoints:
+    health:
+      show-details: always
+    web:
+      exposure:
+        include: '*'

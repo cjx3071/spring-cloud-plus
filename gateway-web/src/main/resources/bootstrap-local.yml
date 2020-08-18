@@ -1,0 +1,121 @@
+server:
+  port: 9999
+
+# 日志
+logging:
+  file:
+    path: ./logs
+  level:
+    root: info
+
+spring:
+  cloud:
+    # nacos-配置
+    nacos:
+      # 配置中心
+      config:
+        # 是否开启配置中心，默认true
+        enabled: true
+        server-addr: 111.231.111.150:8848
+        file-extension: yaml
+        encode: UTF-8
+        # 命名空间的id
+        namespace: d10ded89-2ce5-4cf9-ad2c-4e36f9b2be7e
+        group: CLOUD_PLUS
+        router-data-id: gateway-router.json
+      discovery:
+        # 是否开启注册中心，默认true
+        enabled: true
+        group: ${spring.cloud.nacos.config.group}
+        # 默认应用名
+        service: ${spring.application.name}
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+        namespace: ${spring.cloud.nacos.config.namespace}
+
+    #  sentinel 流控
+    sentinel:
+      # 是否开启sentinel
+      enabled: true
+      # 取消Sentinel控制台懒加载
+      eager: true
+      # 控制台地址
+      transport:
+        dashboard: 111.231.111.150:9090
+      #  持久化数据库-nacos
+      datasource:
+        # 限流
+        gw_flow:
+          nacos:
+            dataId: ${spring.application.name}-${spring.profiles.active}-sentinel-gw-flow.json
+            groupId: ${spring.cloud.nacos.config.group}
+            data-type: json
+            # 规则
+            ruleType: GW_FLOW
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          enable: true
+          lower-case-service-id: true
+          filters:
+            - StripPrefix=1
+
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedHeaders: '*'
+            allowedMethods: '*'
+            allowedOrigins: '*'
+
+management:
+  health:
+    #邮箱
+    mail:
+      enabled: false
+  endpoints:
+    health:
+      show-details: always
+    web:
+      exposure:
+        include: '*'
+    logfile:
+      external-file: ./logs
+
+# 鉴权
+auth:
+  # JWT
+  jwt:
+    header: jwt-token
+    encryptJWTKey: U0JBUElKV1RkV2FuZzkyNjQ1NA==
+    # AccessToken过期时间-5分钟-5*60(秒为单位)
+    accessTokenExpireTime: 300
+    # RefreshToken过期时间-30分钟-30*60(秒为单位)
+    refreshTokenExpireTime: 1800
+    # Shiro缓存过期时间-5分钟-5*60(秒为单位)(一般设置与AccessToken过期时间一致)
+    shiroCacheExpireTime: 300
+  # 不需要鉴权的路径
+  ignores:
+    - "/"
+    - "/sub"
+    - "/admin"
+    - "/imgs/**"
+    - "*.css"
+    - "*.js"
+    - "*.gif"
+    - "*.jpg"
+    - "*.png"
+    - "*.ico"
+    - "/favicon.ico"
+    - "/druid/**"
+    - "/public/**"
+    - "/actuator/**"
+    - "/swagger-ui.html"
+    - "/doc.html"
+    - "/swagger-resources/**"
+    - "/service-worker.js"
+    - "/v2/**"
+    - "/webjars/**"

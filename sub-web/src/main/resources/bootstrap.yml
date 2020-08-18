@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: sub
+server:
+  port: 10002
+# 日志
+logging:
+  file:
+    path: ./logs
+  level:
+    root: info

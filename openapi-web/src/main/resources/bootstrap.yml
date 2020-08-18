@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: openapi
+
+server:
+  port: 10003

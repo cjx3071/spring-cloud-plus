@@ -1,9 +1,9 @@
+# spring配置
 spring:
-  profiles:
-    active: local
-  application:
-    name: sub
   cloud:
+    alibaba:
+      seata:
+        tx-service-group: ${spring.application.name}-seata-service-group
     # nacos-配置
     nacos:
       # 配置中心
@@ -16,3 +16,81 @@ spring:
         # 命名空间的id
         namespace: d10ded89-2ce5-4cf9-ad2c-4e36f9b2be7e
         group: CLOUD_PLUS
+      # 注册发现中心
+      discovery:
+        # 是否开启注册中心，默认true
+        enabled: true
+        group: ${spring.cloud.nacos.config.group}
+        # 默认应用名
+        service: ${spring.application.name}
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+        namespace: ${spring.cloud.nacos.config.namespace}
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      initial-size: 2
+      max-active: 20
+      min-idle: 2
+    password: gourd123
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
+    username: root
+  mvc:
+    throw-exception-if-no-handler-found: true
+    resources.add-mappings: false
+    static-path-pattern: /**
+    async:
+      request-timeout: 20000 # 设置接口超时时间20s
+  http:
+    encoding:
+      force: true
+      enabled: true
+      charset: UTF-8
+  jackson:
+    data-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: NON_NULL #not_null如果有null默认过滤
+# seata 分布式事务
+seata:
+  enabled: true
+  enableAutoDataSourceProxy: true
+  tx-service-group: sub
+  service:
+    disable-global-transaction: false
+    grouplist:
+      # seata seaver的 地址配置，此处可以集群配置是个数组
+      default: 111.231.111.150:8091
+    vgroup-mapping:
+      # key一定要与tx-service-group一致
+      sub: default
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 111.231.111.150:8848
+      cluster: default
+
+# feign 配置
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+
+  # 开启feign的熔断功能
+  sentinel:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" #暴露所有节点
+    logfile:
+      external-file: ./logs
+    health:
+      sensitive: false #关闭过滤敏感信息
+  endpoint:
+    health:
+      show-details: ALWAYS  #显示详细信息
