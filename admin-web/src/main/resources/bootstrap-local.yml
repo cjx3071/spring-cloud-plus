@@ -1,8 +1,4 @@
 spring:
-  profiles:
-    active: local
-  application:
-    name: admin
   cloud:
     # nacos-配置
     nacos:
