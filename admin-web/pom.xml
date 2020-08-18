@@ -85,11 +85,11 @@
             <version>${cloud.version}</version>
         </dependency>
         <!--消息组件-->
-        <dependency>
-            <groupId>org.gourd.hu</groupId>
-            <artifactId>mq-plus-starter</artifactId>
-            <version>${cloud.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.gourd.hu</groupId>-->
+<!--            <artifactId>mq-plus-starter</artifactId>-->
+<!--            <version>${cloud.version}</version>-->
+<!--        </dependency>-->
         <!--es组件-->
 <!--        <dependency>-->
 <!--            <groupId>org.gourd.hu</groupId>-->
