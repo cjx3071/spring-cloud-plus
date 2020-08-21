@@ -89,7 +89,6 @@ public class AuthServiceImpl implements AuthService {
         }
 
         Long currentTimeMillis = System.currentTimeMillis();
-        JwtUtil.setRefresh(user.getId().toString(),currentTimeMillis);
         // 生成token
         JwtClaim jwtClaim = new JwtClaim();
         jwtClaim.setUserName(user.getName());

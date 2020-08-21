@@ -35,7 +35,7 @@ import java.io.PrintWriter;
  */
 @Component
 @Slf4j
-public class JwtAuthFilter extends BasicHttpAuthenticationFilter {
+public class  JwtAuthFilter extends BasicHttpAuthenticationFilter {
 
     @Autowired
     private AuthProperties authProperties;
@@ -157,8 +157,8 @@ public class JwtAuthFilter extends BasicHttpAuthenticationFilter {
             if (JwtUtil.getClaimLong(token,JwtConstant.JWT_CURRENT_TIME_MILLIS).equals(currentTimeMillisRedis)) {
                 // 获取当前最新时间戳
                 Long currentTimeMillis = System.currentTimeMillis();
-                // 设置RefreshToken中的时间戳为当前最新时间戳，且刷新过期时间重新为30分钟过期(配置文件可配置refreshTokenExpireTime属性)
-                RedisUtil.setExpire(JwtConstant.PREFIX_SHIRO_REFRESH_TOKEN + subject, currentTimeMillis, authProperties.getJwt().getRefreshTokenExpireTime());
+                // 设置RefreshToken中的时间戳为当前最新时间戳，并重新设置过期时间
+                JwtUtil.setRefresh(subject,currentTimeMillis);
                 // 刷新AccessToken，设置时间戳为当前最新时间戳
                 token = JwtUtil.refreshToken(token,currentTimeMillis);
                 // 将新刷新的AccessToken再次进行Shiro的登录

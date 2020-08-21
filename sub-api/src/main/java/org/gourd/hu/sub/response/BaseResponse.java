@@ -78,8 +78,8 @@ public class BaseResponse<T> implements Serializable {
         if (httpStatus.value() == HttpStatus.OK.value()){
             success = true;
         }
-        String apiMessage = httpStatus.getReasonPhrase();
-        if (StringUtils.isNotBlank(apiMessage)){
+        if (StringUtils.isBlank(message)){
+            String apiMessage = httpStatus.getReasonPhrase();
             message = apiMessage;
         }
         return (BaseResponse<T>) BaseResponse.builder()

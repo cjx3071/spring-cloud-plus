@@ -3,7 +3,6 @@ package org.gourd.hu.gateway.filter;
 import lombok.extern.slf4j.Slf4j;
 import org.gourd.hu.gateway.exception.UnauthorizedException;
 import org.gourd.hu.gateway.properties.AuthProperties;
-import org.gourd.hu.gateway.utils.PathMatcherUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -36,10 +35,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         List<String> ignores = Arrays.asList(authProperties.getIgnores());
         if(!CollectionUtils.isEmpty(ignores)){
-            String path = request.getPath().value();
-            if(PathMatcherUtil.matches(ignores,path)){
-                return chain.filter(exchange);
-            }
+            return chain.filter(exchange);
         }
         HttpHeaders headers = request.getHeaders();
         String token = headers.getFirst(authProperties.getJwt().getHeader());

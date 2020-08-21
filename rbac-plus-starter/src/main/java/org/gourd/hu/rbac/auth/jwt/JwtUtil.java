@@ -169,19 +169,26 @@ public class JwtUtil {
         try {
             // 帐号加JWT私钥加密
             String secret = subject + Base64ConvertUtil.decode(encryptJWTKey);
+            long currentTimeMillis = System.currentTimeMillis();
             // 此处过期时间是以毫秒为单位，所以乘以1000
-            Date date = new Date(System.currentTimeMillis() + accessTokenExpireTime * 1000);
+            Date date = new Date( currentTimeMillis + accessTokenExpireTime * 1000);
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            return JWT.create()
-                    .withClaim(JwtConstant.JWT_USER_NAME,jwtClaim.getUserName())
-                    .withClaim(JwtConstant.JWT_USER_ACCOUNT,jwtClaim.getAccount())
-                    .withArrayClaim(JwtConstant.JWT_ROLES_KEY,jwtClaim.getRoles())
-                    .withArrayClaim(JwtConstant.JWT_PERMISSIONS_KEY,jwtClaim.getPermissions())
-                    .withClaim(JwtConstant.JWT_CURRENT_TIME_MILLIS,jwtClaim.getCurrentTimeMillis())
-                    .withClaim(JwtConstant.JWT_TENANT_ID,jwtClaim.getTenantId())
+            String token = JWT.create()
+                    .withClaim(JwtConstant.JWT_USER_NAME, jwtClaim.getUserName())
+                    .withClaim(JwtConstant.JWT_USER_ACCOUNT, jwtClaim.getAccount())
+                    .withArrayClaim(JwtConstant.JWT_ROLES_KEY, jwtClaim.getRoles())
+                    .withArrayClaim(JwtConstant.JWT_PERMISSIONS_KEY, jwtClaim.getPermissions())
+                    .withClaim(JwtConstant.JWT_CURRENT_TIME_MILLIS, jwtClaim.getCurrentTimeMillis())
+                    .withClaim(JwtConstant.JWT_TENANT_ID, jwtClaim.getTenantId())
                     .withSubject(subject)
                     .withExpiresAt(date)
                     .sign(algorithm);
+
+            // 设置到缓存
+            setCatch(subject,token);
+            // 设置刷新时间
+            setRefresh(subject,currentTimeMillis);
+            return token;
         } catch (UnsupportedEncodingException e) {
             log.error("JWTToken加密出现UnsupportedEncodingException异常:{}", e.getMessage());
             throw ResponseEnum.INTERNAL_SERVER_ERROR.newException("JWTToken加密异常");
@@ -224,13 +231,17 @@ public class JwtUtil {
      * @param subject
      */
     public static void setRefresh(String subject,Long currentTimeMillis){
-        // 清除可能存在的Shiro权限信息缓存
-        if (RedisUtil.existAny(JwtConstant.PREFIX_SHIRO_ACCESS_TOKEN + subject)) {
-            RedisUtil.del(JwtConstant.PREFIX_SHIRO_ACCESS_TOKEN + subject);
-        }
         // 设置RefreshToken，时间戳为当前时间戳，直接设置即可(不用先删后设，会覆盖已有的RefreshToken)
         RedisUtil.setExpire(JwtConstant.PREFIX_SHIRO_REFRESH_TOKEN + subject, currentTimeMillis,refreshTokenExpireTime);
+    }
 
+    /**
+     * 设置到缓存
+     * @param subject
+     */
+    public static void setCatch(String subject,String jwtToken){
+        // 设置RefreshToken，时间戳为当前时间戳，直接设置即可(不用先删后设，会覆盖已有的RefreshToken)
+        RedisUtil.setExpire(JwtConstant.PREFIX_SHIRO_ACCESS_TOKEN + subject, jwtToken,accessTokenExpireTime);
     }
 
 }
