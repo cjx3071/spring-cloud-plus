@@ -1,6 +1,8 @@
 package org.gourd.hu.gateway.filter;
 
+import com.alibaba.nacos.client.naming.utils.CollectionUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.gourd.hu.gateway.exception.UnauthorizedException;
 import org.gourd.hu.gateway.properties.AuthProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,6 @@ import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -26,6 +26,8 @@ import java.util.List;
 @Component
 @Slf4j
 public class AuthFilter implements GlobalFilter, Ordered {
+
+    public static final String REQUEST_TIME = "requestTime";
 
     @Autowired
     private AuthProperties authProperties;

@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.gourd.hu.sub.api.SubApi;
 import org.gourd.hu.sub.response.BaseResponse;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.Map;
 
 /**
  * 熔断回调类
@@ -36,9 +39,15 @@ public class SubFallback implements SubApi {
     }
 
     @Override
-    public BaseResponse seataTxTest() {
-        log.info("seataTxTest调用失败:",throwable);
-        return BaseResponse.fail("seataTxTest调用失败:"+throwable.getMessage());
+    public BaseResponse seataAtTest() {
+        log.info("seataAtTest调用失败:",throwable);
+        return BaseResponse.fail("seataAtTest调用失败:"+throwable.getMessage());
+    }
+
+    @Override
+    public BaseResponse seataTccTest(@RequestBody Map params) {
+        log.info("seataTccTest调用失败:",throwable);
+        throw new RuntimeException("seataTccTest调用失败");
     }
 
 }

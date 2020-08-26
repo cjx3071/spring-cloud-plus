@@ -5,6 +5,8 @@ import org.gourd.hu.sub.response.BaseResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * sub服务API调用类
  * contextId属性： 解决相同name不同client不同配置的问题
@@ -25,6 +27,9 @@ public interface SubApi {
     BaseResponse helloTestP(@RequestBody String name);
 
     @PostMapping("/seata-tx")
-    BaseResponse seataTxTest();
+    BaseResponse seataAtTest();
+
+    @PostMapping("/seata-tcc")
+    BaseResponse seataTccTest(@RequestBody Map params);
 
 }

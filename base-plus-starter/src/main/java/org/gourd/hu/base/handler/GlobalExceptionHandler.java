@@ -194,7 +194,7 @@ public class GlobalExceptionHandler{
 	public ErrorResponse handleException(Exception ex) {
 		printRequestDetail();
 		printApiCodeException(ResponseEnum.INTERNAL_SERVER_ERROR, ex);
-		return ErrorResponse.result(ResponseEnum.INTERNAL_SERVER_ERROR);
+		return ErrorResponse.result(ResponseEnum.INTERNAL_SERVER_ERROR.getCode(),ex.getCause().getMessage());
 	}
 
 	/**

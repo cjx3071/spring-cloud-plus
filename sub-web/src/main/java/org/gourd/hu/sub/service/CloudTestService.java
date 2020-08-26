@@ -1,9 +1,11 @@
 package org.gourd.hu.sub.service;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import io.seata.rm.tcc.api.BusinessActionContext;
+import io.seata.rm.tcc.api.BusinessActionContextParameter;
+import io.seata.rm.tcc.api.LocalTCC;
+import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
+
+import java.util.Map;
 
 /**
  *@Description 测试service
@@ -11,19 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
  *@Date 2019/12/11 18:13
  *@Version 1.0
  */
-@Service
-@Slf4j
-@Transactional(rollbackFor = Exception.class)
-public class CloudTestService{
-    private final JdbcTemplate jdbcTemplate;
+@LocalTCC
+public interface CloudTestService{
 
 
-    public CloudTestService(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    void testSeata();
 
-    public void testSeata(){
-        jdbcTemplate.update(
-                "update rbac_depart set name = ? where id = ?",new Object[] { "seata1", 1 });
-    }
+    @TwoPhaseBusinessAction(name="testTccAction",commitMethod = "testTccCommit",rollbackMethod = "testTccRollback")
+    Boolean testSeataTccPrepare(@BusinessActionContextParameter(paramName = "params") Map params);
+
+    Boolean testTccCommit(BusinessActionContext context);
+
+    Boolean testTccRollback(BusinessActionContext context);
 }

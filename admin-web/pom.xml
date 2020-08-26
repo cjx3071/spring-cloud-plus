@@ -48,10 +48,6 @@
                     <artifactId>commons-collections</artifactId>
                     <groupId>commons-collections</groupId>
                 </exclusion>
-                <exclusion>
-                    <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-                    <groupId>com.alibaba.cloud</groupId>
-                </exclusion>
             </exclusions>
         </dependency>
         <!--通知组件-->
@@ -97,11 +93,11 @@
 <!--            <version>${cloud.version}</version>-->
 <!--        </dependency>-->
         <!--mongo组件-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.gourd.hu</groupId>
             <artifactId>mongo-plus-starter</artifactId>
             <version>${cloud.version}</version>
-        </dependency>
+        </dependency>-->
 
         <!--缓存组件-->
         <dependency>
