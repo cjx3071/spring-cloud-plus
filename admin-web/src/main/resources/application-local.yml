@@ -44,11 +44,13 @@ spring:
     sentinel:
       # 是否开启sentinel
       enabled: true
+      filter:
+        enabled: true
       # 取消Sentinel控制台懒加载
       eager: true
       # 控制台地址
       transport:
-        dashboard: 111.231.111.150:9090
+        dashboard: 111.231.111.150:8858
       #  持久化数据库-nacos
       datasource:
         # 限流

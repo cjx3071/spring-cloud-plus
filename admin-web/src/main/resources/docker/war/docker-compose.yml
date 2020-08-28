@@ -12,6 +12,9 @@ services:
       - "catalina.sh"
       - "run"
     volumes:
-      - "./tomcat-web/webapps:/usr/local/tomcat/webapps"
-      - "./tomcat-web/logs:/usr/local/tomcat/logs"
+      - ./tomcat-web/webapps:/usr/local/tomcat/webapps
+      # 挂载日志 -v A:B ,A指宿主机位置，B指容器位置
+      - ./tomcat-web/logs:/usr/local/tomcat/logs
+      # 指定容器时间为宿主机时间
+      - /etc/localtime:/etc/localtime
     container_name: openapi

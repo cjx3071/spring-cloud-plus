@@ -190,7 +190,7 @@ public class GlobalExceptionHandler{
 	 * @return
 	 */
 	@ExceptionHandler(value = Exception.class)
-	@ResponseStatus(HttpStatus.OK)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorResponse handleException(Exception ex) {
 		printRequestDetail();
 		printApiCodeException(ResponseEnum.INTERNAL_SERVER_ERROR, ex);

@@ -11,8 +11,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 
-import javax.sql.DataSource;
-
 /**
  * @author gourd.hu
  * @date 2018-11-20
@@ -30,7 +28,7 @@ public class BaseAutoConfig {
     @Bean
     @Primary
     @ConfigurationProperties(prefix = "spring.datasource.dynamic.datasource.master")
-    public DataSource druidDataSource() {
+    public DruidDataSource druidDataSource() {
         return new DruidDataSource();
     }
 

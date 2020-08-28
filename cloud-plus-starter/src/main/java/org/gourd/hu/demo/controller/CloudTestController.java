@@ -1,5 +1,6 @@
 package org.gourd.hu.demo.controller;
 
+import cn.hutool.core.util.RandomUtil;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
@@ -84,11 +85,10 @@ public class CloudTestController {
     @SentinelResource(value="/test/sentinel")
     @ApiOperation(value = "测试sentinel限流、熔断、系统防护")
     public BaseResponse sentinelTest() {
-        try {
-            // 模拟超时
-            Thread.sleep(1100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        int i = RandomUtil.getRandom().nextInt(0,2);
+        log.info("随机数：{}",i);
+        if(i ==1){
+            throw new RuntimeException("模拟异常");
         }
         return BaseResponse.ok("success!");
     }

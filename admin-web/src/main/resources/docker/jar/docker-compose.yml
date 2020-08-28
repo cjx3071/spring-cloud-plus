@@ -20,4 +20,4 @@ services:
       # 指定时区
       - TZ="Asia/Shanghai"
     #启动容器后执行的命令
-    entrypoint: java -server -Xms256m -Xmx256m -jar -Dserver.port=8088 -Dspring.profiles.active=local admin-web.jar
+    entrypoint: java -server -Xms256m -Xmx256m -jar -Dspring.profiles.active=local -Dspring.cloud.nacos.discovery.ip=xxxxx admin-web.jar
