@@ -44,21 +44,29 @@ public class RequestDetailFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        // 设置请求详情信息
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        GourdRequestWrapper gourdRequestWrapper = new GourdRequestWrapper(httpServletRequest);
-        // 请求IP
-        String ip = this.getIpAddr(gourdRequestWrapper);
-        // 请求路径
-        String path = gourdRequestWrapper.getRequestURI();
-        RequestDetail requestDetail = new RequestDetail()
-                .setIp(ip)
-                .setPath(path);
-        // 设置请求详情信息
-        RequestDetailThreadLocal.setRequestDetail(requestDetail);
-        chain.doFilter(gourdRequestWrapper, response);
-        // 释放
-        RequestDetailThreadLocal.remove();
+        GourdRequestWrapper requestWrapper = null;
+        if(request instanceof HttpServletRequest) {
+            // 设置请求详情信息
+            HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+            requestWrapper = new GourdRequestWrapper(httpServletRequest);
+            // 请求IP
+            String ip = this.getIpAddr(requestWrapper);
+            // 请求路径
+            String path = requestWrapper.getRequestURI();
+            RequestDetail requestDetail = new RequestDetail()
+                    .setIp(ip)
+                    .setPath(path);
+            // 设置请求详情信息
+            RequestDetailThreadLocal.setRequestDetail(requestDetail);
+        }
+        // 在chain.doFiler方法中传递新的request对象
+        if(requestWrapper == null) {
+            chain.doFilter(request, response);
+        } else {
+            chain.doFilter(requestWrapper, response);
+            // 释放
+            RequestDetailThreadLocal.remove();
+        }
     }
 
     @Override

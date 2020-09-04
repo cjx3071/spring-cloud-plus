@@ -291,7 +291,7 @@ spring:
   # 缓存
   cache:
     redis:
-      time-to-live: 20s
+      time-to-live: 20
 
   # activemq
   activemq:
@@ -418,6 +418,7 @@ fdfs:
 # seata 分布式事务
 seata:
   enabled: true
+  application-id: ${spring.application.name}
   enableAutoDataSourceProxy: true
   tx-service-group: admin
   service:
