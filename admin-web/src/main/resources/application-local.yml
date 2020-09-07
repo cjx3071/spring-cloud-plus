@@ -145,10 +145,17 @@ spring:
   # 数据库配置
   datasource:
     druid:
-      # 访问地址：http://localhost:8088/hu/druid/index.html
+      # 访问地址：ip+port/druid/index.html
       stat-view-servlet:
-        loginUsername: admin
-        loginPassword: 123456
+        enabled: true
+        url-pattern: "/druid/*"
+        reset-enable: true
+        login-username: admin
+        login-password: 123456
+      web-stat-filter:
+        enabled: true
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
     dynamic:
       primary: master #设置默认的数据源或者数据源组,默认值即为master
       datasource:
@@ -420,15 +427,9 @@ seata:
   enabled: true
   application-id: ${spring.application.name}
   enableAutoDataSourceProxy: true
-  tx-service-group: admin
+  tx-service-group: ${spring.application.name}
   service:
     disable-global-transaction: false
-    grouplist:
-      # seata seaver的 地址配置，此处可以集群配置是个数组
-      default: 111.231.111.150:8091
-    vgroup-mapping:
-      # key一定要与tx-service-group一致
-      admin: default
   registry:
     type: nacos
     nacos:
