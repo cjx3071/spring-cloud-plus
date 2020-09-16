@@ -31,19 +31,6 @@
             <artifactId>cache-plus-starter</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!--分布式模块-->
-        <dependency>
-            <groupId>org.gourd.hu</groupId>
-            <artifactId>cloud-plus-starter</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-                    <groupId>com.alibaba.cloud</groupId>
-                </exclusion>
-            </exclusions>
-
-        </dependency>
     </dependencies>
 
     <build>

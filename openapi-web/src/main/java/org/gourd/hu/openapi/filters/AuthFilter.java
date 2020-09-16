@@ -1,7 +1,7 @@
 package org.gourd.hu.openapi.filters;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.gourd.hu.cache.utils.RedisUtil;
@@ -72,8 +72,8 @@ public class AuthFilter implements Filter, Ordered {
         }
         queryStrMap.put(AuthConstant.TIMESTAMP_KEY,timestamp.toString());
         // 获取数据库密钥信息
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("app_key",appKey);
+        LambdaQueryWrapper<SysSecret> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.eq(SysSecret::getAppKey,appKey);
         SysSecret sysSecret = sysSecretDao.selectOne(queryWrapper);
         // 断言appKey存在
         ResponseEnum.APP_KEY_ERROR.assertNotNull(sysSecret);

@@ -37,6 +37,8 @@ import java.net.UnknownHostException;
 @Slf4j
 public class RequestDetailFilter implements Filter {
 
+    public static final String MULTIPART_FORM_DATA = "multipart/form-data";
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         log.info("RequestDetailFilter init");
@@ -48,30 +50,38 @@ public class RequestDetailFilter implements Filter {
         if(request instanceof HttpServletRequest) {
             // 设置请求详情信息
             HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-            requestWrapper = new GourdRequestWrapper(httpServletRequest);
             // 请求IP
-            String ip = this.getIpAddr(requestWrapper);
+            String ip = this.getIpAddr(httpServletRequest);
             // 请求路径
-            String path = requestWrapper.getRequestURI();
+            String path = httpServletRequest.getRequestURI();
             RequestDetail requestDetail = new RequestDetail()
                     .setIp(ip)
                     .setPath(path);
             // 设置请求详情信息
             RequestDetailThreadLocal.setRequestDetail(requestDetail);
+            // 判断是否是上传文件接口，如果是则不进行封装
+            String contentType = httpServletRequest.getContentType();
+            if(StringUtils.isNotBlank(contentType) && contentType.contains(MULTIPART_FORM_DATA)){
+                chain.doFilter(request, response);
+                return;
+            }
+            requestWrapper = new GourdRequestWrapper(httpServletRequest);
         }
         // 在chain.doFiler方法中传递新的request对象
         if(requestWrapper == null) {
             chain.doFilter(request, response);
         } else {
             chain.doFilter(requestWrapper, response);
-            // 释放
-            RequestDetailThreadLocal.remove();
         }
     }
 
     @Override
     public void destroy() {
         log.info("RequestDetailFilter destroy");
+        // 释放
+        if(RequestDetailThreadLocal.getRequestDetail()!=null){
+            RequestDetailThreadLocal.remove();
+        }
     }
 
     private static final String UNKNOWN = "unknown";

@@ -1,0 +1,117 @@
+
+# 日志
+logging:
+  file:
+    path: ./logs
+  level:
+    root: info
+  # 操作日志过期时长
+  operate:
+    all: true
+    expire:
+      days: 30
+
+# jasypt加密密钥
+jasypt:
+  encryptor:
+    password: GOURD-HXN-1314
+
+# spring配置
+spring:
+  cloud:
+    # nacos-配置
+    nacos:
+      # 配置中心
+      config:
+        # 是否开启配置中心，默认true
+        enabled: false
+        server-addr: 111.231.111.150:8848
+        file-extension: yaml
+        encode: UTF-8
+        # 命名空间的id
+        namespace: d10ded89-2ce5-4cf9-ad2c-4e36f9b2be7e
+        group: CLOUD_PLUS
+      # 注册发现中心
+      discovery:
+        # 是否开启注册中心，默认true
+        enabled: true
+        group: ${spring.cloud.nacos.config.group}
+        # 默认应用名
+        service: ${spring.application.name}
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+        namespace: ${spring.cloud.nacos.config.namespace}
+  # 数据库配置
+  datasource:
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      datasource:
+        master:
+          url: jdbc:p6spy:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
+          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+          username: root
+          password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
+          # 不加这个会报错(testWhileIdle is true, validationQuery not set)
+          validation-query: ${spring.datasource.dynamic.druid.validation-query}
+        slave:
+          url: jdbc:p6spy:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
+          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+          username: root
+          password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
+          validation-query: ${spring.datasource.dynamic.druid.validation-query}
+      # druid
+      druid:
+        # 初始化时建立物理连接的个数
+        initial-size: 5
+        # 获取连接时最大等待时间，单位毫秒
+        max-wait: 60000
+        # 最小连接池数量
+        min-idle: 1
+        # 最大连接池数量
+        max-active: 20
+        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        time-between-eviction-runs-millis: 60000
+        # 配置一个连接在池中最小生存的时间，单位是毫秒
+        min-evictable-idle-time-millis: 300000
+        validation-query: select 1 FROM DUAL
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        pool-prepared-statements: true
+        max-open-prepared-statements: 50
+        max-pool-prepared-statement-per-connection-size: 20
+        filter:
+          # 打开mergeSql功能；慢SQL记录
+          stat:
+            log-slow-sql: true
+            merge-sql: true
+            slow-sql-millis: 5000
+        #  配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+        filters: stat,wall,logback,config
+  # redis
+  redis:
+    cluster:
+      nodes:
+        - redis://111.231.111.150:7000
+        - redis://111.231.111.150:7001
+        - redis://111.231.111.150:7002
+        - redis://111.231.111.150:7003
+        - redis://111.231.111.150:7004
+        - redis://111.231.111.150:7005
+      max-redirects: 3  # 获取失败 最大重定向次数
+      scan-interval: 5000
+    timeout: 6000  # 连接超时时长（毫秒）
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" #暴露所有节点
+    logfile:
+      external-file: ./logs
+    health:
+      mail:
+        enabled: false
+  endpoint:
+    health:
+      show-details: ALWAYS  #显示详细信息
