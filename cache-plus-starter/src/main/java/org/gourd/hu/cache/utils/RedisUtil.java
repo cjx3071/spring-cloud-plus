@@ -104,6 +104,18 @@ public class RedisUtil {
     }
 
     /**
+     * 存入普通对象
+     *
+     * @param key 键
+     * @param value 值
+     * @param timeout 有效期，单位秒
+     */
+    public static void setStrExpire(final String key, final String value, final long timeout) {
+        stringRedisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
+    }
+
+
+    /**
      * 判断keys其中任意键中是否已存在
      *
      * @param keys 键
@@ -115,6 +127,24 @@ public class RedisUtil {
         }
         for(String key : keys){
             if(redisTemplate.opsForValue().get(key) != null){
+                return Boolean.TRUE;
+            }
+        }
+        return Boolean.FALSE;
+    }
+
+    /**
+     * 判断keys其中任意键中是否已存在
+     *
+     * @param keys 键
+     * @return 对象
+     */
+    public static Boolean existStrAny(final String... keys) {
+        if(keys == null || keys.length ==0){
+            return Boolean.FALSE;
+        }
+        for(String key : keys){
+            if(stringRedisTemplate.opsForValue().get(key) != null){
                 return Boolean.TRUE;
             }
         }
@@ -362,6 +392,71 @@ public class RedisUtil {
     public static long sDel(final String key, final Object... values) {
         Long count = redisTemplate.opsForSet().remove(key, values);
         return count == null ? 0 : count;
+    }
+
+    /**
+     * Set取差集
+     *
+     * @param keys 取差集的key集合
+     * @return 差集集合
+     */
+    public static Set<String> diff(final Collection<String> keys) {
+        return stringRedisTemplate.opsForSet().difference( keys);
+    }
+
+    /**
+     * Set取差集并存储
+     *
+     * @param key 结果存储到的key
+     * @param keys 取差集的key集合
+     * @return 差集数量
+     */
+    public static Long diffStore(final String key, final Collection<String> keys) {
+        return stringRedisTemplate.opsForSet().differenceAndStore(keys, key);
+    }
+
+
+    /**
+     * Set取交集
+     *
+     * @param keys 取交集的key集合
+     * @return 交集集合
+     */
+    public static Set<String> intersect(final Collection<String> keys) {
+        return stringRedisTemplate.opsForSet().intersect( keys);
+    }
+
+    /**
+     * Set取交集并存储
+     *
+     * @param key 结果存储到的key
+     * @param keys 取交集的key集合
+     * @return 交集数量
+     */
+    public static Long intersectStore(final String key, final Collection<String> keys) {
+        return stringRedisTemplate.opsForSet().intersectAndStore(keys, key);
+    }
+
+    /**
+     * Set取并集
+     *
+     * @param keys 取差集的key集合
+     * @return 并集集合
+     */
+    public static Set<String> union(final Collection<String> keys) {
+        return stringRedisTemplate.opsForSet().union(keys);
+    }
+
+
+    /**
+     * Set取并集并存储
+     *
+     * @param key 结果存储到的key
+     * @param keys 取并集的key集合
+     * @return 并集集合
+     */
+    public static Long unionStore(final String key, final Collection<String> keys) {
+        return stringRedisTemplate.opsForSet().unionAndStore(keys,key);
     }
 
 //    ----------------------------- List 操作 ------------------------

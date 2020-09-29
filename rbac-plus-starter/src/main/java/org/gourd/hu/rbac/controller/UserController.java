@@ -6,7 +6,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.gourd.hu.base.response.BaseResponse;
@@ -37,7 +36,7 @@ public class UserController{
 
     @GetMapping("/all")
     @ApiOperation(value = "获取所有的用户")
-    @RequiresRoles(value={"ADMIN"}, logical= Logical.AND)
+    @RequiresRoles(value={"ADMIN"})
     @ApiImplicitParams({@ApiImplicitParam(name = "jwt-token", value = "jwt-token", required = true, dataType = "string", paramType = "header")})
     public BaseResponse<List<UserVO>> findAll() {
         return BaseResponse.ok(userService.findAll());

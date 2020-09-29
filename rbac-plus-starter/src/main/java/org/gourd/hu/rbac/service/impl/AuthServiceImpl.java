@@ -11,7 +11,6 @@ import org.gourd.hu.cache.utils.RedisUtil;
 import org.gourd.hu.rbac.auth.jwt.JwtClaim;
 import org.gourd.hu.rbac.auth.jwt.JwtToken;
 import org.gourd.hu.rbac.auth.jwt.JwtUtil;
-import org.gourd.hu.rbac.constant.JwtConstant;
 import org.gourd.hu.rbac.model.dto.RbacUserRegisterDTO;
 import org.gourd.hu.rbac.model.entity.RbacPermission;
 import org.gourd.hu.rbac.model.entity.RbacRole;
@@ -88,18 +87,16 @@ public class AuthServiceImpl implements AuthService {
             permissionCodes.toArray(permissionArray);
         }
 
-        Long currentTimeMillis = System.currentTimeMillis();
         // 生成token
         JwtClaim jwtClaim = new JwtClaim();
+        jwtClaim.setSubject(user.getId().toString());
         jwtClaim.setUserName(user.getName());
         jwtClaim.setAccount(user.getAccount());
         jwtClaim.setRoles(roleCodeArray);
         jwtClaim.setPermissions(permissionArray);
-        jwtClaim.setCurrentTimeMillis(currentTimeMillis);
         jwtClaim.setTenantId(user.getTenantId());
-        String accessToken = JwtUtil.generateToken(user.getId().toString(), jwtClaim);
+        String accessToken = JwtUtil.generateToken(jwtClaim);
         JwtToken jwtUser = new JwtToken(accessToken,user.getId(),user.getName());
-
         return jwtUser;
     }
 
@@ -107,9 +104,7 @@ public class AuthServiceImpl implements AuthService {
     public void logout(String token) {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        String userId = JwtUtil.getSubject(token);
-        RedisUtil.del(JwtConstant.PREFIX_SHIRO_REFRESH_TOKEN + userId);
-        RedisUtil.del(JwtConstant.PREFIX_SHIRO_ACCESS_TOKEN + userId);
+        RedisUtil.del(token);
     }
 
 

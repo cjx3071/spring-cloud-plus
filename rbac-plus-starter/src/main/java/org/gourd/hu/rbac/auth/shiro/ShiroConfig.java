@@ -13,13 +13,14 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.gourd.hu.rbac.auth.cache.ShiroCacheManager;
+import org.gourd.hu.rbac.auth.jwt.JwtUtil;
 import org.gourd.hu.rbac.properties.AuthProperties;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Import;
 
 import javax.servlet.Filter;
 import java.util.*;
@@ -32,8 +33,9 @@ import java.util.*;
  *
  * @author gourd.hu
  */
-@Configuration
 @Slf4j
+@Configuration
+@Import(AuthProperties.class)
 public class ShiroConfig {
 
     public static final String JWT = "jwt";
@@ -63,7 +65,7 @@ public class ShiroConfig {
     }
 
     @Bean(name = "securityManager")
-    public DefaultWebSecurityManager getDefaultSecurityManager(ShiroRealm shiroRealm, ShiroCacheManager shiroCacheManager) {
+    public DefaultWebSecurityManager getDefaultSecurityManager(ShiroRealm shiroRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(shiroRealm);
         // 关闭shiro自带的session
@@ -72,8 +74,6 @@ public class ShiroConfig {
         defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
         subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
         securityManager.setSubjectDAO(subjectDAO);
-        // 自定义缓存管理
-        securityManager.setCacheManager(shiroCacheManager);
         return securityManager;
     }
 
@@ -103,4 +103,21 @@ public class ShiroConfig {
         advisor.setSecurityManager(securityManager);
         return advisor;
     }
+
+    @Bean
+    public ShiroRealm getShiroRealm() {
+        return new ShiroRealm();
+    }
+
+
+    /**
+     * jwt工具类
+     * @param authProperties
+     * @return
+     */
+    @Bean
+    public JwtUtil getJwtUtil(AuthProperties authProperties) {
+        return new JwtUtil(authProperties);
+    }
+
 }

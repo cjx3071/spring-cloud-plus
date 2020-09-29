@@ -13,8 +13,6 @@ import org.gourd.hu.cache.utils.RedisUtil;
 import org.gourd.hu.core.utils.Base64ConvertUtil;
 import org.gourd.hu.rbac.constant.JwtConstant;
 import org.gourd.hu.rbac.properties.AuthProperties;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.UnsupportedEncodingException;
@@ -26,12 +24,14 @@ import java.util.Map;
  *
  * @author gourd.hu
  */
-@Component
 @Slf4j
 public class JwtUtil {
 
-    @Autowired
     private AuthProperties authProperties;
+
+    public JwtUtil(AuthProperties authProperties){
+        this.authProperties = authProperties;
+    }
 
 
     /**
@@ -160,15 +160,15 @@ public class JwtUtil {
     }
 
     /**
-     * 生成签名
-     * @param subject
+     * 生成Token
+     *
      * @param jwtClaim
-     * @return java.lang.String 返回加密的Token
+     * @return 返回加密的Token
      */
-    public static String generateToken(String subject, JwtClaim jwtClaim) {
+    public static String generateToken(JwtClaim jwtClaim) {
         try {
             // 帐号加JWT私钥加密
-            String secret = subject + Base64ConvertUtil.decode(encryptJWTKey);
+            String secret = jwtClaim.getSubject() + Base64ConvertUtil.decode(encryptJWTKey);
             long currentTimeMillis = System.currentTimeMillis();
             // 此处过期时间是以毫秒为单位，所以乘以1000
             Date date = new Date( currentTimeMillis + accessTokenExpireTime * 1000);
@@ -178,16 +178,13 @@ public class JwtUtil {
                     .withClaim(JwtConstant.JWT_USER_ACCOUNT, jwtClaim.getAccount())
                     .withArrayClaim(JwtConstant.JWT_ROLES_KEY, jwtClaim.getRoles())
                     .withArrayClaim(JwtConstant.JWT_PERMISSIONS_KEY, jwtClaim.getPermissions())
-                    .withClaim(JwtConstant.JWT_CURRENT_TIME_MILLIS, jwtClaim.getCurrentTimeMillis())
+                    .withClaim(JwtConstant.JWT_CURRENT_TIME_MILLIS, currentTimeMillis)
                     .withClaim(JwtConstant.JWT_TENANT_ID, jwtClaim.getTenantId())
-                    .withSubject(subject)
+                    .withSubject(jwtClaim.getSubject())
                     .withExpiresAt(date)
                     .sign(algorithm);
-
-            // 设置到缓存
-            setCatch(subject,token);
-            // 设置刷新时间
-            setRefresh(subject,currentTimeMillis);
+            // 设置到redis缓存,key和value均为jwt-token,过期时间设置为 过期时间 + 续期时间
+            RedisUtil.setStrExpire(token, token,accessTokenExpireTime + refreshTokenExpireTime);
             return token;
         } catch (UnsupportedEncodingException e) {
             log.error("JWTToken加密出现UnsupportedEncodingException异常:{}", e.getMessage());
@@ -200,48 +197,32 @@ public class JwtUtil {
      * @param token
      * @return java.lang.String 返回加密的Token
      */
-    public static String refreshToken(String token,Long currentTimeMillis) {
-        try {
-            // 帐号加JWT私钥加密
-            Map<String, Claim> claims = getClaims(token);
-            String subject = getSubject(token);
-            // 帐号加JWT私钥加密
-            String secret = subject + Base64ConvertUtil.decode(encryptJWTKey);
-            // 此处过期时间是以毫秒为单位，所以乘以1000
-            Date date = new Date(currentTimeMillis + accessTokenExpireTime * 1000);
-            Algorithm algorithm = Algorithm.HMAC256(secret);
-            return JWT.create()
-                    .withClaim(JwtConstant.JWT_USER_NAME,claims.get(JwtConstant.JWT_USER_NAME).asString())
-                    .withClaim(JwtConstant.JWT_USER_ACCOUNT,claims.get(JwtConstant.JWT_USER_ACCOUNT).asString())
-                    .withArrayClaim(JwtConstant.JWT_ROLES_KEY,claims.get(JwtConstant.JWT_ROLES_KEY).asArray(String.class))
-                    .withArrayClaim(JwtConstant.JWT_PERMISSIONS_KEY,claims.get(JwtConstant.JWT_PERMISSIONS_KEY).asArray(String.class))
-                    .withClaim(JwtConstant.JWT_CURRENT_TIME_MILLIS,currentTimeMillis)
-                    .withClaim(JwtConstant.JWT_TENANT_ID,claims.get(JwtConstant.JWT_TENANT_ID).asLong())
-                    .withSubject(subject)
-                    .withExpiresAt(date)
-                    .sign(algorithm);
-        } catch (UnsupportedEncodingException e) {
-            log.error("JWTToken加密出现UnsupportedEncodingException异常:{}", e.getMessage());
-            throw ResponseEnum.INTERNAL_SERVER_ERROR.newException("JWTToken加密异常");
-        }
+    public static String refreshToken(String token) {
+        String subject = getSubject(token);
+        // 获取token的属性
+        Map<String, Claim> claims = getClaims(token);
+        JwtClaim jwtClaim = new JwtClaim();
+        jwtClaim.setSubject(subject);
+        jwtClaim.setUserName(claims.get(JwtConstant.JWT_USER_NAME).asString());
+        jwtClaim.setAccount(claims.get(JwtConstant.JWT_USER_ACCOUNT).asString());
+        jwtClaim.setRoles(claims.get(JwtConstant.JWT_ROLES_KEY).asArray(String.class));
+        jwtClaim.setPermissions(claims.get(JwtConstant.JWT_PERMISSIONS_KEY).asArray(String.class));
+        jwtClaim.setTenantId(claims.get(JwtConstant.JWT_TENANT_ID).asLong());
+        // 重新生成token
+        return generateToken(jwtClaim);
     }
 
     /**
-     * 设置刷新凭证
-     * @param subject
+     * 续期token
+     * @param oldToken
+     * @return java.lang.String 返回加密的Token
      */
-    public static void setRefresh(String subject,Long currentTimeMillis){
-        // 设置RefreshToken，时间戳为当前时间戳，直接设置即可(不用先删后设，会覆盖已有的RefreshToken)
-        RedisUtil.setExpire(JwtConstant.PREFIX_SHIRO_REFRESH_TOKEN + subject, currentTimeMillis,refreshTokenExpireTime);
-    }
-
-    /**
-     * 设置到缓存
-     * @param subject
-     */
-    public static void setCatch(String subject,String jwtToken){
-        // 设置RefreshToken，时间戳为当前时间戳，直接设置即可(不用先删后设，会覆盖已有的RefreshToken)
-        RedisUtil.setExpire(JwtConstant.PREFIX_SHIRO_ACCESS_TOKEN + subject, jwtToken,accessTokenExpireTime);
+    public static Boolean reNewToken(String oldToken) {
+        // 重新生成token
+        String refreshToken = refreshToken(oldToken);
+        // 续期原token的过期时间，并更新value为新token
+        RedisUtil.setStrExpire(oldToken,refreshToken,accessTokenExpireTime + refreshTokenExpireTime);
+        return Boolean.TRUE;
     }
 
 }

@@ -7,6 +7,7 @@ package org.gourd.hu.rbac.auth.shiro;
 import com.auth0.jwt.interfaces.Claim;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -20,7 +21,6 @@ import org.gourd.hu.cache.utils.RedisUtil;
 import org.gourd.hu.rbac.auth.jwt.JwtToken;
 import org.gourd.hu.rbac.auth.jwt.JwtUtil;
 import org.gourd.hu.rbac.constant.JwtConstant;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -30,7 +30,6 @@ import java.util.Map;
  * @author gourd.hu
  */
 @Slf4j
-@Component
 public class ShiroRealm extends AuthorizingRealm {
 
     @Override
@@ -44,16 +43,10 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken auth) throws UnauthorizedException {
-        String token = (String) auth.getCredentials();
-        // 开始认证，要AccessToken认证通过，且Redis中存在RefreshToken，且两个Token时间戳一致
-        String subject = JwtUtil.getSubject(token);
-        if (JwtUtil.verify(token) && RedisUtil.existAny(JwtConstant.PREFIX_SHIRO_REFRESH_TOKEN + subject)) {
-            // 获取RefreshToken的时间戳
-            Long currentTimeMillisRedis = Long.valueOf(RedisUtil.get(JwtConstant.PREFIX_SHIRO_REFRESH_TOKEN + subject).toString());
-            // 获取AccessToken时间戳，与RefreshToken的时间戳对比
-            if (JwtUtil.getClaimLong(token,JwtConstant.JWT_CURRENT_TIME_MILLIS).equals(currentTimeMillisRedis)) {
-                return new SimpleAuthenticationInfo(token, token, this.getClass().getName());
-            }
+        String token = auth.getCredentials().toString();
+        // 开始认证，要AccessToken认证通过
+        if (StringUtils.isNotBlank(RedisUtil.getStr(token)) && JwtUtil.verify(RedisUtil.getStr(token))) {
+            return new SimpleAuthenticationInfo(token, token, this.getClass().getName());
         }
         throw new AuthenticationException("Token已过期(Token expired or incorrect.)");
     }

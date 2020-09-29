@@ -12,6 +12,11 @@ import lombok.Data;
 public class JwtClaim {
 
     /**
+     * 此处为用户Id
+     */
+    private String subject;
+
+    /**
      * 承租人id
      */
     private Long tenantId;
@@ -35,9 +40,4 @@ public class JwtClaim {
      * 权限
      */
     private String[] permissions;
-
-    /**
-     *
-     */
-    private Long currentTimeMillis;
 }
