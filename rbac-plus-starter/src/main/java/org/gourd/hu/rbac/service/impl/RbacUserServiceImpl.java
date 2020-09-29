@@ -14,13 +14,17 @@ import org.gourd.hu.rbac.auth.jwt.JwtToken;
 import org.gourd.hu.rbac.auth.jwt.JwtUtil;
 import org.gourd.hu.rbac.dao.RbacUserDao;
 import org.gourd.hu.rbac.dao.RbacUserRoleDao;
-import org.gourd.hu.rbac.model.dto.*;
+import org.gourd.hu.rbac.model.dto.RbacUserOperateDTO;
+import org.gourd.hu.rbac.model.dto.RbacUserOrgSearchDTO;
+import org.gourd.hu.rbac.model.dto.RbacUserRegisterDTO;
+import org.gourd.hu.rbac.model.dto.RbacUserSearchDTO;
 import org.gourd.hu.rbac.model.entity.RbacUser;
 import org.gourd.hu.rbac.model.entity.RbacUserRole;
 import org.gourd.hu.rbac.model.entity.SysTenant;
 import org.gourd.hu.rbac.model.vo.UserVO;
 import org.gourd.hu.rbac.service.RbacUserService;
 import org.gourd.hu.rbac.service.SysTenantService;
+import org.gourd.hu.rbac.task.UserFindTask;
 import org.gourd.hu.rbac.utils.ShiroKitUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ForkJoinPool;
 
 /**
  * 用户处理业务层
@@ -103,7 +108,33 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> impl
     @DS("slave")
     @Cacheable("user")
     public List<UserVO> findAll(){
-        List<RbacUser> rbacUsers = rbacUserDao.selectList(null);
+        // 数据量大，采用fork/join 多线程处理
+        Integer userCount = rbacUserDao.selectCount(null);
+        if(userCount == null || userCount ==0){
+            return null;
+        }
+        // 计算出最大分批数
+        int maxBatchNo = (int) Math.ceil((double)userCount / 1);
+        ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
+        UserFindTask userFindTask = new UserFindTask(1,1,maxBatchNo,rbacUserDao);
+
+        // execute(ForkJoinTask) 异步执行tasks，无返回值
+        // forkJoinPool.execute(userFindTask);
+
+        // submit(ForkJoinTask) 异步执行，且带Task返回值，可通过task.get 实现同步到主线程
+        /*ForkJoinTask<List<RbacUser>> joinTask = forkJoinPool.submit(userFindTask);
+        try {
+            forkJoinPool.awaitTermination(60, TimeUnit.SECONDS);
+            List<RbacUser> rbacUsers = joinTask.get();
+        } catch (InterruptedException | ExecutionException e) {
+            log.error("批处理查询失败",e);
+        }*/
+
+        // invoke(ForkJoinTask) 有Join, tasks会被同步到主进程
+        List<RbacUser> rbacUsers = forkJoinPool.invoke(userFindTask);
+
+        // 关闭线程池
+        forkJoinPool.shutdown();
         return CollectionUtil.copyList(rbacUsers, UserVO.class);
     }
     /**
