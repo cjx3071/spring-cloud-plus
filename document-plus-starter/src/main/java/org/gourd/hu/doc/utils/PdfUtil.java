@@ -27,6 +27,67 @@ import java.util.Map;
 public class PdfUtil {
 
     /**
+     * 以文件流形式下载到浏览器
+     *
+     * @param templateEngine   配置
+     * @param templateName 模板名称
+     * @param listVars     模板参数集
+     * @param response     HttpServletResponse
+     * @param fileName     下载文件名称
+     */
+    public static void download(TemplateEngine templateEngine, String templateName, List<Map<String, Object>> listVars, HttpServletResponse response, String fileName) {
+        // 设置编码、文件ContentType类型、文件头、下载文件名
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("application/pdf");
+        try {
+            response.setHeader("Content-Disposition", "attachment;fileName=" +
+                    new String(fileName.getBytes("gb2312"), "ISO8859-1"));
+        } catch (UnsupportedEncodingException e) {
+            log.error(e.getMessage(), e);
+        }
+        try (ServletOutputStream out = response.getOutputStream()) {
+            generateAll(templateEngine, templateName, out, listVars);
+            out.flush();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * pdf下载到特定位置
+     *
+     * @param templateEngine   配置
+     * @param templateName 模板名称
+     * @param listVars     模板参数集
+     * @param filePath     下载文件路径
+     */
+    public static void save(TemplateEngine templateEngine, String templateName, List<Map<String, Object>> listVars, String filePath) {
+        try (OutputStream out = new FileOutputStream(filePath);) {
+            generateAll(templateEngine, templateName, out, listVars);
+            out.flush();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * pdf预览
+     *
+     * @param templateEngine   配置
+     * @param templateName 模板名称
+     * @param listVars     模板参数集
+     * @param response     HttpServletResponse
+     */
+    public static void preview(TemplateEngine templateEngine, String templateName, List<Map<String, Object>> listVars, HttpServletResponse response) {
+        try (ServletOutputStream out = response.getOutputStream()) {
+            generateAll(templateEngine, templateName, out, listVars);
+            out.flush();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+    }
+
+    /**
      * 按模板和参数生成html字符串,再转换为flying-saucer识别的Document
      *
      * @param templateName 模板名称
@@ -83,66 +144,5 @@ public class PdfUtil {
 
         }
         renderer.finishPDF(); //完成pdf写入
-    }
-
-    /**
-     * pdf下载
-     *
-     * @param templateEngine   配置
-     * @param templateName 模板名称
-     * @param listVars     模板参数集
-     * @param response     HttpServletResponse
-     * @param fileName     下载文件名称
-     */
-    public static void download(TemplateEngine templateEngine, String templateName, List<Map<String, Object>> listVars, HttpServletResponse response, String fileName) {
-        // 设置编码、文件ContentType类型、文件头、下载文件名
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("multipart/form-data");
-        try {
-            response.setHeader("Content-Disposition", "attachment;fileName=" +
-                    new String(fileName.getBytes("gb2312"), "ISO8859-1"));
-        } catch (UnsupportedEncodingException e) {
-            log.error(e.getMessage(), e);
-        }
-        try (ServletOutputStream out = response.getOutputStream()) {
-            generateAll(templateEngine, templateName, out, listVars);
-            out.flush();
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * pdf下载到特定位置
-     *
-     * @param templateEngine   配置
-     * @param templateName 模板名称
-     * @param listVars     模板参数集
-     * @param filePath     下载文件路径
-     */
-    public static void save(TemplateEngine templateEngine, String templateName, List<Map<String, Object>> listVars, String filePath) {
-        try (OutputStream out = new FileOutputStream(filePath);) {
-            generateAll(templateEngine, templateName, out, listVars);
-            out.flush();
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * pdf预览
-     *
-     * @param templateEngine   配置
-     * @param templateName 模板名称
-     * @param listVars     模板参数集
-     * @param response     HttpServletResponse
-     */
-    public static void preview(TemplateEngine templateEngine, String templateName, List<Map<String, Object>> listVars, HttpServletResponse response) {
-        try (ServletOutputStream out = response.getOutputStream()) {
-            generateAll(templateEngine, templateName, out, listVars);
-            out.flush();
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
     }
 }

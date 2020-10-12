@@ -82,7 +82,7 @@ public class DocumentController {
      */
     @GetMapping(value = "/pdf/download")
     @ApiOperation(value="pdf下载")
-    public BaseResponse<String> download(HttpServletResponse response) {
+    public void download(HttpServletResponse response) {
         List<Map<String,Object>> listVars = new ArrayList<>(1);
         Map<String,Object> variables = new HashMap<>(4);
         variables.put("title","测试下载PDF!");
@@ -101,7 +101,6 @@ public class DocumentController {
         variables.put("demoList",demoList);
         listVars.add(variables);
         PdfUtil.download(templateEngine,"pdfPage",listVars,response,"测试打印.pdf");
-        return BaseResponse.ok("pdf下载成功");
     }
 
     /**
