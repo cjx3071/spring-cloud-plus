@@ -23,19 +23,19 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 文档我正在加紧完善中，有的小伙伴私信我说项目没有前端，因为本人前端是小白 :joy: ，所以没有做前端，大家多多包涵。
 
 ### 附
-项目所涉及的技术栈文章：
-springboot:[https://www.breakyizhan.com/springboot/3028.html](https://www.breakyizhan.com/springboot/3028.html)
-druid:[https://gitee.com/wenshao/druid/blob/master/druid-spring-boot-starter/README.md](https://gitee.com/wenshao/druid/blob/master/druid-spring-boot-starter/README.md)
-knife4j接口文档：[https://doc.xiaominfo.com/guide/useful.html](https://doc.xiaominfo.com/guide/useful.html)
-mybatis-plus：[https://baomidou.com/guide/](https://baomidou.com/guide/)
-dynamic-datasource动态数据源：[https://baomidou.gitee.io/dynamic-datasource-doc/guide/](https://baomidou.gitee.io/dynamic-datasource-doc/guide/)
-shiro:[https://www.w3cschool.cn/shiro/co4m1if2.html](https://www.w3cschool.cn/shiro/co4m1if2.html)
-nacos:[https://nacos.io/zh-cn/docs/quick-start.html](https://nacos.io/zh-cn/docs/quick-start.html)
-sentinel:[https://github.com/alibaba/Sentinel/wiki/介绍](https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D)
-seata：[http://seata.io/zh-cn/docs/user/quickstart.html](http://seata.io/zh-cn/docs/user/quickstart.html)
-redis:[http://redis.cn/documentation.html](http://redis.cn/documentation.html)
-activiti:https://blog.csdn.net/HXNLYW/article/details/103005400
-quartz:[https://www.w3cschool.cn/quartz_doc/](https://www.w3cschool.cn/quartz_doc/)
-easyExcel:[https://www.yuque.com/easyexcel/doc/easyexcel](https://www.yuque.com/easyexcel/doc/easyexcel)
-mongoDb:[https://www.runoob.com/mongodb/mongodb-tutorial.html](https://www.runoob.com/mongodb/mongodb-tutorial.html)
-ngnix:[https://www.nginx.cn/doc/index.html](https://www.nginx.cn/doc/index.html)
+项目所涉及的技术栈文章：  
+ **springboot:**  [https://www.breakyizhan.com/springboot/3028.html](https://www.breakyizhan.com/springboot/3028.html)  
+ **druid:**  [https://gitee.com/wenshao/druid/blob/master/druid-spring-boot-starter/README.md](https://gitee.com/wenshao/druid/blob/master/druid-spring-boot-starter/README.md)  
+ **knife4j接口文档：**  [https://doc.xiaominfo.com/guide/useful.html](https://doc.xiaominfo.com/guide/useful.html)  
+ **mybatis-plus：**  [https://baomidou.com/guide/](https://baomidou.com/guide/)  
+ **dynamic-datasource动态数据源：**  [https://baomidou.gitee.io/dynamic-datasource-doc/guide/](https://baomidou.gitee.io/dynamic-datasource-doc/guide/)  
+ **shiro:**  [https://www.w3cschool.cn/shiro/co4m1if2.html](https://www.w3cschool.cn/shiro/co4m1if2.html)  
+ **nacos:**  [https://nacos.io/zh-cn/docs/quick-start.html](https://nacos.io/zh-cn/docs/quick-start.html)  
+ **sentinel:**  [https://github.com/alibaba/Sentinel/wiki/介绍](https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D)  
+ **seata：**  [http://seata.io/zh-cn/docs/user/quickstart.html](http://seata.io/zh-cn/docs/user/quickstart.html)  
+ **redis:**  [http://redis.cn/documentation.html](http://redis.cn/documentation.html)  
+ **activiti:**  https://blog.csdn.net/HXNLYW/article/details/103005400  
+ **quartz:**  [https://www.w3cschool.cn/quartz_doc/](https://www.w3cschool.cn/quartz_doc/)  
+ **easyExcel:**  [https://www.yuque.com/easyexcel/doc/easyexcel](https://www.yuque.com/easyexcel/doc/easyexcel)  
+ **mongoDb:**  [https://www.runoob.com/mongodb/mongodb-tutorial.html](https://www.runoob.com/mongodb/mongodb-tutorial.html)  
+ **ngnix:**  [https://www.nginx.cn/doc/index.html](https://www.nginx.cn/doc/index.html)  
