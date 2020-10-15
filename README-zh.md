@@ -28,7 +28,7 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
  **druid:**  [https://gitee.com/wenshao/druid/blob/master/druid-spring-boot-starter/README.md](https://gitee.com/wenshao/druid/blob/master/druid-spring-boot-starter/README.md)  
  **knife4j接口文档：**  [https://doc.xiaominfo.com/guide/useful.html](https://doc.xiaominfo.com/guide/useful.html)  
  **mybatis-plus：**  [https://baomidou.com/guide/](https://baomidou.com/guide/)  
- **dynamic-datasource动态数据源：**  [https://baomidou.gitee.io/dynamic-datasource-doc/guide/](https://baomidou.gitee.io/dynamic-datasource-doc/guide/)  
+ **动态数据源：**  [https://baomidou.gitee.io/dynamic-datasource-doc/guide/](https://baomidou.gitee.io/dynamic-datasource-doc/guide/)  
  **shiro:**  [https://www.w3cschool.cn/shiro/co4m1if2.html](https://www.w3cschool.cn/shiro/co4m1if2.html)  
  **nacos:**  [https://nacos.io/zh-cn/docs/quick-start.html](https://nacos.io/zh-cn/docs/quick-start.html)  
  **sentinel:**  [https://github.com/alibaba/Sentinel/wiki/介绍](https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D)  

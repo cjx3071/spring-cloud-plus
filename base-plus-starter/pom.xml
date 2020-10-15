@@ -43,7 +43,7 @@
         <dependency>
             <groupId>com.github.gavlyukovskiy</groupId>
             <artifactId>p6spy-spring-boot-starter</artifactId>
-            <version>1.6.2</version>
+            <version>${p6spy.version}</version>
         </dependency>
         <!--Druid连接池-->
         <dependency>
@@ -55,19 +55,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-        <!--    knife4j    -->
+        <!--knife4j 接口文档：https://doc.xiaominfo.com/guide/useful.html-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
             <version>${knife4j.version}</version>
         </dependency>
-        <!--mybatis-plus-->
+        <!--mybatis-plus ：https://baomidou.com/guide/-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
-        <!--mybatis-plus 动态数据源：https://baomidou.gitee.io/dynamic-datasource-doc/guide/ -->
+        <!--dynamic-datasource 动态数据源：https://baomidou.gitee.io/dynamic-datasource-doc/guide/ -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
