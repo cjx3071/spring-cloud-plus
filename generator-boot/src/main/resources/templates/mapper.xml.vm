@@ -55,5 +55,20 @@
     #end
     </sql>
 
+    <!-- 通用查询条件 -->
+    <sql id="SEARCH_WHERE">
+        is_deleted = 0
+        #foreach($field in ${table.fields})
+            #if(${field.columnType} == "STRING")
+        <if test="${field.propertyName} != null and ${field.propertyName} != ''">
+            AND ${field.name} LIKE CONCAT('%',#{${field.propertyName}},'%')
+        </if>
+            #else
+        <if test="${field.propertyName} != null">
+            AND ${field.name} = #{${field.propertyName}}
+        </if>
+            #end
+        #end
+    </sql>
 #end
 </mapper>

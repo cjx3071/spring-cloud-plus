@@ -43,12 +43,12 @@
         <tomcat.version>9.0.31</tomcat.version>
         <cloud.version>1.0-SNAPSHOT</cloud.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
-        <druid.version>1.1.18</druid.version>
-        <mysql.version>8.0.18</mysql.version>
+        <druid.version>1.2.1</druid.version>
+        <mysql.version>8.0.21</mysql.version>
         <fastjson.version>1.2.58</fastjson.version>
         <!--mybatis-plus-->
-        <mybatis-plus.version>3.3.0</mybatis-plus.version>
-        <dynamic-plus.version>2.5.7</dynamic-plus.version>
+        <mybatis-plus.version>3.4.0</mybatis-plus.version>
+        <dynamic-plus.version>3.2.1</dynamic-plus.version>
         <knife4j.version>2.0.0</knife4j.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
         <alibaba-cloud.version>2.2.0.RELEASE</alibaba-cloud.version>
@@ -63,7 +63,7 @@
         <shiro.version>1.4.0</shiro.version>
         <jwt.version>3.3.0</jwt.version>
         <activiti.version>6.0.0</activiti.version>
-        <p6spy.version>3.8.0</p6spy.version>
+        <p6spy.version>3.9.1</p6spy.version>
         <easyexcel.version>2.1.4</easyexcel.version>
         <openoffice.version>1.0.3.RELEASE</openoffice.version>
         <jasypt.version>1.16</jasypt.version>

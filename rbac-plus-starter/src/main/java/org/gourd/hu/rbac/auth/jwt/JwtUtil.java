@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
@@ -91,6 +92,8 @@ public class JwtUtil {
         } catch (UnsupportedEncodingException e) {
             log.error("JWTToken认证解密出现UnsupportedEncodingException异常:{}", e.getMessage());
             throw ResponseEnum.INTERNAL_SERVER_ERROR.newException("JWTToken认证解密异常");
+        }catch (TokenExpiredException e){
+            throw new TokenExpiredException("JWTToken过期");
         }
     }
 

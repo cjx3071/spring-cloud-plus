@@ -1,14 +1,17 @@
-package org.gourd.hu;
+package org.gourd.hu.quartz.config;
 
-import com.alibaba.druid.pool.DruidDataSource;
 import org.gourd.hu.quartz.job.DemoJob;
+import org.gourd.hu.quartz.properties.QuartzDataSourceProperties;
 import org.quartz.JobDetail;
 import org.quartz.Trigger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.quartz.QuartzDataSource;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.autoconfigure.quartz.SchedulerFactoryBeanCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.core.annotation.Order;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
@@ -23,19 +26,26 @@ import java.util.TimeZone;
  */
 @Configuration
 @EnableScheduling
-public class QuartzConfiguration {
+@Import(QuartzDataSourceProperties.class)
+public class QuartzConfig {
 
     public static final String SYS_CHINA_TIMEZONE = "Asia/Shanghai";
 
-    /**
-     * 配置Quartz独立数据源的配置
-     */
+    @Autowired
+    private QuartzDataSourceProperties quartzDataSourceProperties;
+
+    private DataSource quartzDataSource;
+
+    @Order(1)
     @Bean
-    @QuartzDataSource
-    @ConfigurationProperties(prefix = "spring.datasource.dynamic.datasource.quartz")
-    public DataSource quartzDataSource(){
-        return new DruidDataSource();
+    public SchedulerFactoryBeanCustomizer schedulerFactoryBeanCustomizer() {
+        quartzDataSource = quartzDataSourceProperties.initializeDataSourceBuilder().build();
+        return schedulerFactoryBean -> {
+            schedulerFactoryBean.setDataSource(quartzDataSource);
+            schedulerFactoryBean.setTransactionManager(new DataSourceTransactionManager(quartzDataSource));
+        };
     }
+
 
     /**
      * 配置触发器tableKeyTrigger
@@ -77,7 +87,7 @@ public class QuartzConfiguration {
     public SchedulerFactoryBean schedulerFactory(@Qualifier("tableKeyTrigger") Trigger tableKeyTrigger) {
         SchedulerFactoryBean bean = new SchedulerFactoryBean();
         bean.setSchedulerName("test");
-        bean.setDataSource(this.quartzDataSource());
+        bean.setDataSource(quartzDataSource);
         // 覆盖已存在的任务
         bean.setOverwriteExistingJobs(true);
         // 延时启动定时任务，避免系统未完全启动却开始执行定时任务的情况

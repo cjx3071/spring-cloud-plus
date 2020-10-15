@@ -54,7 +54,7 @@ public class  JwtAuthFilter extends BasicHttpAuthenticationFilter {
     }
 
     @Override
-    protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
+    protected boolean executeLogin(ServletRequest request, ServletResponse response){
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String accessToken = httpServletRequest.getHeader(authProperties.getJwt().getHeader());
         JwtToken jwtToken = new JwtToken(accessToken);
@@ -77,7 +77,7 @@ public class  JwtAuthFilter extends BasicHttpAuthenticationFilter {
         if (this.isLoginAttempt(request, response)) {
             try {
                 // 进行Shiro的登录Realm
-                this.executeLogin(request, response);
+                return this.executeLogin(request, response);
             } catch (Exception e) {
                 // 认证出现异常，传递错误信息msg
                 String msg = e.getMessage();
@@ -91,7 +91,9 @@ public class  JwtAuthFilter extends BasicHttpAuthenticationFilter {
                     HttpServletRequest req = (HttpServletRequest) request;
                     String jwtToken = req.getHeader(authProperties.getJwt().getHeader());
                     if (RedisUtil.existStrAny(jwtToken)) {
-                        return JwtUtil.reNewToken(jwtToken);
+                        JwtUtil.reNewToken(jwtToken);
+                        // 进行Shiro的登录Realm
+                        return this.executeLogin(request, response);
                     }else {
                         msg = "Token已过期(" + throwable.getMessage() + ")";
                     }
@@ -122,7 +124,6 @@ public class  JwtAuthFilter extends BasicHttpAuthenticationFilter {
             this.response401(response, "请先登录");
             return false;
         }
-        return true;
     }
 
     @Override

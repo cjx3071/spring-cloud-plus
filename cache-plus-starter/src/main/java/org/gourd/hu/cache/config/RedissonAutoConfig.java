@@ -38,11 +38,13 @@ public class RedissonAutoConfig {
         }else if(redisProperties.getSentinel() != null){
             //添加哨兵配置
             config.useMasterSlaveServers().setMasterAddress(redisProperties.getSentinel().getMaster())
+                    .setDatabase(redisProperties.getDatabase())
                     .addSlaveAddress(redisProperties.getSentinel().getNodes().stream().toArray(String[]::new))
                     .setPassword(StringUtils.isBlank(redisProperties.getPassword()) ? null : redisProperties.getPassword());
         }else {
             //单节点
-            config.useSingleServer().setAddress("redis://" + redisProperties.getHost() + ":" + redisProperties.getPort())
+            config.useSingleServer().setDatabase(redisProperties.getDatabase())
+                    .setAddress("redis://" + redisProperties.getHost() + ":" + redisProperties.getPort())
                     .setPassword(StringUtils.isBlank(redisProperties.getPassword()) ? null : redisProperties.getPassword());
         }
         return Redisson.create(config);

@@ -50,14 +50,6 @@ spring:
           driver-class-name: com.p6spy.engine.spy.P6SpyDriver
           username: root
           password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
-          # 不加这个会报错(testWhileIdle is true, validationQuery not set)
-          validation-query: ${spring.datasource.dynamic.druid.validation-query}
-        slave:
-          url: jdbc:p6spy:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
-          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-          username: root
-          password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
-          validation-query: ${spring.datasource.dynamic.druid.validation-query}
       # druid
       druid:
         # 初始化时建立物理连接的个数

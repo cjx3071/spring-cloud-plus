@@ -48,7 +48,7 @@ public class ShiroRealm extends AuthorizingRealm {
         if (StringUtils.isNotBlank(RedisUtil.getStr(token)) && JwtUtil.verify(RedisUtil.getStr(token))) {
             return new SimpleAuthenticationInfo(token, token, this.getClass().getName());
         }
-        throw new AuthenticationException("Token已过期(Token expired or incorrect.)");
+        throw new AuthenticationException("Token验证失败(Token expired or incorrect.)");
     }
 
 
@@ -73,7 +73,7 @@ public class ShiroRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         Map<String, Claim> claims = JwtUtil.getClaims(accessToken);
         if(MapUtils.isEmpty(claims)){
-            throw new UnauthorizedException("Token已过期(Token expired or incorrect.)");
+            throw new UnauthorizedException("Token验证失败(Token expired or incorrect.)");
         }
         // 解析角色和权限
         List<String> roles = claims.get(JwtConstant.JWT_ROLES_KEY).asList(String.class);

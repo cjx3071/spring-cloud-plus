@@ -45,6 +45,11 @@
             <artifactId>p6spy</artifactId>
             <version>${p6spy.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.klboke</groupId>
+            <artifactId>p6spy-spring-boot-starter</artifactId>
+            <version>1.0</version>
+        </dependency>
         <!--Druid连接池-->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -67,7 +72,7 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
-        <!--mybatis-plus 动态数据源-->
+        <!--mybatis-plus 动态数据源：https://baomidou.gitee.io/dynamic-datasource-doc/guide/ -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>

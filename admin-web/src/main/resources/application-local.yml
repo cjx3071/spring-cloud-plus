@@ -157,32 +157,29 @@ spring:
         url-pattern: "/*"
         exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
     dynamic:
+      seata: true    #开启seata代理，开启后默认每个数据源都代理，如果某个不需要代理可单独关闭
       primary: master #设置默认的数据源或者数据源组,默认值即为master
       datasource:
         master:
-          url: jdbc:p6spy:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
-          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+          url: jdbc:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
+          driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
-          validation-query: ${spring.datasource.dynamic.druid.validation-query}
         slave:
-          url: jdbc:p6spy:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
-          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+          url: jdbc:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
+          driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
-          validation-query: ${spring.datasource.dynamic.druid.validation-query}
         activiti:
           url: jdbc:mysql://111.231.111.150:3306/activiti?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
           driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
-          validation-query: ${spring.datasource.dynamic.druid.validation-query}
         quartz:
           url: jdbc:mysql://111.231.111.150:3306/quartz?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
           driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
-          validation-query: ${spring.datasource.dynamic.druid.validation-query}
       # druid
       druid:
         # 初始化时建立物理连接的个数
@@ -212,7 +209,7 @@ spring:
             merge-sql: true
             slow-sql-millis: 5000
         #  配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-        filters: stat,wall,logback,config
+        filters: stat,wall,config
   # thymeleaf
   thymeleaf:
     prefix: classpath:/templates/
@@ -294,6 +291,13 @@ spring:
       max-redirects: 3  # 获取失败 最大重定向次数
       scan-interval: 5000
     timeout: 6000  # 连接超时时长（毫秒）
+
+  # redis
+#  redis:
+#    timeout: 6000  # 连接超时时长（毫秒）
+#    host: 111.231.111.150
+#    port: 6379
+#    database: 10
 
   # 缓存
   cache:
@@ -426,7 +430,7 @@ fdfs:
 seata:
   enabled: true
   application-id: ${spring.application.name}
-  enableAutoDataSourceProxy: true
+  enable-auto-data-source-proxy: false #一定要是false
   tx-service-group: ${spring.application.name}
   service:
     disable-global-transaction: false
@@ -528,6 +532,17 @@ kaptcha:
     enabled: true
     color: black
     thickness: 1
+
+# p6spy配置
+p6spy:
+  config:
+    enabled: true
+    modulelist: com.baomidou.mybatisplus.extension.p6spy.MybatisPlusLogFactory,com.p6spy.engine.outage.P6OutageFactory
+    #appender: com.p6spy.engine.spy.appender.Slf4JLogger # 使用日志系统记录 sql
+    appender: com.baomidou.mybatisplus.extension.p6spy.StdoutLogger # 日志输出到控制台
+    logMessageFormat: com.baomidou.mybatisplus.extension.p6spy.P6SpyLogger # 自定义日志打印
+    dateformat: yyyy-MM-dd HH:mm:ss # 日期格式
+
 
 # ftp配置
 ftp:
