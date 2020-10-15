@@ -91,6 +91,7 @@ public class  JwtAuthFilter extends BasicHttpAuthenticationFilter {
                     HttpServletRequest req = (HttpServletRequest) request;
                     String jwtToken = req.getHeader(authProperties.getJwt().getHeader());
                     if (RedisUtil.existStrAny(jwtToken)) {
+                        log.info("Token自动续期");
                         JwtUtil.reNewToken(jwtToken);
                         // 进行Shiro的登录Realm
                         return this.executeLogin(request, response);

@@ -63,7 +63,7 @@
         <shiro.version>1.4.0</shiro.version>
         <jwt.version>3.3.0</jwt.version>
         <activiti.version>6.0.0</activiti.version>
-        <p6spy.version>3.9.1</p6spy.version>
+        <p6spy.version>1.6.2</p6spy.version>
         <easyexcel.version>2.1.4</easyexcel.version>
         <openoffice.version>1.0.3.RELEASE</openoffice.version>
         <jasypt.version>1.16</jasypt.version>
