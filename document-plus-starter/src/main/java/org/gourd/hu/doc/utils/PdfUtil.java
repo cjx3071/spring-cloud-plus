@@ -127,6 +127,9 @@ public class PdfUtil {
         ITextFontResolver fontResolver = renderer.getFontResolver();
         //避免中文为空设置系统字体
         fontResolver.addFont("static/fonts/simsun.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+        // 如果linux下有问题，可使用以下方式解决。
+        // 有一个项目是用docker部署的，一直报错找不到simsun.ttf文件，但需要将simsun.ttf上传到/usr/share/fonts
+        //fontResolver.addFont(CommonUtil.isLinux() ? "/usr/share/fonts/simsun.ttf" : "static/fonts/simsun.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
 
         //根据参数集个数循环调用模板,追加到同一个pdf文档中
         //(注意:此处从1开始,因为第0是创建pdf,从1往后则向pdf中追加内容)

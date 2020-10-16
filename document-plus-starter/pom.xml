@@ -53,11 +53,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--FlyingSaucer-->
+        <!--itext-->
         <dependency>
-            <groupId>org.xhtmlrenderer</groupId>
-            <artifactId>flying-saucer-pdf</artifactId>
-            <version>${flying-saucer.version}</version>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>${itext.version}</version>
         </dependency>
         <!--html2image-->
         <dependency>

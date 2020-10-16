@@ -14,37 +14,33 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "auth")
 public class AuthProperties {
-
     /**
-     * 忽略校验
+     * 忽略校验的路径
      */
     private String[] ignores;
-
+    /**
+     * jwt相关配置
+     */
     private JwtConfig jwt;
 
     @Data
     public static class JwtConfig {
-
+        /**
+         * jwt自定义请求头key
+         */
         private String header;
         /**
          * 密钥
          */
         private String encryptJWTKey;
-
         /**
-         * AccessToken过期时间
+         * JWT过期时间（单位s）
          */
         private Long accessTokenExpireTime ;
-
         /**
-         * RefreshToken过期时间
+         * JWT续期时间（单位s），即token过期后，此时间内操作会自动续期。
          */
         private Long refreshTokenExpireTime;
-        /**
-         * Shiro缓存过期时间-5分钟-5*60(秒为单位)(一般设置与AccessToken过期时间一致)
-         */
-        private Long shiroCacheExpireTime;
     }
-
 }
 
