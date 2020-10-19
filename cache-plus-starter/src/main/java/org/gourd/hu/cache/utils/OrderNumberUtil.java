@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class OrderNumberUtil {
 
+    public static final int INIT_NUMBER = 1;
+
     /**
      * 获取当天的自增订单
      * @return
@@ -22,9 +24,9 @@ public class OrderNumberUtil {
         if(RedisUtil.existAny(nowDateStr)){
             number = RedisUtil.incr(nowDateStr,1);
         }else {
-            RedisUtil.setExpire(nowDateStr,String.valueOf(number),24*60*60L);
+            RedisUtil.setExpire(nowDateStr, INIT_NUMBER,24*60*60L);
         }
-        return nowDateStr + StringUtils.leftPad(String.valueOf(number), 4, '0');
+        return nowDateStr + StringUtils.leftPad(String.valueOf(number), 6, '0');
     }
 
 

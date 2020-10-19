@@ -570,6 +570,7 @@ auth:
     - "/quartz/**"
     - "/test/**"
     - "/cloud/**"
+    - "/cache/**"
     - "/mq/**"
     - "/kaptcha/**"
     - "/activiti/**"

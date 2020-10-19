@@ -69,6 +69,7 @@
         <jasypt.version>1.16</jasypt.version>
         <kaptcha.version>1.1.0</kaptcha.version>
         <pinyin.version>2.5.1</pinyin.version>
+        <flying-saucer.version>9.1.9</flying-saucer.version>
         <itext.version>2.1.7</itext.version>
         <emoji-java.version>5.1.1</emoji-java.version>
         <hdrhistogram.version>2.1.1</hdrhistogram.version>
