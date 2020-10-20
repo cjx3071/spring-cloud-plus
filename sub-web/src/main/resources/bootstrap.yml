@@ -3,8 +3,16 @@ spring:
     active: local
   application:
     name: sub
+
 server:
   port: 10002
+  servlet:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+  # 开启优雅停机
+  shutdown: graceful
 # 日志
 logging:
   file:

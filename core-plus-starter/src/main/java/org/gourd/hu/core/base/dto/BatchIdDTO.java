@@ -18,6 +18,6 @@ import java.util.List;
 public class BatchIdDTO<T> {
 
     @ApiModelProperty(value = "id集合",required = true)
-    @NotNull
+    @NotNull(message = "id集合不能为空")
     private List<T> ids;
 }

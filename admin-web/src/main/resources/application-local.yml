@@ -7,12 +7,20 @@ server:
     key-store-password: 123456
     key-store-type: pkcs12
     key-alias: gourd
+  servlet:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+  # 开启优雅停机
+  shutdown: graceful
 # 日志
 logging:
   file:
     path: ./logs
   level:
     root: info
+    org.mybatis: debug  #mybatis日志
   operate:
     all: true
     type: POST,DELETE,PUT,PATCH
@@ -27,6 +35,9 @@ jasypt:
 
 # spring配置
 spring:
+  lifecycle:
+    # 设置缓冲期，最大等待时间，默认30s
+    timeout-per-shutdown-phase: 30s
   cloud:
     # nacos-配置
     nacos:
@@ -103,10 +114,6 @@ spring:
             ruleType: PARAM_FLOW
             server-addr: ${spring.cloud.nacos.config.server-addr}
             namespace: ${spring.cloud.nacos.config.namespace}
-    # 这里配置分组
-    alibaba:
-      seata:
-        tx-service-group: ${spring.application.name}-seata-service-group
     # 短信
     alicloud:
       access-key: ENC(VE61YIYweeEsuhe9Mf+LzBn4bo0MKIRU9vQhZd0FaLs=)
@@ -131,11 +138,6 @@ spring:
     static-path-pattern: /**
     async:
       request-timeout: 60000 # 设置接口超时时间60s
-  http:
-    encoding:
-      force: true
-      enabled: true
-      charset: UTF-8
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -170,16 +172,19 @@ spring:
           driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
+          seata: false #这个数据源不需要seata
         activiti:
           url: jdbc:mysql://111.231.111.150:3306/activiti?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
           driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
+          seata: false #这个数据源不需要seata
         quartz:
           url: jdbc:mysql://111.231.111.150:3306/quartz?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
           driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
+          seata: false #这个数据源不需要seata
       # druid
       druid:
         # 初始化时建立物理连接的个数
@@ -431,13 +436,16 @@ seata:
   enabled: true
   application-id: ${spring.application.name}
   enable-auto-data-source-proxy: false #一定要是false
-  tx-service-group: ${spring.application.name}
+  tx-service-group: admin-tx_group
   service:
-    disable-global-transaction: false
+    vgroup-mapping:
+      admin-tx_group: default  #key与上面的tx-service-group的值对应
   registry:
     type: nacos
     nacos:
-      server-addr: 111.231.111.150:8848
+      server-addr: ${spring.cloud.nacos.config.server-addr}
+      namespace: 0f342584-17a7-4247-8496-77817c889e2e
+      group: SEATA_GROUP
       cluster: default
 
 # 定时任务执行ip地址
@@ -485,22 +493,16 @@ feign:
     enabled: true
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: "*" #暴露所有节点
-    logfile:
-      external-file: ./logs
-    health:
-      mail:
-        enabled: false
-      elasticsearch:
-        enabled: false
-      elasticsearchRest:
-        enabled: false
   endpoint:
     health:
-      show-details: ALWAYS  #显示详细信息
+      show-details: always # 显示健康详情
+    shutdown:
+      enabled: true # 开启shutdown端点访问
+  endpoints:
+    web:
+      base-path: /actuator # 访问根路径
+      exposure:
+        include: "*" # 开启除了shutdown以外的所有端点访问
 
   #MyBatisPlus
   #文档： https://mp.baomidou.com/config/#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE

@@ -31,14 +31,14 @@ public class CloudTestServiceImpl implements CloudTestService {
     @Override
     public void testSeata(){
         jdbcTemplate.update(
-                "update sys_tenant set name = ? where id = ?",new Object[] { "seata1", 2 });
+                "update sys_tenant set name = ? where id = ?","seata1", 2 );
     }
 
     @Override
     public Boolean testSeataTccPrepare(@RequestBody Map params){
         log.info("一阶段准备:{}",RootContext.getXID());
         jdbcTemplate.update(
-                "update sys_tenant set name = ? where id = ?",new Object[] { "seata1", 2 });
+                "update sys_tenant set name = ? where id = ?", "seata1", 2 );
         if(true){
             throw new RuntimeException("模拟异常");
         }

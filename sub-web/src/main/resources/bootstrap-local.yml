@@ -1,9 +1,6 @@
 # spring配置
 spring:
   cloud:
-    alibaba:
-      seata:
-        tx-service-group: ${spring.application.name}-seata-service-group
     # nacos-配置
     nacos:
       # 配置中心
@@ -42,32 +39,26 @@ spring:
     static-path-pattern: /**
     async:
       request-timeout: 20000 # 设置接口超时时间20s
-  http:
-    encoding:
-      force: true
-      enabled: true
-      charset: UTF-8
   jackson:
     data-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
     default-property-inclusion: NON_NULL #not_null如果有null默认过滤
+
 # seata 分布式事务
 seata:
   enabled: true
-  enableAutoDataSourceProxy: true
-  tx-service-group: sub
+  application-id: ${spring.application.name}
+  enable-auto-data-source-proxy: false #一定要是false
+  tx-service-group: sub-tx-group
   service:
-    disable-global-transaction: false
-    grouplist:
-      # seata seaver的 地址配置，此处可以集群配置是个数组
-      default: 111.231.111.150:8091
     vgroup-mapping:
-      # key一定要与tx-service-group一致
-      sub: default
+      sub-tx-group: seata-server  #key与上面的tx-service-group的值对应
   registry:
     type: nacos
     nacos:
-      server-addr: 111.231.111.150:8848
+      server-addr: ${spring.cloud.nacos.config.server-addr}
+      namespace: 0f342584-17a7-4247-8496-77817c889e2e
+      group: SEATA_GROUP
       cluster: default
 
 # feign 配置

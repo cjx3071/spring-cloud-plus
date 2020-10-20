@@ -46,8 +46,8 @@ spring:
       primary: master #设置默认的数据源或者数据源组,默认值即为master
       datasource:
         master:
-          url: jdbc:p6spy:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
-          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+          url: jdbc:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
+          driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
       # druid
@@ -95,15 +95,13 @@ spring:
     timeout: 6000  # 连接超时时长（毫秒）
 
 management:
-  endpoints:
-    web:
-      exposure:
-        include: "*" #暴露所有节点
-    logfile:
-      external-file: ./logs
-    health:
-      mail:
-        enabled: false
   endpoint:
     health:
-      show-details: ALWAYS  #显示详细信息
+      show-details: always # 显示健康详情
+    shutdown:
+      enabled: true # 开启shutdown端点访问
+  endpoints:
+    web:
+      base-path: /actuator # 访问根路径
+      exposure:
+        include: "*" # 开启除了shutdown以外的所有端点访问
