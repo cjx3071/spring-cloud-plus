@@ -53,7 +53,7 @@ public class CloudTestServiceImpl implements CloudTestService {
     @Override
     public void seataAtTest(){
         jdbcTemplate.update(
-                "update rbac_depart set name = ? where id = ?", "seata", 1 );
+                "update rbac_org set name = ? where id = ?", "seata", 1 );
         log.info("同步调用");
         BaseResponse subRes = subApi.seataAtTest();
         log.info("response:"+ JSON.toJSONString(subRes));
