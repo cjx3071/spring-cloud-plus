@@ -127,9 +127,6 @@ spring:
     baselineOnMigrate: true  # 设置为true，当迁移发现数据库非空且存在没有元数据的表时，自动执行基准迁移
     locations: classpath:/db/ #可以配置多个值
 
-    # 排除原生Druid的快速配置类
-  autoconfigure:
-    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
   # mvc
   mvc:
     # 404 直接抛异常
@@ -146,18 +143,20 @@ spring:
     store-type: redis
   # 数据库配置
   datasource:
-    druid:
-      # 访问地址：ip+port/druid/index.html
-      stat-view-servlet:
-        enabled: true
-        url-pattern: "/druid/*"
-        reset-enable: true
-        login-username: admin
-        login-password: 123456
-      web-stat-filter:
-        enabled: true
-        url-pattern: "/*"
-        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      # 用于测试连接是否可用的查询语句
+      connection-test-query: SELECT 1
+      # 连接超时时间：毫秒，小于250毫秒，否则被重置为默认值30秒
+      connection-timeout: 60000
+      # 空闲连接超时时间，默认值600000（10分钟）
+      idle-timeout: 60000
+      # 连接最大存活时间，不等于0且小于30秒，会被重置为默认值30分钟.设置应该比mysql设置的超时时间短
+      max-lifetime: 600000
+      # 最大连接数
+      maximum-pool-size: 50
+      # 最小空闲连接，默认值10
+      minimum-idle: 10
     dynamic:
       seata: true    #开启seata代理，开启后默认每个数据源都代理，如果某个不需要代理可单独关闭
       primary: master #设置默认的数据源或者数据源组,默认值即为master
@@ -185,36 +184,6 @@ spring:
           username: root
           password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
           seata: false #这个数据源不需要seata
-      # druid
-      druid:
-        # 初始化时建立物理连接的个数
-        initial-size: 5
-        # 获取连接时最大等待时间，单位毫秒
-        max-wait: 60000
-        # 最小连接池数量
-        min-idle: 1
-        # 最大连接池数量
-        max-active: 20
-        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-        time-between-eviction-runs-millis: 60000
-        # 配置一个连接在池中最小生存的时间，单位是毫秒
-        min-evictable-idle-time-millis: 300000
-        validation-query: select 1 FROM DUAL
-        test-while-idle: true
-        test-on-borrow: false
-        test-on-return: false
-        # 打开PSCache，并且指定每个连接上PSCache的大小
-        pool-prepared-statements: true
-        max-open-prepared-statements: 50
-        max-pool-prepared-statement-per-connection-size: 20
-        filter:
-          # 打开mergeSql功能；慢SQL记录
-          stat:
-            log-slow-sql: true
-            merge-sql: true
-            slow-sql-millis: 5000
-        #  配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-        filters: stat,wall,config
   # thymeleaf
   thymeleaf:
     prefix: classpath:/templates/
@@ -263,23 +232,36 @@ spring:
       initialize-schema: never
     #设置quartz任务的数据持久化方式，默认是内存方式
     job-store-type: jdbc
+    # 关闭时等待任务完成
+    wait-for-jobs-to-complete-on-shutdown: true
+    # 可以覆盖已有的任务
+    overwrite-existing-jobs: true
     properties:
       org:
         quartz:
           scheduler:
+            # 调度器实例名称
             instanceName: etlCleanScheduler
+            # 调度器实例ID自动生成
             instanceId: AUTO
           jobStore:
+            # 调度信息存储处理类
             class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            # 使用完全兼容JDBC的驱动
             driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
-            tablePrefix: QRTZ_  #Quartz表前缀
+            # Quartz表前缀
+            tablePrefix: QRTZ_
+            # 是否集群
             isClustered: true
             clusterCheckinInterval: 10000
+            # 是否将JobDataMap中的属性转为字符串存储
             useProperties: false
           threadPool:
+            # 指定线程池实现类，对调度器提供固定大小的线程池
             class: org.quartz.simpl.SimpleThreadPool
-            #线程数 一个任务使用一个线程
+            # 设置并发线程数量
             threadCount: 100
+            # 指定线程优先级
             threadPriority: 5
             threadsInheritContextClassLoaderOfInitializingThread: true
 
@@ -568,6 +550,7 @@ auth:
     - "/excel/**"
     - "/file/**"
     - "/document/**"
+    - "/csv/**"
     - "/user-es/**"
     - "/quartz/**"
     - "/test/**"
@@ -594,7 +577,6 @@ auth:
     - "*.png"
     - "*.ico"
     - "/favicon.ico"
-    - "/druid/**"
     - "/public/**"
     - "/actuator/**"
     - "/swagger-ui.html"

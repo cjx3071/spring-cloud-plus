@@ -110,7 +110,6 @@ auth:
     - "*.png"
     - "*.ico"
     - "/favicon.ico"
-    - "/druid/**"
     - "/public/**"
     - "/actuator/**"
     - "/swagger-ui.html"

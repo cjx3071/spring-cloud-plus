@@ -16,7 +16,6 @@ public class Base64ConvertUtil {
      * 加密JDK1.8
      * @param str
      * @return java.lang.String
-     * @author dolyw.com
      * @date 2018/8/21 15:28
      */
     public static String encode(String str) throws UnsupportedEncodingException {
@@ -28,7 +27,6 @@ public class Base64ConvertUtil {
      * 解密JDK1.8
      * @param str
      * @return java.lang.String
-     * @author dolyw.com
      * @date 2018/8/21 15:28
      */
     public static String decode(String str) throws UnsupportedEncodingException {

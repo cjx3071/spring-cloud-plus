@@ -47,12 +47,14 @@ public enum ResponseEnum implements BusinessExceptionAssert {
     SIGN_EXPIRED(7003, "请求已经失效."),
 
     FTP_REFUSE_CONNECT(5001,"FTP服务器拒绝连接"),
+    FILE_NOT_EXIST(5004,"文件不存在"),
     FILE_PATH_NOT_EXIST(5004,"文件路径不存在:{}"),
     FTP_LOGIN_FAIL(5002,"ftp登录失败"),
     FILE_CREATE_FAIL(5003,"目录创建失败:{}"),
     FILE_UPLOAD_FAIL(5005,"文件上传失败:{}"),
     FILE_DOWNLOAD_FAIL(5005,"文件下载失败:{}"),
     FILE_DELETE_FAIL(5005,"文件删除失败:{}"),
+
     ;
 
     /**

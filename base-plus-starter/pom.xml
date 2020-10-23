@@ -16,6 +16,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 使用undertow 作为web服务器 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
         <!--   autoconfigure     -->
         <dependency>
@@ -44,11 +55,6 @@
             <groupId>com.github.gavlyukovskiy</groupId>
             <artifactId>p6spy-spring-boot-starter</artifactId>
             <version>${p6spy.version}</version>
-        </dependency>
-        <!--Druid连接池-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
         <!-- thymeleaf -->
         <dependency>

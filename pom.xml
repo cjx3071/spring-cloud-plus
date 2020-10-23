@@ -43,7 +43,6 @@
         <tomcat.version>9.0.31</tomcat.version>
         <cloud.version>1.0-SNAPSHOT</cloud.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
-        <druid.version>1.2.1</druid.version>
         <mysql.version>8.0.21</mysql.version>
         <fastjson.version>1.2.58</fastjson.version>
         <!--mybatis-plus-->
@@ -75,16 +74,11 @@
         <hdrhistogram.version>2.1.1</hdrhistogram.version>
         <hutool.version>5.2.1</hutool.version>
         <image.version>2.0.1</image.version>
+        <csv.version>1.8</csv.version>
     </properties>
     <!--依赖统一管理-->
     <dependencyManagement>
         <dependencies>
-            <!--连接池-->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.version}</version>
-            </dependency>
             <!--数据库-->
             <dependency>
                 <groupId>mysql</groupId>

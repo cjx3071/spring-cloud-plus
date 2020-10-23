@@ -65,7 +65,12 @@
             <artifactId>html2image</artifactId>
             <version>${image.version}</version>
         </dependency>
-
+        <!--csv-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>${csv.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -25,7 +25,8 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 ### 附
 项目所涉及的技术栈文章：  
  **springboot:**  [https://www.breakyizhan.com/springboot/3028.html](https://www.breakyizhan.com/springboot/3028.html)  
- **druid:**  [https://gitee.com/wenshao/druid/blob/master/druid-spring-boot-starter/README.md](https://gitee.com/wenshao/druid/blob/master/druid-spring-boot-starter/README.md)  
+ **druid:**  [https://gitee.com/wenshao/druid/blob/master/druid-spring-boot-starter/README.md](https://gitee.com/wenshao/druid/blob/master/druid-spring-boot-starter/README.md)
+ **hikariCP配置:**  [https://my.oschina.net/u/2300159/blog/1816537](https://my.oschina.net/u/2300159/blog/1816537)  
  **knife4j接口文档：**  [https://doc.xiaominfo.com/guide/useful.html](https://doc.xiaominfo.com/guide/useful.html)  
  **mybatis-plus：**  [https://baomidou.com/guide/](https://baomidou.com/guide/)  
  **动态数据源：**  [https://baomidou.gitee.io/dynamic-datasource-doc/guide/](https://baomidou.gitee.io/dynamic-datasource-doc/guide/)  
