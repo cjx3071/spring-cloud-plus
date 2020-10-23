@@ -1,6 +1,7 @@
 package org.gourd.hu;
 
 import lombok.extern.slf4j.Slf4j;
+import org.gourd.hu.core.constant.ConsoleColors;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -33,7 +34,7 @@ public class AdminWebApplication {
                 .properties("--spring.profiles.active=local")
                 .web(WebApplicationType.SERVLET)
                 .run(args);
-        log.info(">o< admin服务启动成功！温馨提示：代码千万行，注释第一行，命名不规范，同事泪两行 >o<");
+        log.info(ConsoleColors.BLUE_BOLD + ">o< admin服务启动成功！温馨提示：代码千万行，注释第一行，命名不规范，同事泪两行 >o<" + ConsoleColors.RESET);
         Environment env = application.getEnvironment();
         // 是否启用https
         boolean httpsFlag = Boolean.valueOf(env.getProperty("server.ssl.enabled"));
