@@ -33,11 +33,11 @@ public class AdminWebApplication {
                 .properties("--spring.profiles.active=local")
                 .web(WebApplicationType.SERVLET)
                 .run(args);
-        log.warn(">o< admin服务启动成功！温馨提示：代码千万行，注释第一行，命名不规范，同事泪两行 >o<");
+        log.info(">o< admin服务启动成功！温馨提示：代码千万行，注释第一行，命名不规范，同事泪两行 >o<");
         Environment env = application.getEnvironment();
         // 是否启用https
         boolean httpsFlag = Boolean.valueOf(env.getProperty("server.ssl.enabled"));
-        log.info("Swagger文档: \t\t{}://{}:{}/doc.html",httpsFlag?"https":"http",InetAddress.getLocalHost().getHostAddress(),
+        log.info("接口文档: {}://{}:{}/doc.html",httpsFlag?"https":"http",InetAddress.getLocalHost().getHostAddress(),
                 env.getProperty("server.port"));
     }
 }

@@ -22,6 +22,6 @@ public class SubWebApplication {
                 .properties("--spring.profiles.active=local")
                 .web(WebApplicationType.SERVLET)
                 .run(args);
-        log.warn(">o< sub服务启动成功！温馨提示：代码千万行，注释第一行，命名不规范，同事泪两行 >o<");
+        log.info(">o< sub服务启动成功！温馨提示：代码千万行，注释第一行，命名不规范，同事泪两行 >o<");
     }
 }

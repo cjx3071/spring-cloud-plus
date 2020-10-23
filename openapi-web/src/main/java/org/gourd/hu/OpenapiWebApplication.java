@@ -26,7 +26,7 @@ public class OpenapiWebApplication {
                 .properties("--spring.profiles.active=local")
                 .web(WebApplicationType.SERVLET)
                 .run(args);
-        log.warn(">o< 开放平台服务启动成功！温馨提示：代码千万行，注释第一行，命名不规范，同事泪两行 >o<");
+        log.info(">o< 开放平台服务启动成功！温馨提示：代码千万行，注释第一行，命名不规范，同事泪两行 >o<");
     }
 
     @Bean
