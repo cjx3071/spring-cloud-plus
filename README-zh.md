@@ -44,6 +44,6 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
  **kafka：** [https://kafka.apachecn.org/intro.html](https://kafka.apachecn.org/intro.html)  
  **elasticSearch:**  [https://www.elastic.co/guide/en/elasticsearch/reference/6.0/getting-started.html](https://www.elastic.co/guide/en/elasticsearch/reference/6.0/getting-started.html)   
  **netty-websocket:**  [https://gitee.com/Yeauty/netty-websocket-spring-boot-starter/blob/master/README_zh.md](https://gitee.com/Yeauty/netty-websocket-spring-boot-starter/blob/master/README_zh.md)   
- **quartz:**  [https://www.w3cschool.cn/quartz_doc/quartz_doc-ml8e2d9m.html](https://www.w3cschool.cn/quartz_doc/quartz_doc-ml8e2d9m.html) 
+ **quartz:**  [https://www.w3cschool.cn/quartz_doc/quartz_doc-ml8e2d9m.html](https://www.w3cschool.cn/quartz_doc/quartz_doc-ml8e2d9m.html)    
  **logback:**  [http://www.logback.cn/](http://www.logback.cn/)  
  **knife4j:**  [https://doc.xiaominfo.com/guide/useful.html](https://doc.xiaominfo.com/guide/useful.html)  
