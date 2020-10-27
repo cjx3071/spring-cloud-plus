@@ -29,7 +29,8 @@
     </springProfile>
 
     <!-- 日志文件名称-->
-    <property name="LOG_PREFIX" value="log-" />
+    <property name="INFO_LOG_PREFIX" value="info-log-" />
+    <property name="ERROR_LOG_PREFIX" value="error-log-" />
     <!-- 日志文件编码-->
     <property name="LOG_CHARSET" value="UTF-8" />
     <!-- 日志文件路径+日期-->
@@ -68,11 +69,12 @@
         <!-- 添加附加的appender,最多只能添加一个 -->
         <appender-ref ref="STDOUT"/>
     </appender>
-    <!-- 按照每天每小时生成日志文件 -->
-    <appender name="DAILY_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+    <!-- 按照每天每小时生成INFO日志文件 -->
+    <appender name="DAILY_INFO_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_DIR}/${LOG_PREFIX}%d{yyyy-MM-dd.HH}.log</FileNamePattern>
+            <FileNamePattern>${LOG_DIR}/${INFO_LOG_PREFIX}%d{yyyy-MM-dd.HH}.log</FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>${MAX_HISTORY}</MaxHistory>
         </rollingPolicy>
@@ -87,12 +89,45 @@
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>${MAX_FILE_SIZE}</MaxFileSize>
         </triggeringPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>${LOG_ROOT_LEVEL}</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
     </appender>
-    <appender name="ASYNC_DAILY_LOG" class="ch.qos.logback.classic.AsyncAppender">
-        <discardingThreshold>0</discardingThreshold>
-        <queueSize>256</queueSize>
-        <appender-ref ref="DAILY_LOG"/>
+
+    <!-- 按照每天每小时生成ERROR日志文件 -->
+    <appender name="DAILY_ERROR_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${LOG_DIR}/${ERROR_LOG_PREFIX}%d{yyyy-MM-dd.HH}.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>${MAX_HISTORY}</MaxHistory>
+        </rollingPolicy>
+        <!--<encoder class="com.kedacom.ctsp.query.feign.rewrite.PatternLayoutEncoderReWrite">-->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder" charset="UTF-8">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <!-- 设置字符集 -->
+            <charset>${LOG_CHARSET}</charset>
+        </encoder>
+        <!--日志文件最大的大小-->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>${MAX_FILE_SIZE}</MaxFileSize>
+        </triggeringPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>ERROR</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
     </appender>
+
     <!--
         <logger>用来设置某一个包或者具体的某一个类的日志打印级别、
         以及指定<appender>。<logger>仅有一个name属性，
@@ -143,7 +178,8 @@
     -->
     <root level="${LOG_ROOT_LEVEL}" >
         <appender-ref ref="ASYNC_CONSOLE"/>
-        <appender-ref ref="ASYNC_DAILY_LOG"/>
+        <appender-ref ref="DAILY_INFO_LOG"/>
+        <appender-ref ref="DAILY_ERROR_LOG"/>
     </root>
 
 </configuration>

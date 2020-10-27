@@ -4,7 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.gourd.hu.base.response.BaseResponse;
-import org.gourd.hu.doc.file.client.FastDfsClient;
+import org.gourd.hu.doc.fastdfs.FastDfsClient;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,7 +43,7 @@ public class FileController {
     @PostMapping("/fast-image")
     @ApiOperation(value="fastDfs上传图片")
     public BaseResponse fastDfsImage(MultipartFile file){
-        String filePath = FastDfsClient.uploadImageAndCrtThumbImage(file);
+        String filePath = FastDfsClient.uploadImage(file);
         if(StringUtils.isNotEmpty(filePath)){
             String resAccessUrl = FastDfsClient.getResAccessUrl(filePath);
             return BaseResponse.ok("图片上传成功",resAccessUrl);

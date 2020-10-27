@@ -27,9 +27,9 @@ logging:
     path: ./logs
   level:
     root: info
-    org.mybatis: debug  #mybatis日志
   operate:
     all: true
+    # all为true时生效
     type: POST,DELETE,PUT,PATCH
     # 操作记录日志过期天数，默认30
     expire:
@@ -403,6 +403,8 @@ fdfs:
   soTimeout: 1500
   # 连接tracker服务器超时时长
   connectTimeout: 600
+  # 组名称
+  group-name: gourd
   pool:
     # 从池中借出的对象的最大数目
     max-total: 200
@@ -415,10 +417,10 @@ fdfs:
     height: 150
   # 跟踪服务器tracker_server请求地址,支持多个
   trackerList:
-    - 47.103.5.190:22122
+    - 111.231.111.150:22122
   #
   # 存储服务器storage_server访问地址
-  web-server-url: http://47.103.5.190/
+  web-server-url: http://111.231.111.150:8888/
 
 # seata 分布式事务
 seata:
