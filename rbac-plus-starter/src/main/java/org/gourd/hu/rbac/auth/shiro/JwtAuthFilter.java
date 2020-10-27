@@ -10,6 +10,7 @@ import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.gourd.hu.base.holder.SpringContextHolder;
 import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.cache.utils.RedisUtil;
+import org.gourd.hu.core.constant.ConsoleColors;
 import org.gourd.hu.core.constant.HeaderConstant;
 import org.gourd.hu.core.utils.JsonConvertUtil;
 import org.gourd.hu.rbac.auth.jwt.JwtToken;
@@ -46,7 +47,7 @@ public class  JwtAuthFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         if(authProperties == null ){
-            authProperties = SpringContextHolder.getBean("authProperties",AuthProperties.class);
+            authProperties = SpringContextHolder.getBean(AuthProperties.class);
         }
         HttpServletRequest req = (HttpServletRequest) request;
         String jwtToken = req.getHeader(authProperties.getJwt().getHeader());
@@ -91,7 +92,7 @@ public class  JwtAuthFilter extends BasicHttpAuthenticationFilter {
                     HttpServletRequest req = (HttpServletRequest) request;
                     String jwtToken = req.getHeader(authProperties.getJwt().getHeader());
                     if (RedisUtil.existStrAny(jwtToken)) {
-                        log.info("Token自动续期");
+                        log.info(ConsoleColors.GREEN_BOLD + "Token自动续期" + ConsoleColors.RESET);
                         JwtUtil.reNewToken(jwtToken);
                         // 进行Shiro的登录Realm
                         return this.executeLogin(request, response);

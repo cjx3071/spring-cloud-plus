@@ -55,10 +55,25 @@ public class DateUtil {
      * @param dateStr
      * @return
      */
-    public static String transferToStandard(String dateStr) {
+    public static String transferToStandardStr(String dateStr) {
         try {
             Date date = DateUtils.parseDate(dateStr, parsePatterns);
             return date2Str(date,DATE_FORMAT_DEFAULT);
+        } catch (ParseException e) {
+            // 日期格式不对
+            log.error(e.getMessage(),e);
+        }
+        return null;
+    }
+
+    /**
+     * 将日期转化为标准格式
+     * @param dateStr
+     * @return
+     */
+    public static Date transferToStandard(String dateStr) {
+        try {
+            return DateUtils.parseDate(dateStr, parsePatterns);
         } catch (ParseException e) {
             // 日期格式不对
             log.error(e.getMessage(),e);

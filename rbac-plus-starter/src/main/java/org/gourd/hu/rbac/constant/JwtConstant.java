@@ -8,6 +8,16 @@ package org.gourd.hu.rbac.constant;
  */
 public class JwtConstant {
 
+    /**
+     * 所有权限标识
+     */
+    public static final String ALL_PERMISSION = "*:*:*";
+
+    /**
+     * 超级管理员角色
+     */
+    public static final String SUPPER_ADMIN_ROLE = "SUPER_ADMIN";
+
     public static final String REQUEST_AUTH_HEADER="Authorization";
     /**
      * 正常token

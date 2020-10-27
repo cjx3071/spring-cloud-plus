@@ -12,7 +12,6 @@ public class ShiroKitUtil {
 
     public final static String hashAlgorithmName = "MD5";
  
-    //循环次数
     public final static int hashIterations = 1024;
  
     /**
@@ -25,5 +24,9 @@ public class ShiroKitUtil {
     public static String md5(String credentials, String saltSource) {
         ByteSource salt = new Md5Hash(saltSource);
         return new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations).toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(md5("123456","HuXL"));
     }
 }

@@ -54,6 +54,11 @@ public class IpAddressUtil {
         if(ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
 		}
+		// 有些网络通过多层代理，那么获取到的ip就会有多个，一般都是通过逗号（,）分割开来，并且第一个ip为客户端的真实IP
+		if (ip != null && ip.length() != 0)
+		{
+			ip = ip.split(",")[0];
+		}
 		if (IPV6_LOCAL.equals(ip)){
 			ip = getLocalhostIp();
 		}

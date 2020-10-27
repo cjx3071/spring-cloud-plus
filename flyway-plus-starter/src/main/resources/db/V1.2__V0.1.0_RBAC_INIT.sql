@@ -1,7 +1,8 @@
 -- ----------------------------
 -- Table structure for rbac_group_role
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS `rbac_group_role`  (
+DROP TABLE IF EXISTS `rbac_group_role`;
+CREATE TABLE `rbac_group_role`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
   `tenant_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '承租人id',
   `group_id` bigint(20) UNSIGNED NOT NULL COMMENT '用户组id',
@@ -20,13 +21,14 @@ CREATE TABLE IF NOT EXISTS `rbac_group_role`  (
 -- ----------------------------
 -- Records of rbac_group_role
 -- ----------------------------
-INSERT INTO `rbac_group_role` VALUES (1, 1, 1, 3, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_group_role` VALUES (2, 1, 2, 1, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_group_role` VALUES (1, 1, 1, 2, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_group_role` VALUES (2, 1, 2, 3, 0, NULL, 1, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for rbac_group_user
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS `rbac_group_user`  (
+DROP TABLE IF EXISTS `rbac_group_user`;
+CREATE TABLE `rbac_group_user`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
   `tenant_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '承租人id',
   `group_id` bigint(20) UNSIGNED NOT NULL COMMENT '用户组id',
@@ -46,12 +48,13 @@ CREATE TABLE IF NOT EXISTS `rbac_group_user`  (
 -- Records of rbac_group_user
 -- ----------------------------
 INSERT INTO `rbac_group_user` VALUES (1, 1, 1, 2, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_group_user` VALUES (2, 1, 2, 1, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_group_user` VALUES (2, 1, 2, 3, 0, NULL, 1, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for rbac_org
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS `rbac_org`  (
+DROP TABLE IF EXISTS `rbac_org`;
+CREATE TABLE `rbac_org`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
   `tenant_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '承租人id',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组织名',
@@ -82,7 +85,8 @@ INSERT INTO `rbac_org` VALUES (5, 1, '测试部', 'test', '01_01_02', 2, NULL, N
 -- ----------------------------
 -- Table structure for rbac_org_role
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS `rbac_org_role`  (
+DROP TABLE IF EXISTS `rbac_org_role`;
+CREATE TABLE `rbac_org_role`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
   `tenant_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '承租人id',
   `org_id` bigint(20) UNSIGNED NOT NULL COMMENT '组织id',
@@ -101,17 +105,17 @@ CREATE TABLE IF NOT EXISTS `rbac_org_role`  (
 -- ----------------------------
 -- Records of rbac_org_role
 -- ----------------------------
-INSERT INTO `rbac_org_role` VALUES (1, 1, 2, 3, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_org_role` VALUES (1, 1, 1, 4, 0, NULL, 1, NULL, NULL, NULL, NULL);
 INSERT INTO `rbac_org_role` VALUES (2, 1, 2, 4, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_org_role` VALUES (3, 1, 4, 4, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_org_role` VALUES (4, 1, 5, 5, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_org_role` VALUES (5, 1, 1, 4, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_org_role` VALUES (6, 1, 1, 5, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_org_role` VALUES (3, 1, 3, 4, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_org_role` VALUES (4, 1, 4, 4, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_org_role` VALUES (5, 1, 5, 4, 0, NULL, 1, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for rbac_org_user
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS `rbac_org_user`  (
+DROP TABLE IF EXISTS `rbac_org_user`;
+CREATE TABLE `rbac_org_user`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
   `tenant_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '承租人id',
   `org_id` bigint(20) UNSIGNED NOT NULL COMMENT '组织id',
@@ -125,18 +129,18 @@ CREATE TABLE IF NOT EXISTS `rbac_org_user`  (
   `updated_by` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_user_org_id`(`user_id`, `org_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户组织关系表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户组织关系表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of rbac_org_user
 -- ----------------------------
-INSERT INTO `rbac_org_user` VALUES (1, 1, 4, 2, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_org_user` VALUES (2, 1, 1, 1, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_org_user` VALUES (1, 1, 1, 2, 0, NULL, 1, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for rbac_permission
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS `rbac_permission`  (
+DROP TABLE IF EXISTS `rbac_permission`;
+CREATE TABLE `rbac_permission`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `tenant_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '承租人id',
   `code` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '代码',
@@ -150,20 +154,22 @@ CREATE TABLE IF NOT EXISTS `rbac_permission`  (
   `updated_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `updated_by` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of rbac_permission
 -- ----------------------------
-INSERT INTO `rbac_permission` VALUES (1, 1, 'READ', '阅读权限', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_permission` VALUES (1, 1, '*:*:*', '所有权限', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
 INSERT INTO `rbac_permission` VALUES (2, 1, 'WRITE', '写权限', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_permission` VALUES (3, 1, 'DEV', '开发权限', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_permission` VALUES (4, 1, 'TEST', '测试权限', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_permission` VALUES (3, 1, 'READ', '读权限', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_permission` VALUES (4, 1, 'DEV', '开发权限', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_permission` VALUES (5, 1, 'TEST', '测试权限', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for rbac_role
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS `rbac_role`  (
+DROP TABLE IF EXISTS `rbac_role`;
+CREATE TABLE `rbac_role`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `tenant_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '承租人id',
   `code` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '代码',
@@ -177,21 +183,21 @@ CREATE TABLE IF NOT EXISTS `rbac_role`  (
   `updated_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `updated_by` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of rbac_role
 -- ----------------------------
-INSERT INTO `rbac_role` VALUES (1, 1, 'ADMIN', '管理员角色', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_role` VALUES (2, 1, 'EMPLOYEE', '员工角色', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_role` VALUES (1, 1, 'SUPER_ADMIN', '超级管理员角色', '拥有所有权限 ', 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_role` VALUES (2, 1, 'ADMIN', '普通管理员角色', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
 INSERT INTO `rbac_role` VALUES (3, 1, 'USER', '用户角色', '注册的普通用户', 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_role` VALUES (4, 1, 'DEV', '开发角色', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_role` VALUES (5, 1, 'TEST', '测试角色', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_role` VALUES (4, 1, 'EMPLOYEE', '员工', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for rbac_role_permission
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS `rbac_role_permission`  (
+DROP TABLE IF EXISTS `rbac_role_permission`;
+CREATE TABLE `rbac_role_permission`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `tenant_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '承租人id',
   `role_id` bigint(20) UNSIGNED NOT NULL COMMENT '角色id',
@@ -205,24 +211,26 @@ CREATE TABLE IF NOT EXISTS `rbac_role_permission`  (
   `updated_by` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_role_per_id`(`role_id`, `permission_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限关系表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限关系表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of rbac_role_permission
 -- ----------------------------
 INSERT INTO `rbac_role_permission` VALUES (1, 1, 1, 1, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_role_permission` VALUES (2, 1, 1, 2, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_role_permission` VALUES (3, 1, 2, 1, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_role_permission` VALUES (4, 1, 3, 1, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_role_permission` VALUES (5, 1, 1, 3, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_role_permission` VALUES (6, 1, 4, 3, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_role_permission` VALUES (7, 1, 5, 4, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_role_permission` VALUES (8, 1, 1, 4, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_role_permission` VALUES (2, 1, 2, 2, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_role_permission` VALUES (3, 1, 2, 3, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_role_permission` VALUES (4, 1, 2, 4, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_role_permission` VALUES (5, 1, 2, 5, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_role_permission` VALUES (6, 1, 3, 2, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_role_permission` VALUES (7, 1, 3, 3, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_role_permission` VALUES (8, 1, 4, 4, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_role_permission` VALUES (9, 1, 4, 5, 0, NULL, 1, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for rbac_user
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS `rbac_user`  (
+DROP TABLE IF EXISTS `rbac_user`;
+CREATE TABLE `rbac_user`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
   `tenant_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '承租人id',
   `age` int(5) UNSIGNED NULL DEFAULT NULL COMMENT '年龄',
@@ -244,18 +252,20 @@ CREATE TABLE IF NOT EXISTS `rbac_user`  (
   `updated_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `updated_by` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1282513687960174595 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of rbac_user
 -- ----------------------------
-INSERT INTO `rbac_user` VALUES (1, 1, 100, '管理员', 'GuanLiYuan', 'M', '2020-01-01 01:01:01', 'admin', '66bafb9fb704934fd46fdd25d1d38326', 'admin', NULL, '110110', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_user` VALUES (1, 1, 100, '超级管理员', 'GuanLiYuan', 'M', '2020-01-01 01:01:01', 'admin', '66bafb9fb704934fd46fdd25d1d38326', 'admin', NULL, '110110', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
 INSERT INTO `rbac_user` VALUES (2, 1, 28, '葫芦胡', 'HuLuHu', 'M', '2020-01-01 01:01:01', 'gourd', '8739597c7a09b9f5bff69760fd0b571b', 'gourd', NULL, '13584278267', NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_user` VALUES (3, 1, 30, '胡响亮', 'HuXiangLiang', 'M', '2020-10-27 16:18:16', 'HuXL', 'bc6b7e766a036459b1e1ff6e1a432270', 'HuXL', NULL, NULL, NULL, 0, NULL, 1, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for rbac_user_group
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS `rbac_user_group`  (
+DROP TABLE IF EXISTS `rbac_user_group`;
+CREATE TABLE `rbac_user_group`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
   `tenant_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '承租人id',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户组名',
@@ -274,13 +284,14 @@ CREATE TABLE IF NOT EXISTS `rbac_user_group`  (
 -- ----------------------------
 -- Records of rbac_user_group
 -- ----------------------------
-INSERT INTO `rbac_user_group` VALUES (1, 1, '普通用户', 'common_user', 0, 0, NULL, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_user_group` VALUES (2, 1, 'VIP用户', 'vip_user', 0, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_user_group` VALUES (1, 1, '普通管理员', 'ADMIN', 0, 0, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_user_group` VALUES (2, 1, '普通用户', 'USER', 0, 0, NULL, 1, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for rbac_user_role
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS `rbac_user_role`  (
+DROP TABLE IF EXISTS `rbac_user_role`;
+CREATE TABLE `rbac_user_role`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `tenant_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '承租人id',
   `user_id` bigint(20) UNSIGNED NOT NULL COMMENT '用户id',
@@ -294,13 +305,14 @@ CREATE TABLE IF NOT EXISTS `rbac_user_role`  (
   `updated_by` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_user_role_id`(`user_id`, `role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户角色关系表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1282513688216027138 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户角色关系表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of rbac_user_role
 -- ----------------------------
 INSERT INTO `rbac_user_role` VALUES (1, 1, 1, 1, 0, NULL, 0, NULL, NULL, NULL, NULL);
-INSERT INTO `rbac_user_role` VALUES (2, 1, 2, 3, 0, NULL, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_user_role` VALUES (2, 1, 2, 2, 0, NULL, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `rbac_user_role` VALUES (3, 1, 3, 4, 0, NULL, 0, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_tenant

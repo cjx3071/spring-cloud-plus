@@ -29,8 +29,8 @@
     </springProfile>
 
     <!-- 日志文件名称-->
-    <property name="INFO_LOG_PREFIX" value="info-log-" />
-    <property name="ERROR_LOG_PREFIX" value="error-log-" />
+    <property name="INFO_LOG_PREFIX" value="info-" />
+    <property name="ERROR_LOG_PREFIX" value="error-" />
     <!-- 日志文件编码-->
     <property name="LOG_CHARSET" value="UTF-8" />
     <!-- 日志文件路径+日期-->
@@ -74,7 +74,7 @@
     <appender name="DAILY_INFO_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_DIR}/${INFO_LOG_PREFIX}%d{yyyy-MM-dd.HH}.log</FileNamePattern>
+            <FileNamePattern>${LOG_DIR}/${INFO_LOG_PREFIX}%d{HH}.log</FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>${MAX_HISTORY}</MaxHistory>
         </rollingPolicy>
@@ -103,7 +103,7 @@
     <appender name="DAILY_ERROR_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_DIR}/${ERROR_LOG_PREFIX}%d{yyyy-MM-dd.HH}.log</FileNamePattern>
+            <FileNamePattern>${LOG_DIR}/${ERROR_LOG_PREFIX}%d{HH}.log</FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>${MAX_HISTORY}</MaxHistory>
         </rollingPolicy>

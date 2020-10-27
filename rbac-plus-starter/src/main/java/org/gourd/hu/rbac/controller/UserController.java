@@ -87,7 +87,7 @@ public class UserController{
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除用户")
-    @RequiresPermissions(value={"ADMIN:WRITE"})
+    @RequiresRoles(value={"ADMIN"})
     @ApiImplicitParams({@ApiImplicitParam(name = "jwt-token", value = "jwt-token", required = true, dataType = "string", paramType = "header")})
     public BaseResponse delete(@PathVariable Long id) {
         userService.delete(id);
