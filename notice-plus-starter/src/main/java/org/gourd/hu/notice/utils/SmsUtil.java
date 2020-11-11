@@ -17,7 +17,6 @@ import java.util.Set;
  * @Date 2019/12/2 10:14
  * @Version 1.0
  */
-@Component
 public class SmsUtil {
 
     private static GourdSmsService smsService;

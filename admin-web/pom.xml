@@ -63,17 +63,17 @@
             <version>${cloud.version}</version>
         </dependency>
         <!--工作流组件-->
-        <dependency>
-            <groupId>org.gourd.hu</groupId>
-            <artifactId>activiti-plus-starter</artifactId>
-            <version>${cloud.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>activation</artifactId>
-                    <groupId>javax.activation</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.gourd.hu</groupId>-->
+<!--            <artifactId>activiti-plus-starter</artifactId>-->
+<!--            <version>${cloud.version}</version>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>activation</artifactId>-->
+<!--                    <groupId>javax.activation</groupId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
         <!--定时任务组件-->
         <dependency>
             <groupId>org.gourd.hu</groupId>
@@ -122,7 +122,7 @@
                 <configuration>
                     <fork>true</fork>
                     <!--启动类路径-->
-                    <mainClass>org.gourd.hu.AdminWebApplication</mainClass>
+                    <mainClass>org.gourd.hu.admin.AdminWebApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

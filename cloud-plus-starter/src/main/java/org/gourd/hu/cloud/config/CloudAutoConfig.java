@@ -6,6 +6,7 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -20,8 +21,9 @@ import java.util.List;
  * @date 2018-11-20
  */
 @Configuration
-@EnableFeignClients(basePackages = "org.gourd.hu")
+@EnableFeignClients(basePackages = {"org.gourd.hu"})
 @EnableDiscoveryClient
+@Import({FeignConfig.class,RibbonConfig.class})
 public class CloudAutoConfig {
 
     private static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");

@@ -7,7 +7,6 @@ import org.gourd.hu.mongo.repository.DeptRepository;
 import org.gourd.hu.mongo.repository.UserRepository;
 import org.gourd.hu.mongo.service.UserMogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -18,7 +17,6 @@ import java.util.Optional;
  * @Date 2020/7/22 17:24
  * @Version 1.0
  */
-@Service
 public class UserMogServiceImpl implements UserMogService {
 
     @Autowired

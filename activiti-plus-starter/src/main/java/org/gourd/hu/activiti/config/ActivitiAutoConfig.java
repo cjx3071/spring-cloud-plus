@@ -4,6 +4,7 @@ import org.activiti.spring.SpringAsyncExecutor;
 import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.activiti.spring.boot.AbstractProcessEngineAutoConfiguration;
 import org.gourd.hu.activiti.properties.ActivitiDataSourceProperties;
+import org.gourd.hu.activiti.service.impl.WorkFlowServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -24,8 +25,8 @@ import java.io.IOException;
 @SpringBootApplication(exclude={
         org.activiti.spring.boot.SecurityAutoConfiguration.class
 })
-@Import(ActivitiDataSourceProperties.class)
-public class ActivitiConfig extends AbstractProcessEngineAutoConfiguration {
+@Import({ActivitiDataSourceProperties.class, WorkFlowServiceImpl.class})
+public class ActivitiAutoConfig extends AbstractProcessEngineAutoConfiguration {
 
     @Autowired
     private ActivitiDataSourceProperties activitiDataSourceProperties;

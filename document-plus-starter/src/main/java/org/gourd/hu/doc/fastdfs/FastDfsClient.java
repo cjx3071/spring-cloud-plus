@@ -11,7 +11,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,7 +27,6 @@ import java.io.IOException;
  * fastdfs 客户端类
  * @author gourd.hu
  */
-@Component
 @Slf4j
 public class FastDfsClient {
  

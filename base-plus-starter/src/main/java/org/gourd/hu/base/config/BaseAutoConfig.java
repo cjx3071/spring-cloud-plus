@@ -1,6 +1,5 @@
 package org.gourd.hu.base.config;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -9,8 +8,7 @@ import org.springframework.context.annotation.Import;
  * @date 2018-11-20
  */
 @Configuration
-@EnableAutoConfiguration
-@Import({AsyncPoolConfig.class, MyBatisPlusConfig.class, Swagger2Config.class, WebMvcConfig.class})
+@Import({MyBatisPlusConfig.class, Swagger2Config.class, WebMvcConfig.class,FilterConfig.class})
 public class BaseAutoConfig {
 
     /**

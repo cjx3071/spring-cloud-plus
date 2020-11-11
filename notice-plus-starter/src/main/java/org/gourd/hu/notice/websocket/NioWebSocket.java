@@ -4,7 +4,6 @@ import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.timeout.IdleStateEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.yeauty.annotation.*;
 import org.yeauty.pojo.Session;
@@ -19,7 +18,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author gourd.hu
  */
 @ServerEndpoint(path = "/ws/{arg}", port = "${netty-websocket.port}")
-@Component
 @Slf4j
 public class NioWebSocket {
 

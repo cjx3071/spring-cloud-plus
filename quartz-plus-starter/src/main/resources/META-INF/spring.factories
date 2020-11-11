@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.gourd.hu.base.config.BaseAutoConfig
+  org.gourd.hu.quartz.config.QuartzAutoConfig

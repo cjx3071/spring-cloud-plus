@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.gourd.hu.mq.activemq.config.ActiveMqConfig,org.gourd.hu.mq.kafka.config.KafkaConfig

@@ -5,7 +5,6 @@ import org.gourd.hu.core.converter.String2LocalDateConverter;
 import org.gourd.hu.core.converter.String2LocalDateTimeConverter;
 import org.gourd.hu.core.converter.String2LocalTimeConverter;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 
 import java.time.LocalDate;
@@ -20,7 +19,6 @@ import java.util.Date;
  * @author gourd.hu
  *
  */
-@Configuration
 public class ConverterConfig {
 
     /**

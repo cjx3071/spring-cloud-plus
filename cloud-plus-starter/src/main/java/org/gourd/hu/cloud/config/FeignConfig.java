@@ -4,13 +4,11 @@ import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.gourd.hu.core.constant.HeaderConstant;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * feign拦截配置，设置约定header信息
  * @author gourd.hu
  */
-@Configuration
 @Slf4j
 public class FeignConfig implements RequestInterceptor {
 

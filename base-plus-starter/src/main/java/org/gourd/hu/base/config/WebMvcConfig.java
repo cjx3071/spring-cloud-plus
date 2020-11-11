@@ -1,8 +1,10 @@
 package org.gourd.hu.base.config;
 
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.gourd.hu.base.handler.GlobalExceptionHandler;
 import org.gourd.hu.base.holder.SpringContextHolder;
 import org.gourd.hu.base.request.filter.RequestDetailFilter;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.cors.CorsConfiguration;
@@ -12,6 +14,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.math.BigInteger;
 
 /**
  * @Author: gourd.hu
@@ -52,6 +56,26 @@ public class WebMvcConfig implements WebMvcConfigurer {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig());
         return new CorsFilter(source);
+    }
+
+    /**
+     * Jackson全局转化long类型为String，解决jackson序列化时long类型缺失精度问题
+     * @return Jackson2ObjectMapperBuilderCustomizer 注入的对象
+     */
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
+        Jackson2ObjectMapperBuilderCustomizer customizer = jacksonObjectMapperBuilder -> {
+            jacksonObjectMapperBuilder.serializerByType(BigInteger.class, ToStringSerializer.instance);
+            jacksonObjectMapperBuilder.serializerByType(long.class, ToStringSerializer.instance);
+            jacksonObjectMapperBuilder.serializerByType(Long.class, ToStringSerializer.instance);
+            jacksonObjectMapperBuilder.serializerByType(Long.TYPE, ToStringSerializer.instance);
+        };
+        return customizer;
+    }
+
+    @Bean
+    public CustomizationBean getCustomizationBean() {
+        return new CustomizationBean();
     }
 
     /**

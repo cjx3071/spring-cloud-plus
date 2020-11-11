@@ -4,13 +4,11 @@ import io.undertow.server.DefaultByteBufferPool;
 import io.undertow.websockets.jsr.WebSocketDeploymentInfo;
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
-import org.springframework.stereotype.Component;
 
 /**
  * 解决警告：Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
  * @author gourd.hu
  */
-@Component
 public class CustomizationBean implements WebServerFactoryCustomizer<UndertowServletWebServerFactory> {
  
     @Override

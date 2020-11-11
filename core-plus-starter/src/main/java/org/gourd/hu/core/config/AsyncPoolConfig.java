@@ -1,4 +1,4 @@
-package org.gourd.hu.base.config;
+package org.gourd.hu.core.config;
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Bean;

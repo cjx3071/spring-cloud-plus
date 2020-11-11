@@ -12,7 +12,6 @@ import javax.annotation.PostConstruct;
  * @Date 2019/12/2 10:14
  * @Version 1.0
  */
-@Component
 public class MailUtil {
 
     private static GourdMailService mailService;

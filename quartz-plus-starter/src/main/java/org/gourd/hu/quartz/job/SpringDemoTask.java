@@ -3,7 +3,6 @@ package org.gourd.hu.quartz.job;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
 /**
  * @author gourd
  */
-@Component
 @Slf4j
 public class SpringDemoTask {
     @Value("${schedule.task.run-host}")

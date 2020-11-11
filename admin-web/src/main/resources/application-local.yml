@@ -41,7 +41,10 @@ jasypt:
     password: GOURD-HXN-1314
 
 # spring配置
+
 spring:
+  main:
+    allow-bean-definition-overriding: true
   lifecycle:
     # 设置缓冲期，最大等待时间，默认30s
     timeout-per-shutdown-phase: 30s
@@ -362,6 +365,9 @@ spring:
       cluster-name: docker-cluster
       repositories:
         enabled: true
+      client:
+        reactive:
+          connection-timeout:
     # mongoDB
     mongodb:
       uri: mongodb://gourd:gourd@111.231.111.150:27017/gourd

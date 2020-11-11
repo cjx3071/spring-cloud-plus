@@ -9,7 +9,6 @@ import org.apache.commons.net.ftp.FTPReply;
 import org.gourd.hu.base.exception.BusinessException;
 import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.io.*;
 
@@ -19,7 +18,6 @@ import java.io.*;
  * @author gourd.hu
  */
 @Slf4j
-@Component
 public class FtpUtil {
     /**
      * ftp服务器ip

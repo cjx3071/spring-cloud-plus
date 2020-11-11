@@ -3,13 +3,11 @@ package org.gourd.hu.quartz.job;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.Date;
@@ -19,9 +17,7 @@ import java.util.regex.Pattern;
  * 可动态修改的定时任务
  * @author gourd
  */
-@Component
 @Slf4j
-@Configuration
 public class DynamicDemoTask implements SchedulingConfigurer {
  
     /**

@@ -1,4 +1,4 @@
-package org.gourd.hu;
+package org.gourd.hu.admin;
 
 import lombok.extern.slf4j.Slf4j;
 import org.gourd.hu.core.constant.ConsoleColors;
@@ -17,7 +17,7 @@ import java.net.UnknownHostException;
  * @author gour.hu
  */
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"org.gourd.hu.admin","org.gourd.hu.rbac","org.gourd.hu.demo","org.gourd.hu.sub"})
 public class AdminWebApplication {
 
     public static void main(String[] args) throws UnknownHostException {

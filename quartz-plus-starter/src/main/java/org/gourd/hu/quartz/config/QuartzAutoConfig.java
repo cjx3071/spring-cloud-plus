@@ -1,7 +1,10 @@
 package org.gourd.hu.quartz.config;
 
 import org.gourd.hu.quartz.job.DemoJob;
+import org.gourd.hu.quartz.job.DynamicDemoTask;
+import org.gourd.hu.quartz.job.SpringDemoTask;
 import org.gourd.hu.quartz.properties.QuartzDataSourceProperties;
+import org.gourd.hu.quartz.service.impl.QuartzServiceImpl;
 import org.quartz.JobDetail;
 import org.quartz.Trigger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +29,8 @@ import java.util.TimeZone;
  */
 @Configuration
 @EnableScheduling
-@Import(QuartzDataSourceProperties.class)
-public class QuartzConfig {
+@Import({QuartzDataSourceProperties.class,DemoJob.class, DynamicDemoTask.class, SpringDemoTask.class, QuartzServiceImpl.class})
+public class QuartzAutoConfig {
 
     public static final String SYS_CHINA_TIMEZONE = "Asia/Shanghai";
 
