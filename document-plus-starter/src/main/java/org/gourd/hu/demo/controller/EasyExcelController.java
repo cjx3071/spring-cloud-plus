@@ -13,6 +13,7 @@ import org.gourd.hu.doc.excel.entity.SheetExcelData;
 import org.gourd.hu.doc.excel.entity.UserPO;
 import org.gourd.hu.doc.excel.enums.SexEnum;
 import org.gourd.hu.doc.excel.handler.CustomCellStyleStrategy;
+import org.gourd.hu.doc.excel.handler.UserSheetWriteHandler;
 import org.gourd.hu.doc.excel.utils.EasyExcelUtil;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -102,7 +103,8 @@ public class EasyExcelController {
         List<Integer> columnIndexes = Arrays.asList(0,1,2);
         List<Integer> rowIndexes = Arrays.asList(0,1);
         CustomCellStyleStrategy customCellStyleStrategy = new CustomCellStyleStrategy(rowIndexes,columnIndexes, IndexedColors.RED.getIndex());
-        EasyExcelUtil.writeSingleExcel("单sheet导出","用户",userPOList,UserPO.class,customCellStyleStrategy);
+        UserSheetWriteHandler customSheetWriteHandler = new UserSheetWriteHandler();
+        EasyExcelUtil.writeSingleExcel("单sheet导出","用户",userPOList,UserPO.class,customCellStyleStrategy,customSheetWriteHandler);
     }
 
 

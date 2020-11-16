@@ -1,0 +1,62 @@
+# docker-compose --compatibility up -d
+# 安装分布式软件： nacos、sentinel、seata等
+version: '3.3'
+
+services:
+
+  # nacos
+  nacos:
+    image: nacos/nacos-server:1.4.0
+    container_name: nacos
+    hostname: nacos
+    restart: always
+    environment:
+      PREFER_HOST_MODE: mysql #如果支持主机名可以使用hostname,否则使用ip，默认也是ip
+      SPRING_DATASOURCE_PLATFORM: mysql #数据源平台 仅支持mysql或不保存empty
+      MODE: standalone
+      MYSQL_SERVICE_HOST: mysql
+      MYSQL_SERVICE_DB_NAME: nacos
+      MYSQL_SERVICE_PORT: 3306
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: gourd123
+      NACOS_APPLICATION_PORT: 8848
+      JVM_XMS: 512m
+      JVM_MMS: 320m
+    volumes:
+      - /home/gourd/nacos/standalone-logs/:/home/nacos/logs
+    ports:
+      - "8848:8848"
+    networks:
+      - net-docker
+
+  # sentinel
+  sentinel-dashboard:
+    image: bladex/sentinel-dashboard:1.8.0
+    container_name: sentinel-dashboard
+    restart: always
+    environment:
+      JAVA_OPTS: "-Dserver.port=8858 -Dproject.name=sentinel-dashboard"
+    ports:
+      - "8858:8858"
+    volumes:
+      - /home/gourd/sentinel/logs:/root/logs
+
+  # seata
+  seata-server:
+    image: seataio/seata-server:1.4.0
+    hostname: seata-server
+    container_name: seata-server
+    restart: always
+    environment:
+      - SEATA_CONFIG_NAME=file:/root/seata-config/registry
+    ports:
+      - "8091:8091"
+    volumes:
+      - /home/gourd/seata/seata-config:/root/seata-config
+    networks:
+      - net-docker
+
+networks:
+  net-docker:
+    name: net-docker
+    driver: bridge

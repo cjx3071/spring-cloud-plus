@@ -1,0 +1,9 @@
+[{
+  "resource": "resource",
+  "limitApp": "default",
+  "count": 0.8,
+  "grade": 1,
+  "timeWindow": 20,
+  "statIntervalMs": 1000,
+  "minRequestAmount": 5
+}]

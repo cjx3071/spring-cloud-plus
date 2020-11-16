@@ -10,7 +10,7 @@ spring:
         file-extension: yaml
         encode: UTF-8
         # 命名空间的id
-        namespace: d10ded89-2ce5-4cf9-ad2c-4e36f9b2be7e
+        namespace: cloud-plus-hxn2lyw-123456
         group: CLOUD_PLUS
         shared-configs[0]:
           dataId: common-${spring.profiles.active}.yaml

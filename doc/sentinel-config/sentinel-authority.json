@@ -1,0 +1,5 @@
+[{
+  "resource": "auth-resource",
+  "limitApp": "default",
+  "strategy": 0
+}]

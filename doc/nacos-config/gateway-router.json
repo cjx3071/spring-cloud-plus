@@ -1,0 +1,65 @@
+[{
+  "filters": [{
+    "args": {
+      "parts": "1"
+    },
+    "name": "StripPrefix"
+  }],
+  "id": "admin-service",
+  "order": 0,
+  "predicates": [{
+    "args": {
+      "pattern": "/admin/**"
+    },
+    "name": "Path"
+  }],
+  "uri": "lb://admin"
+},{
+  "filters": [{
+    "args": {
+      "parts": "1"
+    },
+    "name": "StripPrefix"
+  }],
+  "id": "sub-service",
+  "order": 0,
+  "predicates": [{
+    "args": {
+      "pattern": "/sub/**"
+    },
+    "name": "Path"
+  }],
+  "uri": "lb://sub"
+},{
+  "filters": [{
+    "args": {
+      "parts": "1"
+    },
+    "name": "StripPrefix"
+  }],
+  "id": "openapi-service",
+  "order": 0,
+  "predicates": [{
+    "args": {
+      "pattern": "/openapi/**"
+    },
+    "name": "Path"
+  }],
+  "uri": "lb://openapi"
+},{
+  "filters": [{
+    "args": {
+      "parts": "1"
+    },
+    "name": "StripPrefix"
+  }],
+  "id": "gateway-service",
+  "order": 0,
+  "predicates": [{
+    "args": {
+      "pattern": "/gateway/**"
+    },
+    "name": "Path"
+  }],
+  "uri": "lb://gateway"
+}]

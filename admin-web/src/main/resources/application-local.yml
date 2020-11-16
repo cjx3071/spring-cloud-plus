@@ -277,24 +277,10 @@ spring:
 
   # redis
   redis:
-    cluster:
-      nodes:
-        - redis://111.231.111.150:7000
-        - redis://111.231.111.150:7001
-        - redis://111.231.111.150:7002
-        - redis://111.231.111.150:7003
-        - redis://111.231.111.150:7004
-        - redis://111.231.111.150:7005
-      max-redirects: 3  # 获取失败 最大重定向次数
-      scan-interval: 5000
+    host: 111.231.111.150
+    port: 6379
+    password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
     timeout: 6000  # 连接超时时长（毫秒）
-
-  # redis
-#  redis:
-#    timeout: 6000  # 连接超时时长（毫秒）
-#    host: 111.231.111.150
-#    port: 6379
-#    database: 10
 
   # 缓存
   cache:
@@ -433,15 +419,15 @@ seata:
   enabled: true
   application-id: ${spring.application.name}
   enable-auto-data-source-proxy: false #一定要是false
-  tx-service-group: admin-tx_group
+  tx-service-group: admin-tx-group
   service:
     vgroup-mapping:
-      admin-tx_group: default  #key与上面的tx-service-group的值对应
+      admin-tx-group: default  #key与上面的tx-service-group的值对应
   registry:
     type: nacos
     nacos:
       server-addr: ${spring.cloud.nacos.config.server-addr}
-      namespace: 0f342584-17a7-4247-8496-77817c889e2e
+      namespace: ${spring.cloud.nacos.config.namespace}
       group: SEATA_GROUP
       cluster: default
 

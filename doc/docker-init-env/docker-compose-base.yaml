@@ -1,0 +1,55 @@
+# docker-compose --compatibility up -d
+# 安装基础软件： mysql、redis 等
+version: '3.3'
+
+services:
+  # mysql
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    hostname: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: gourd123
+      MYSQL_DATABASE: nacos
+      # 指定时区
+      TZ: "Asia/Shanghai"
+    ports:
+      - 3306:3306
+    volumes:
+      # 指定容器时间为宿主机时间
+      - /etc/localtime:/etc/localtime
+      - /home/gourd/mysql/conf:/etc/mysql/conf.d
+      - /home/gourd/mysql/logs:/logs
+      - /home/gourd/mysql/data:/var/lib/mysql
+    networks:
+      - net-docker
+
+  # grafana
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    restart: on-failure
+    networks:
+      - net-docker
+
+  # redis
+  redis:
+    image: redis:6.0
+    container_name: redis
+    hostname: redis
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--appendonly yes","--requirepass gourd123"]
+    volumes:
+      - /home/gourd/redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - /home/gourd/redis/data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - net-docker
+
+networks:
+  net-docker:
+    name: net-docker
+    driver: bridge

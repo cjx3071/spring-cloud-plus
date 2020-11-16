@@ -21,16 +21,6 @@ spring:
   cloud:
     # nacos-配置
     nacos:
-      # 配置中心
-      config:
-        # 是否开启配置中心，默认true
-        enabled: false
-        server-addr: 111.231.111.150:8848
-        file-extension: yaml
-        encode: UTF-8
-        # 命名空间的id
-        namespace: d10ded89-2ce5-4cf9-ad2c-4e36f9b2be7e
-        group: CLOUD_PLUS
       # 注册发现中心
       discovery:
         # 是否开启注册中心，默认true
@@ -52,16 +42,9 @@ spring:
           password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
   # redis
   redis:
-    cluster:
-      nodes:
-        - redis://111.231.111.150:7000
-        - redis://111.231.111.150:7001
-        - redis://111.231.111.150:7002
-        - redis://111.231.111.150:7003
-        - redis://111.231.111.150:7004
-        - redis://111.231.111.150:7005
-      max-redirects: 3  # 获取失败 最大重定向次数
-      scan-interval: 5000
+    host: 111.231.111.150
+    port: 6379
+    password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
     timeout: 6000  # 连接超时时长（毫秒）
 
 management:

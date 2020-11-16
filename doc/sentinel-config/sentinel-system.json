@@ -1,0 +1,8 @@
+[{
+  "grade": 3,
+  "highestSystemLoad": -1,
+  "qps": 200,
+  "avgRt": -1,
+  "maxThread": -1,
+  "highestCpuUsage": -1
+}]

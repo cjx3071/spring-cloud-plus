@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.support.ExcelTypeEnum;
+import com.alibaba.excel.write.handler.SheetWriteHandler;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.style.AbstractCellStyleStrategy;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
@@ -170,6 +171,29 @@ public class EasyExcelUtil {
      * @throws IOException
      */
     public static <T> void writeSingleExcel(String fileName, String sheetName, List<T> tList, Class tClass, AbstractCellStyleStrategy customCellStyleStrategy) throws IOException{
+        HttpServletResponse response = RequestHolder.getResponse();
+        try (ServletOutputStream outputStream = response.getOutputStream()){
+            setResponse(fileName, response);
+            EasyExcel.write(outputStream, tClass).autoCloseStream(Boolean.FALSE)
+                    .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
+                    .registerWriteHandler(new CustomCellWriteHandler())
+                    .registerWriteHandler(customCellStyleStrategy)
+                    .sheet(sheetName)
+                    .doWrite(tList);
+        } catch (Exception e) {
+            errorWrite(response, e);
+        }
+    }
+
+    /**
+     * 导出文件
+     * 导出模板时，tList传一个空list即可
+     * @param tList 数据集
+     * @param tClass 数据类型
+     * @param <T>
+     * @throws IOException
+     */
+    public static <T> void writeSingleExcel(String fileName, String sheetName, List<T> tList, Class tClass, AbstractCellStyleStrategy customCellStyleStrategy, SheetWriteHandler sheetWriteHandler) throws IOException{
         HttpServletResponse response = RequestHolder.getResponse();
         try (ServletOutputStream outputStream = response.getOutputStream()){
             setResponse(fileName, response);
