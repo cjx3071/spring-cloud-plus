@@ -48,7 +48,8 @@ services:
     container_name: seata-server
     restart: always
     environment:
-      - SEATA_CONFIG_NAME=file:/root/seata-config/registry
+      - SEATA_IP=111.231.111.150 # 此处需配置服务外网地址，否则外部连不上
+      - SEATA_CONFIG_NAME=file:/root/seata-config/registry # 此处是容器内的地址
     ports:
       - "8091:8091"
     volumes:

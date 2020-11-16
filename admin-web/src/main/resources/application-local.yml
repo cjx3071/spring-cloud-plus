@@ -427,9 +427,11 @@ seata:
     type: nacos
     nacos:
       server-addr: ${spring.cloud.nacos.config.server-addr}
-      namespace: ${spring.cloud.nacos.config.namespace}
+      namespace: cloud-plus-seata
       group: SEATA_GROUP
       cluster: default
+      username: nacos
+      password: nacos
 
 # 定时任务执行ip地址
 schedule:
