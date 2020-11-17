@@ -71,6 +71,12 @@
             <artifactId>commons-csv</artifactId>
             <version>${csv.version}</version>
         </dependency>
+        <!--minio-->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>${minio.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -1,5 +1,6 @@
 package org.gourd.hu.doc.utils;
 
+import com.lowagie.text.xml.xmp.XmpWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.ftp.FTP;
@@ -250,7 +251,7 @@ public class FtpUtil {
             throw new BusinessException(ResponseEnum.FTP_LOGIN_FAIL);
         }
         // 设置文件编码格式
-        ftp.setControlEncoding("UTF-8");
+        ftp.setControlEncoding(XmpWriter.UTF8);
         // ftp通信有两种模式
         // PORT(主动模式)客户端开通一个新端口(>1024)并通过这个端口发送命令或传输数据,期间服务端只使用他开通的一个端口，例如21
         // PASV(被动模式)客户端向服务端发送一个PASV命令，服务端开启一个新端口(>1024),并使用这个端口与客户端的21端口传输数据

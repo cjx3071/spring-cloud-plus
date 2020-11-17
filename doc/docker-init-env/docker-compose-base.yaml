@@ -1,5 +1,5 @@
 # docker-compose --compatibility up -d
-# 安装基础软件： mysql、redis 等
+# 安装基础软件： mysql、redis 、minio等
 version: '3.3'
 
 services:
@@ -15,7 +15,7 @@ services:
       # 指定时区
       TZ: "Asia/Shanghai"
     ports:
-      - 3306:3306
+      - "3306:3306"
     volumes:
       # 指定容器时间为宿主机时间
       - /etc/localtime:/etc/localtime
@@ -46,6 +46,25 @@ services:
       - /home/gourd/redis/data:/data
     ports:
       - "6379:6379"
+    networks:
+      - net-docker
+
+  # minio
+  minio:
+    image: minio/minio
+    container_name: minio
+    hostname: minio
+    command: server /data
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - /home/gourd/minio/data:/data
+      - /home/gourd/minio/config:/root/.minio
+    environment:
+      - MINIO_DOMAIN=http://111.231.111.150:9000
+      - MINIO_ACCESS_KEY=gourd.hu
+      - MINIO_SECRET_KEY=gourd123456
     networks:
       - net-docker
 

@@ -1,6 +1,7 @@
 package org.gourd.hu.doc.utils;
 
 import com.lowagie.text.pdf.BaseFont;
+import com.lowagie.text.xml.xmp.XmpWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.gourd.hu.base.exception.enums.ResponseEnum;
 import org.thymeleaf.TemplateEngine;
@@ -37,7 +38,7 @@ public class PdfUtil {
      */
     public static void download(TemplateEngine templateEngine, String templateName, List<Map<String, Object>> listVars, HttpServletResponse response, String fileName) {
         // 设置编码、文件ContentType类型、文件头、下载文件名
-        response.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding(XmpWriter.UTF8);
         response.setContentType("application/pdf");
         try {
             response.setHeader("Content-Disposition", "attachment;fileName=" +

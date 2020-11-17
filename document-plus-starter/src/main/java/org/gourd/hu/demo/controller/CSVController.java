@@ -1,5 +1,6 @@
 package org.gourd.hu.demo.controller;
 
+import com.lowagie.text.xml.xmp.XmpWriter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +47,7 @@ public class CSVController {
         } catch (IOException e) {
             log.error("创建CSV文件失败：",e);
         }
-        response.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding(XmpWriter.UTF8);
         response.setContentType("multipart/form-data");
         try {
             response.setHeader("Content-Disposition", "attachment;fileName=" +

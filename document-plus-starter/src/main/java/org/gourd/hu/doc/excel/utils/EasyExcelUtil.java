@@ -9,6 +9,7 @@ import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.style.AbstractCellStyleStrategy;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
 import com.alibaba.fastjson.JSON;
+import com.lowagie.text.xml.xmp.XmpWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -300,7 +301,7 @@ public class EasyExcelUtil {
 //        response.reset();
         log.error(e.getMessage(), e);
         response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding(XmpWriter.UTF8);
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.getWriter().println(JSON.toJSONString(BaseResponse.fail("导出失败")));
     }
@@ -315,9 +316,9 @@ public class EasyExcelUtil {
         // 重置response
         response.reset();
         response.setContentType("application/vnd.ms-excel;charset=utf-8");
-        response.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding(XmpWriter.UTF8);
         // 这里URLEncoder.encode可以防止中文乱码
-        fileName = URLEncoder.encode(fileName + DateTimeFormatter.ofPattern("yyyy-MM-dd_HH_mm_ss").format(LocalDateTime.now()) + ExcelTypeEnum.XLSX.getValue(), "UTF-8");
+        fileName = URLEncoder.encode(fileName + DateTimeFormatter.ofPattern("yyyy-MM-dd_HH_mm_ss").format(LocalDateTime.now()) + ExcelTypeEnum.XLSX.getValue(), XmpWriter.UTF8);
         response.setHeader("Content-disposition", "attachment;filename=" + fileName);
 
     }

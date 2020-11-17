@@ -24,7 +24,7 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
 ### 附
 项目所涉及的技术栈文章：  
  **springboot:**  [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)  
-**springCloud:**  [https://spring.io/projects/spring-cloud](https://spring.io/projects/spring-cloud)   
+ **springCloud:**  [https://spring.io/projects/spring-cloud](https://spring.io/projects/spring-cloud)   
  **gateway:**  [https://spring.io/projects/spring-cloud-gateway](https://spring.io/projects/spring-cloud-gateway)  
  **druid:**  [https://gitee.com/wenshao/druid/blob/master/druid-spring-boot-starter/README.md](https://gitee.com/wenshao/druid/blob/master/druid-spring-boot-starter/README.md)  
  **hikariCP配置:**  [https://my.oschina.net/u/2300159/blog/1816537](https://my.oschina.net/u/2300159/blog/1816537)   
@@ -45,4 +45,5 @@ spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架
  **netty-websocket:**  [https://gitee.com/Yeauty/netty-websocket-spring-boot-starter/blob/master/README_zh.md](https://gitee.com/Yeauty/netty-websocket-spring-boot-starter/blob/master/README_zh.md)   
  **quartz:**  [https://www.w3cschool.cn/quartz_doc/quartz_doc-ml8e2d9m.html](https://www.w3cschool.cn/quartz_doc/quartz_doc-ml8e2d9m.html)    
  **logback:**  [http://www.logback.cn/](http://www.logback.cn/)  
- **knife4j接口文档：**  [https://doc.xiaominfo.com/guide/useful.html](https://doc.xiaominfo.com/guide/useful.html)   
+ **knife4j接口文档：**  [https://doc.xiaominfo.com/guide/useful.html](https://doc.xiaominfo.com/guide/useful.html)     
+ **minIO:**  [https://docs.min.io/docs/java-client-api-reference.html](https://docs.min.io/docs/java-client-api-reference.html)    

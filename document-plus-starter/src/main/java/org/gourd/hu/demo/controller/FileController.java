@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.gourd.hu.base.response.BaseResponse;
 import org.gourd.hu.doc.fastdfs.FastDfsClient;
+import org.gourd.hu.doc.minio.utils.MinIoUtil;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -79,6 +80,25 @@ public class FileController {
         // fastFileStorageClient.deleteFile(group,path);
 
         return BaseResponse.ok("文件删除成功");
+    }
+
+    /**
+     * minio上传文件
+     *
+     */
+    @PostMapping("/minio-upload")
+    @ApiOperation(value="minio上传文件")
+    public BaseResponse minioUpload(MultipartFile file){
+        return BaseResponse.ok(MinIoUtil.uploadObject(file,"gourd","suzhou"));
+    }
+    /**
+     * minio下载文件
+     *
+     */
+    @GetMapping("/minio-download")
+    @ApiOperation(value="minio下载文件")
+    public void minioDownload(){
+        MinIoUtil.downloadObject("gourd","suzhou","paixu.gif");
     }
 
 }

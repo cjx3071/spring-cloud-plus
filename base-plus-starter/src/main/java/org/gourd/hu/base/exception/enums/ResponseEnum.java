@@ -56,6 +56,15 @@ public enum ResponseEnum implements BusinessExceptionAssert {
     FILE_DOWNLOAD_FAIL(5005,"文件下载失败:{}"),
     FILE_DELETE_FAIL(5005,"文件删除失败:{}"),
 
+    // minio自定义异常
+    MIN_IO_INIT_FAIL(8000,"初始化Minio失败"),
+    MIN_IO_BUCKET_CHECK_FAIL(8001,"判断bucket是否存在失败"),
+    MIN_IO_BUCKET_CREATE_FAIL(8002,"创建bucket失败"),
+    MIN_IO_BUCKET_DELETE_FAIL(8003,"删除bucket失败"),
+    MIN_IO_FILE_UPLOAD_FAIL(8004,"文件上传失败"),
+    MIN_IO_FILE_DELETE_FAIL(8005,"删除文件失败"),
+    MIN_IO_FILE_DOWNLOAD_FAIL(8006,"文件下载失败"),
+    MIN_IO_FILE_GET_FAIL(8007,"文件获取失败"),
     ;
 
     /**

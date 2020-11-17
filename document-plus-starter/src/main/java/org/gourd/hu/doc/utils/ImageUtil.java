@@ -1,5 +1,6 @@
 package org.gourd.hu.doc.utils;
 
+import com.lowagie.text.xml.xmp.XmpWriter;
 import gui.ava.html.Html2Image;
 import gui.ava.html.renderer.ImageRenderer;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +59,7 @@ public class ImageUtil {
         final Context context = new Context();
         context.setVariables(variables);
         // 设置编码、文件ContentType类型、文件头、下载文件名
-        response.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding(XmpWriter.UTF8);
         response.setContentType("image/jpeg");
         ServletOutputStream outputStream = null;
         try {

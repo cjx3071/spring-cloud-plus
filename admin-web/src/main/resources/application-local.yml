@@ -414,6 +414,14 @@ fdfs:
   # 存储服务器storage_server访问地址
   web-server-url: http://111.231.111.150:8888/
 
+# MinIo文件服务器
+min:
+  io:
+    endpoint: http://111.231.111.150:9000
+    accessKey: gourd.hu
+    secretKey: gourd123456
+
+
 # seata 分布式事务
 seata:
   enabled: true

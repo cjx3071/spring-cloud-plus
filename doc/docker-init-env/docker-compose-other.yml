@@ -17,6 +17,8 @@ services:
       - "discovery.type=single-node"
       - "ES_JAVA_OPTS=-Xms256m -Xmx512m"
       - "TZ=Asia/Shanghai"
+    networks:
+      - net-docker
 
   # skywalking-oap
   skywalking-oap:

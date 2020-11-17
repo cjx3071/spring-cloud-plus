@@ -1,5 +1,6 @@
 package org.gourd.hu.doc.utils;
 
+import com.lowagie.text.xml.xmp.XmpWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -42,7 +43,7 @@ public class CSVUtils {
         CSVFormat csvFormat = CSVFormat.DEFAULT.withRecordSeparator(NEW_LINE_SEPARATOR);
 
         BufferedWriter bufferedWriter =
-                new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+                new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), XmpWriter.UTF8));
         CSVPrinter printer = new CSVPrinter(bufferedWriter, csvFormat);
 
         // 写入表头
