@@ -1,4 +1,4 @@
-package org.gourd.hu.doc.utils;
+package org.gourd.hu.doc.ftp;
 
 import com.lowagie.text.xml.xmp.XmpWriter;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,9 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 import org.gourd.hu.base.exception.BusinessException;
 import org.gourd.hu.base.exception.enums.ResponseEnum;
-import org.springframework.beans.factory.annotation.Value;
+import org.gourd.hu.doc.ftp.properties.FtpProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import java.io.*;
 
@@ -19,42 +21,11 @@ import java.io.*;
  * @author gourd.hu
  */
 @Slf4j
+@EnableConfigurationProperties({FtpProperties.class})
 public class FtpUtil {
-    /**
-     * ftp服务器ip
-     */
-    @Value("${ftp.host}")
-    private String host;
-    /**
-     * ftp服务器端口
-     */
-    @Value("${ftp.port}")
-    private Integer port;
-    /**
-     * 用户名
-     */
-    @Value("${ftp.username}")
-    private String username;
-    /**
-     * 密码
-     */
-    @Value("${ftp.password}")
-    private String password;
-    /**
-     * 存放文件的基本路径
-     */
-    @Value("${ftp.basePath:}")
-    private String basePath;
 
-    /**
-     * 60s超时时间
-     */
-    private static final Integer TIME_OUT = 60 * 1000;
-
-    /**
-     * 缓冲大小
-     */
-    private static final Integer BUFFER_SIZE = 1024 * 1024;
+    @Autowired
+    private FtpProperties ftpProperties;
 
     /**
      * @param path     上传文件存放在服务器的路径
@@ -71,8 +42,8 @@ public class FtpUtil {
                 throw new BusinessException(ResponseEnum.FTP_REFUSE_CONNECT);
             }
             // 转到上传文件的根目录
-            if (StringUtils.isNotBlank(basePath) && !ftp.changeWorkingDirectory(basePath)) {
-                String[] paths = new String[]{basePath};
+            if (StringUtils.isNotBlank(ftpProperties.getBasePath()) && !ftp.changeWorkingDirectory(ftpProperties.getBasePath())) {
+                String[] paths = new String[]{ftpProperties.getBasePath()};
                 throw new BusinessException(ResponseEnum.FILE_PATH_NOT_EXIST,paths);
             }
             // 判断是否存在目录
@@ -139,8 +110,8 @@ public class FtpUtil {
             // 获取文件名
             String name = filename.substring(index + 1);
             // 判断是否存在目录
-            if (!ftp.changeWorkingDirectory(basePath + path)) {
-                throw new BusinessException(ResponseEnum.FILE_PATH_NOT_EXIST ,new String[]{basePath + path});
+            if (!ftp.changeWorkingDirectory(ftpProperties.getBasePath() + path)) {
+                throw new BusinessException(ResponseEnum.FILE_PATH_NOT_EXIST ,new String[]{ftpProperties.getBasePath() + path});
             }
             // 获取该目录所有文件
             FTPFile[] files = ftp.listFiles();
@@ -193,13 +164,13 @@ public class FtpUtil {
             // 获取文件名
             String name = filename.substring(index + 1);
             // 判断是否存在目录,不存在则说明文件存在
-            if (!ftp.changeWorkingDirectory(basePath + path)) {
-                throw new BusinessException(ResponseEnum.FILE_PATH_NOT_EXIST ,new String[]{basePath + path});
+            if (!ftp.changeWorkingDirectory(ftpProperties.getBasePath() + path)) {
+                throw new BusinessException(ResponseEnum.FILE_PATH_NOT_EXIST ,new String[]{ftpProperties.getBasePath() + path});
             }
             if (!ftp.deleteFile(name)) {
                 throw new BusinessException(ResponseEnum.FILE_DELETE_FAIL,new String[]{name});
             }
-//            clearDirectory(ftp, basePath, path);
+//            clearDirectory(ftp, ftpProperties.getBasePath(), path);
             return true;
         } catch (Exception e) {
             log.error(e.getMessage(),e);
@@ -241,12 +212,12 @@ public class FtpUtil {
      */
     private void login(FTPClient ftp) throws IOException {
         // 设置超时时间
-        ftp.setDefaultTimeout(TIME_OUT);
-        ftp.setConnectTimeout(TIME_OUT);
-        ftp.setDataTimeout(TIME_OUT);
-        ftp.setSoTimeout(TIME_OUT);
-        ftp.connect(host, port);
-        boolean loginFlag = ftp.login(username, password);
+        ftp.setDefaultTimeout(ftpProperties.getTimeOut());
+        ftp.setConnectTimeout(ftpProperties.getTimeOut());
+        ftp.setDataTimeout(ftpProperties.getTimeOut());
+        ftp.setSoTimeout(ftpProperties.getTimeOut());
+        ftp.connect(ftpProperties.getHost(), ftpProperties.getPort());
+        boolean loginFlag = ftp.login(ftpProperties.getUsername(), ftpProperties.getPassword());
         if (!loginFlag) {
             throw new BusinessException(ResponseEnum.FTP_LOGIN_FAIL);
         }
@@ -262,7 +233,7 @@ public class FtpUtil {
         // 取消服务器获取自身Ip地址和提交的host进行匹配
         ftp.setRemoteVerificationEnabled(Boolean.FALSE);
         // 设置缓冲大小
-        ftp.setBufferSize(BUFFER_SIZE);
+        ftp.setBufferSize(ftpProperties.getBuffer_size());
         // 设置上传文件的类型为二进制类型
         ftp.setFileType(FTP.BINARY_FILE_TYPE);
     }

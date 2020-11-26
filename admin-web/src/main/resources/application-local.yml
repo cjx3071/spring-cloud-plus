@@ -544,11 +544,36 @@ decorator:
 
 # ftp配置
 ftp:
-  host:
-  port:
-  username:
-  password:
-  basePath:
+  host: xxx
+  port: 22
+  username: xxx
+  password: xxx
+  basePath: xxx
+
+# sftp配置
+sftp:
+  client:
+    # ip地址
+    host: xxx
+    # 端口
+    port: 22
+    # 用户名
+    username: xxx
+    # 密码
+    password:
+    # 密钥文件路径
+    privateKey: C:\Users\13584\Desktop\xxx.ppk
+    # 密钥的密码
+    passphrase: xxx
+    # 协议
+    protocol: sftp
+    # 根路径
+    root: /home/gourd
+    # session连接超时时间
+    sessionConnectTimeout: 15000
+    # channel连接超时时间
+    channelConnectedTimeout: 15000
+    sessionStrictHostKeyChecking: no
 
 # 鉴权
 auth:

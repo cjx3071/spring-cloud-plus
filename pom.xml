@@ -76,6 +76,7 @@
         <image.version>2.0.1</image.version>
         <csv.version>1.8</csv.version>
         <minio.version>8.0.1</minio.version>
+        <jsch.version>0.1.55</jsch.version>
     </properties>
     <!--依赖统一管理-->
     <dependencyManagement>
