@@ -1,12 +1,11 @@
 package org.gourd.hu.core.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import org.springframework.cglib.beans.BeanMap;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
  
@@ -47,7 +46,7 @@ public class CollectionUtil {
      * @return
      */
     public static <T> Map<String, Object> beanToMap(T bean) {
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = new HashMap<>();
         if (bean != null) {
             BeanMap beanMap = BeanMap.create(bean);
             for (Object key : beanMap.keySet()) {
@@ -64,7 +63,7 @@ public class CollectionUtil {
      * @return
      */
     public static <T> List<Map<String, Object>> objectsToMaps(List<T> objList) {
-        List<Map<String, Object>> list = Lists.newArrayList();
+        List<Map<String, Object>> list = new ArrayList<>(objList.size());
         if (objList != null && objList.size() > 0) {
             Map<String, Object> map = null;
             T bean = null;

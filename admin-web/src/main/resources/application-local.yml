@@ -288,6 +288,7 @@ spring:
     host: 111.231.111.150
     port: 6379
     password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
+    database: 0
     timeout: 6000  # 连接超时时长（毫秒）
 
   # 缓存
@@ -574,6 +575,19 @@ sftp:
     # channel连接超时时间
     channelConnectedTimeout: 15000
     sessionStrictHostKeyChecking: no
+
+
+swagger:
+  license: MIT
+  contact:
+    name: 葫芦胡
+    url: https://blog.csdn.net/HXNLYW
+    email: 13584278267@163.com
+  description: spring-cloud-plus 是以spring-cloud-alibaba为基础并整合一些常用框架的分布式基础开发平台
+  demo-package: org.gourd.hu.demo.controller
+  license-url: https://blog.csdn.net/HXNLYW
+  title: spring-cloud-plus
+  version: 1.0.0
 
 # 鉴权
 auth:
