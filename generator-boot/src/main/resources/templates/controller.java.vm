@@ -49,9 +49,8 @@ public class ${table.controllerName} {
     * $!{table.comment}详情
     * @param id  实体ID
     */
-    @ResponseBody
     @GetMapping("/get/{id}" )
-    @ApiOperation(value = "$!{table.comment}详情", response = BaseResponse.class)
+    @ApiOperation(value = "$!{table.comment}详情")
     public BaseResponse<${entity}> get${entity}(@PathVariable Long id){
         return BaseResponse.ok(${table.entityPath}Service.getById(id));
     }
@@ -61,9 +60,8 @@ public class ${table.controllerName} {
      * @param ${table.entityPath} 传递的实体
      *
      */
-    @ResponseBody
     @PostMapping("/add" )
-    @ApiOperation(value = "添加$!{table.comment}", response = BaseResponse.class)
+    @ApiOperation(value = "添加$!{table.comment}")
     public  BaseResponse<Boolean> add${entity}(@RequestBody ${entity} ${table.entityPath}){
         return BaseResponse.ok(${table.entityPath}Service.save(${table.entityPath}));
     }
@@ -72,9 +70,8 @@ public class ${table.controllerName} {
      * 修改加$!{table.comment}
      * @param ${table.entityPath} 传递的实体
      */
-    @ResponseBody
     @PutMapping("/update" )
-    @ApiOperation(value = "修改$!{table.comment}", response = BaseResponse.class)
+    @ApiOperation(value = "修改$!{table.comment}")
     public BaseResponse<Boolean> update${entity}(@RequestBody ${entity} ${table.entityPath}){
         return BaseResponse.ok(${table.entityPath}Service.updateById(${table.entityPath}));
     }
@@ -83,9 +80,8 @@ public class ${table.controllerName} {
     * 删除$!{table.comment}
     * @param id  实体ID
     */
-    @ResponseBody
     @DeleteMapping("/delete/{id}" )
-    @ApiOperation(value = "删除$!{table.comment}", response = BaseResponse.class)
+    @ApiOperation(value = "删除$!{table.comment}")
     public  BaseResponse<Boolean> delete${entity}(@PathVariable Long id){
         return BaseResponse.ok(${table.entityPath}Service.removeById(id));
     }
@@ -96,7 +92,6 @@ public class ${table.controllerName} {
     * @param ids 实体集合ID
     * @return  false 失败  true 成功
     */
-    @ResponseBody
     @DeleteMapping("/delete-batch" )
     @ApiOperation(value = "批量删除对象" )
     public BaseResponse<Boolean> deleteBatch${entity}(@RequestParam(required = true) List<Long> ids){

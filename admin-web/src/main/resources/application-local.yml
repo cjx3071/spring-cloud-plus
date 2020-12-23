@@ -180,12 +180,12 @@ spring:
       primary: master #设置默认的数据源或者数据源组,默认值即为master
       datasource:
         master:
-          url: jdbc:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
+          url: jdbc:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&allowMultiQueries=true&rewriteBatchedStatements=true&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
           driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)
         slave:
-          url: jdbc:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
+          url: jdbc:mysql://111.231.111.150:3306/cloud-plus?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&allowMultiQueries=true&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
           driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: ENC(4M6RKeFuZ7OngpmunjkMm/a+W8eCJrsF)

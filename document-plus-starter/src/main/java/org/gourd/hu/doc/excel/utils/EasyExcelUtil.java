@@ -148,6 +148,29 @@ public class EasyExcelUtil {
      * @param <T>
      * @throws IOException
      */
+    public static <T> void writeSingleExcel(String fileName, String sheetName, List<T> tList, Class tClass) throws IOException{
+        HttpServletResponse response = RequestHolder.getResponse();
+        try (ServletOutputStream outputStream = response.getOutputStream()){
+            setResponse(fileName, response);
+            EasyExcel.write(outputStream, tClass).autoCloseStream(Boolean.TRUE)
+                    .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
+                    .registerWriteHandler(new CustomCellWriteHandler())
+                    .sheet(sheetName)
+                    .doWrite(tList);
+        } catch (Exception e) {
+            errorWrite(response, e);
+        }
+    }
+
+
+    /**
+     * 导出文件
+     * 导出模板时，tList传一个空list即可
+     * @param tList 数据集
+     * @param tClass 数据类型
+     * @param <T>
+     * @throws IOException
+     */
     public static <T> void writeSingleExcel(String fileName, String sheetName, AbstractCellStyleStrategy customCellStyleStrategy, List<T> tList, Class tClass) throws IOException{
         HttpServletResponse response = RequestHolder.getResponse();
         try (ServletOutputStream outputStream = response.getOutputStream()){
@@ -202,6 +225,7 @@ public class EasyExcelUtil {
                     .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
                     .registerWriteHandler(new CustomCellWriteHandler())
                     .registerWriteHandler(customCellStyleStrategy)
+                    .registerWriteHandler(sheetWriteHandler)
                     .sheet(sheetName)
                     .doWrite(tList);
         } catch (Exception e) {

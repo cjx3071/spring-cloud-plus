@@ -62,4 +62,21 @@
     "name": "Path"
   }],
   "uri": "lb://gateway"
-}]
+},
+  {
+    "filters": [{
+      "args": {
+        "parts": "1"
+      },
+      "name": "StripPrefix"
+    }],
+    "id": "netty-websocket",
+    "order": 0,
+    "predicates": [{
+      "args": {
+        "pattern": "/websocket/**"
+      },
+      "name": "Path"
+    }],
+    "uri": "lb:ws://netty-websocket"
+  }]
