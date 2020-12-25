@@ -18,5 +18,18 @@ interface ${table.mapperName} : ${superMapperClass}<${entity}>
 @Repository
 public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
 
+    /**
+     * 批量插入
+     * @param list
+     * @return
+     */
+    void insertBatch(@Param("list") List<${entity}> list);
+
+    /**
+     * 批量修改
+     * @param list
+     * @return
+     */
+    void updateBatch(@Param("list") List<${entity}> list);
 }
 #end

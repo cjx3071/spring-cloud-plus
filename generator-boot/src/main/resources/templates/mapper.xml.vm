@@ -70,5 +70,55 @@
             #end
         #end
     </sql>
+
+    <!-- 批量插入-->
+    <insert id="insertBatch">
+        INSERT INTO
+        ${table.name}
+        (
+        <include refid="Base_Column_List" />
+        )
+        VALUES
+        <foreach collection="list" item= "item" index ="index" separator=",">
+        (
+        #foreach($field in ${table.commonFields})
+        #if(${field.keyFlag})
+            #{item.${field.propertyName} },
+        #end
+        #end
+        #foreach($field in ${table.fields})
+            #{item.${field.propertyName} },
+        #end
+        #foreach($field in ${table.commonFields})
+        #if(!${field.keyFlag} && $lastCommon.name != ${field.name})
+            #{item.${field.propertyName} },
+        #elseif(!${field.keyFlag} && $lastCommon.name == ${field.name})
+            #{item.${field.propertyName}}
+        #end
+        #end
+        )
+        </foreach >
+    </insert>
+
+    <!-- 批量修改-->
+    <update id="updateBatch">
+        update ${table.name}
+        #foreach($field in ${table.fields})
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="${field.name} =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.${field.propertyName} != null">
+                        when id=#{item.id}
+                        then #{item.${field.propertyName}}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        #end
+        where id in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+    </update>
 #end
 </mapper>
