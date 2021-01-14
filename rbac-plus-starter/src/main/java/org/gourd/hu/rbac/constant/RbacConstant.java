@@ -19,11 +19,15 @@ public class RbacConstant {
 
     public static final String META_CREATED_BY = "createdBy";
 
+    public static final String META_CREATED_NAME = "createdName";
+
     public static final String META_CREATED_TIME = "createdTime";
 
     public static final String META_UPDATED_BY = "updatedBy";
 
     public static final String META_UPDATED_TIME = "updatedTime";
+
+    public static final String META_UPDATED_NAME = "updatedName";
 
     public static final String META_DELETED = "deleted";
 

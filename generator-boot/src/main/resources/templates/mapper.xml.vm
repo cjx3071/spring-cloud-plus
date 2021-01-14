@@ -90,7 +90,9 @@
             #{item.${field.propertyName} },
         #end
         #foreach($field in ${table.commonFields})
-        #if(!${field.keyFlag} && $lastCommon.name != ${field.name})
+        #if(${field.name.equals("is_deleted")})
+            #{item.deleted},
+        #elseif(!${field.keyFlag} && $lastCommon.name != ${field.name})
             #{item.${field.propertyName} },
         #elseif(!${field.keyFlag} && $lastCommon.name == ${field.name})
             #{item.${field.propertyName}}
@@ -103,8 +105,8 @@
     <!-- 批量修改-->
     <update id="updateBatch">
         update ${table.name}
-        #foreach($field in ${table.fields})
         <trim prefix="set" suffixOverrides=",">
+        #foreach($field in ${table.fields})
             <trim prefix="${field.name} =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
                     <if test="item.${field.propertyName} != null">
@@ -113,8 +115,20 @@
                     </if>
                 </foreach>
             </trim>
-        </trim>
         #end
+        #foreach($field in ${table.commonFields})
+        #if(!${field.keyFlag} and !${field.name.equals("is_deleted")})
+            <trim prefix="${field.name} =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.${field.propertyName} != null">
+                        when id=#{item.id}
+                        then #{item.${field.propertyName}}
+                    </if>
+                </foreach>
+            </trim>
+        #end
+        #end
+        </trim>
         where id in
         <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
             #{item.id}

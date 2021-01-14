@@ -16,9 +16,9 @@ import java.util.Map;
  */
 public class MybatisPlusGenerator {
 	/** 生成文件所在项目路径*/
-	private static String baseProjectPath = "E:\\gourd-hu\\paperless-thrd";
+	private static String baseProjectPath = "E:\\gourd-hu\\marketing-youhua";
 	/**基本包名*/
-	private static String basePackage = "com.yunlsp.tcg.fleet";
+	private static String basePackage = "com.yunlsp.whale.mk.marketing";
 	/** 作者*/
 
 
@@ -29,12 +29,12 @@ public class MybatisPlusGenerator {
 //			"eir_trip","eir_trunk_apply","eir_trunk_apply_cntr","fr_carrier_config","fr_company_config","fr_ctrn_config","make_cargo_plan","make_cntr_use","ops_handle_type","ops_notice","ops_notice_detail","ops_operation","port_gate_in_out","port_in_out_voucher","port_pre_record","port_pre_record_ext","port_pre_record_ext_bill","port_reserve_empty","port_reserve_weight","port_reserve_weight","rec_container","rec_ip_config","rec_lorry_info","sys_auto_config","sys_basic_config","sys_change_config","sys_driver_check","sys_pro_company",
 //			"sys_trailer","sys_vehicle","sys_vehicle_trailer","yard_record","yard_record_relation","eir_resource_pool_cntr_use"};
 //
-	private static String[] tables = {"thrd_reserve_info"};
+	private static String[] tables = {};
 	/**table前缀*/
 	private static String prefix = "";
 	/** 数据库配置四要素*/
 	private static String driverName = "com.mysql.cj.jdbc.Driver";
-	private static String url = "jdbc:mysql://10.10.10.100:3306/paperless?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true";
+	private static String url = "jdbc:mysql://10.10.10.100:3306/mk_marketing?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true";
 	private static String username = "root";
 	private static String password = "123456";
 
@@ -88,9 +88,9 @@ public class MybatisPlusGenerator {
 				.setInclude(tables)
 				.setRestControllerStyle(true)
 				// 自定义实体父类
-				 .setSuperEntityClass("com.yunlsp.tcg.fleet.common.entity.BaseEntity")
+				 .setSuperEntityClass("com.yunlsp.whale.mk.marketing.repository.model.BaseEntity")
 				// 自定义实体，公共字段
-				.setSuperEntityColumns(new String[]{"id","is_deleted","create_time","create_by","update_time","update_by","version"})
+				.setSuperEntityColumns(new String[]{"id","tenant_id","is_deleted","created_time","created_by","updated_time","updated_by","version"})
 				// 【实体】是否为lombok模型（默认 false）<a href="https://projectlombok.org/">document</a>
 				.setEntityLombokModel(true)
 				// Boolean类型字段是否移除is前缀处理
@@ -106,12 +106,12 @@ public class MybatisPlusGenerator {
 		// 自定义包路径
 		packageConfig.setParent(basePackage);
 		// 这里是控制器包名，默认 web
-		packageConfig.setController("endpoints.workshop");
-		packageConfig.setEntity("repository.model");
-		packageConfig.setMapper("repository");
-		packageConfig.setService("workshop.service");
-		packageConfig.setServiceImpl("workshop.service.impl");
-		packageConfig.setXml("mapper");
+		packageConfig.setController("endpoints");
+		packageConfig.setEntity("repository.model.clue");
+		packageConfig.setMapper("repository.mapper.clue");
+		packageConfig.setService("service");
+		packageConfig.setServiceImpl("service.impl");
+		packageConfig.setXml("mapper.clue");
 		gen.setPackageInfo(packageConfig);
 
 		// 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
